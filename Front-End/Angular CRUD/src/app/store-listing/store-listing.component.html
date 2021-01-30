@@ -1,0 +1,28 @@
+<div class="container">
+    <h1>Listing Stores</h1><br>
+    <button style="padding: .25rem .5rem;font-size: .875rem;line-height: 1.5;border-radius: .2rem;" class="btn btn-sm btn-success mb-2" (click)="reDirectToAddStorePage()">Add Store</button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="width: 25%">StoreName</th>
+                <th style="width: 25%">Address</th>
+                <th style="width: 25%">Longitude</th>
+                <th style="width: 25%">Latitude</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let stores of storeList">
+                <td>{{stores.name}}</td>
+                <td>{{stores.address}}</td>
+                <td>{{stores.longitude}}</td>
+                <td>{{stores.lattitude}}</td>
+                <a style= "margin-left: -39%;margin-bottom: -2%;" (click)="redirectToEditStore(stores.id)" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <td><button style=" margin-top: -29%;
+                    position: relative;
+                    left: -123%;" class="btn btn-sm btn-danger btn-delete-Store" (click)="deleteStoreById(stores.id)">Delete</button></td>
+                <a style="margin-top: 8%;margin-left: -144%;" class="btn btn-sm btn-primary mr-1" (click)="reDirectToEmployees(stores.id)">Emp</a>
+            </tr>
+        </tbody>
+    </table>
+</div>

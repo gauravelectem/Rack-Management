@@ -1,0 +1,21 @@
+<div class="container" style="margin-top: 20px;">
+    <h1>EmailGroup Listing</h1><br>
+    <button style="font-weight: bold;" (click)=redirectToEditPage() class="btn btn-sm btn-primary mr-1">Add EmailGroup</button><br>
+    <table style="text-transform: uppercase;border: groove; border-collapse: initial;" class="table table-striped">
+        <thead>
+            <tr>
+                <th>EmailGroupId</th>
+                <th>EmailGroupName</th>
+                <th style="position: absolute;left: 70%;">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let emailGroup of emailGroupList">
+                <td>{{emailGroup.emailGroupId}}</td>
+                <td>{{emailGroup.emailGroupName}}</td>
+                <button style="margin-top: 11%;margin-left: 36%;" (click)=redirectToEmailGroupWithId(emailGroup.emailGroupId) class="btn btn-sm btn-primary mr-1">Edit</button>
+                <td><button style="margin-left: 36%;" (click)=deleteEmailGroup(emailGroup.emailGroupId) class="btn btn-sm btn-danger btn-delete-Employee">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
