@@ -37,6 +37,7 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/users.routes')(app);
 require('./app/routes/index')(app);
+require('./app/routes/rack.routes')(app);
 initRoutes(app);
 
 // set port, listen for requests
