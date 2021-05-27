@@ -34,16 +34,16 @@ export class EditFormComponent implements OnInit {
         this.tutorialService.get(id)
             .subscribe(
                 data => {
-                  datas = data;
-                  datas.attributes = JSON.parse(datas.attributes);
-                    this.model = datas;
+                 // datas = data;
+                 // datas.attributes = JSON.parse(datas.attributes);
+                    this.model = data;
                     //this.model = JSON.parse(this.model.attributes);
                     console.log(data);
                 },
                 error => {
                     console.log(error);
                 });
-    }
+    }                                                                                                                                                                                                     
 
     submit(){
         let valid = true;
@@ -96,11 +96,19 @@ export class EditFormComponent implements OnInit {
           .subscribe(
             response => {
               console.log(response);
+              this.success = true;
+              this.router.navigate(['/tutorials']);
+              this.tutorialService.getAll();
              // this.submitted = true;
             },
             error => {
               console.log(error);
             });
+      }
+
+      cancel() {
+        this.router.navigate(['/tutorials']);
+              this.tutorialService.getAll();
       }
 
 }

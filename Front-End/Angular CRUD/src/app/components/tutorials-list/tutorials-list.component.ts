@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Tutorial } from 'src/app/models/tutorial.model';
 import { TutorialService } from 'src/app/services/tutorial.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tutorials-list',
@@ -13,7 +14,9 @@ export class TutorialsListComponent implements OnInit {
   currentIndex = -1;
   name = '';
 
-  constructor(private tutorialService: TutorialService) { }
+  constructor(private tutorialService: TutorialService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.retrieveTutorials();
@@ -63,6 +66,20 @@ export class TutorialsListComponent implements OnInit {
         data => {
           this.tutorials = data;
           console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+  }
+  
+  deleteTutorial(id): void {
+    this.tutorialService.delete(id)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.tutorialService.getAll();
+          this.router.navigate(['/tutorials']);
+         
         },
         error => {
           console.log(error);

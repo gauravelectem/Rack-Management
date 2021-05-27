@@ -36,13 +36,13 @@
 
     </div>
     <div class="col-8">
-
+  
       <div class="form-group"
       style="margin-bottom: 0px !important; padding: 30px 60px 5px 60px;"
       [style.backgroundColor]="model.theme.bgColor"
       [style.color]="model.theme.textColor">
       <h2><input class="form-control" type="text" style = "font-size: 14px;" placeholder="Enter Template name" [(ngModel)]="model.name" /></h2>
-      <input class="form-control" type="text" style = "font-size: 14px;" placeholder="Enter Description" [(ngModel)]="model.description" />
+       <textarea class="form-control" type="text" style = "font-size: 14px;" placeholder="Enter Description" [(ngModel)]="model.description"> </textarea>
       </div>
 
       <!--a dropzone-->

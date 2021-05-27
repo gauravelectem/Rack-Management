@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DndDropEvent,DropEffect} from 'ngx-drag-drop';
 import { field, value } from '../global.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
 import { TutorialService } from 'src/app/services/tutorial.service';
 @Component({
@@ -177,7 +177,7 @@ export class EditAppComponent implements OnInit {
   reports:any = [];
 
   constructor(
-    private route:ActivatedRoute, private tutorialService :TutorialService
+    private route:ActivatedRoute, private tutorialService :TutorialService, private router: Router
   ) { }
 
   ngOnInit() {
@@ -370,6 +370,9 @@ export class EditAppComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
+          this.success = true;
+          this.router.navigate(['/tutorials']);
+          this.tutorialService.getAll();
          // this.submitted = true;
         },
         error => {

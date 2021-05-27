@@ -49,6 +49,9 @@
       <a class="badge badge-warning" routerLink="/edit/{{ currentTutorial.id }}">
         view
       </a>
+      <a class="badge badge-danger mr-2" (click)="deleteTutorial(currentTutorial.id)">
+      Delete
+    </a>
     </div>
 
     <div *ngIf="!currentTutorial">
