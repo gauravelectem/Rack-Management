@@ -41,7 +41,6 @@ require('./app/routes/rack.routes')(app);
 //require('./app/routes/itemTemplate.routes')(app);
 require('./app/routes/item.routes')(app);
 require('./app/routes/itemTemplateProperty.routes')(app);
-require('./app/routes/store.routes')(app);
 initRoutes(app);
 
 // set port, listen for requests
