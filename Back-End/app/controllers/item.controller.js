@@ -34,8 +34,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-  const title = req.query.first;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+  var name = req.query.name;
+  var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
 
   Items.findAll({ where: condition })
     .then(data => {
