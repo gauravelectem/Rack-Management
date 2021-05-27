@@ -12,6 +12,9 @@ import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.com
 import { TutorialDetailsComponent } from './components/tutorial-details/tutorial-details.component';
 import { TutorialsListComponent } from './components/tutorials-list/tutorials-list.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
+import { AddStoreComponent } from './components/add-store/add-store.component';
+import { StoreListComponent } from './components/store-list/store-list.component';
+import { EditStoreComponent } from './components/edit-store/edit-store.component';
 const appRoutes: Routes = [
   //{ path: '', component: EditAppComponent },
 ];
@@ -24,6 +27,9 @@ const appRoutes: Routes = [
     TutorialDetailsComponent,
     TutorialsListComponent,
     EditFormComponent,
+    AddStoreComponent,
+    StoreListComponent,
+    EditStoreComponent,
     
   ],
   imports: [
