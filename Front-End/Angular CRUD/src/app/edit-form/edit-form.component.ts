@@ -34,9 +34,9 @@ export class EditFormComponent implements OnInit {
         this.tutorialService.get(id)
             .subscribe(
                 data => {
-                 // datas = data;
-                 // datas.attributes = JSON.parse(datas.attributes);
-                    this.model = data;
+                  datas = data;
+                  datas.attributes = JSON.parse(datas.attributes);
+                    this.model = datas;
                     //this.model = JSON.parse(this.model.attributes);
                     console.log(data);
                 },
