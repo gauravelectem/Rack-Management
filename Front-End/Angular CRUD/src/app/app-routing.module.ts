@@ -1,29 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home';
-import { EmployeeComponent } from './employee/employee.component';
-import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
-import { EmailGroupComponent } from './email-group/email-group.component';
-import { EmailGroupEditComponent } from './email-group-edit/email-group-edit.component';
-import { StoreListingComponent } from './store-listing/store-listing.component';
-import { EditStoreComponent } from './edit-store/edit-store.component';
-const usersModule = () => import('./users/users.module').then(x => x.UsersModule);
+import { TutorialsListComponent } from './components/tutorials-list/tutorials-list.component';
+import { TutorialDetailsComponent } from './components/tutorial-details/tutorial-details.component';
+import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.component';
+import { EditAppComponent } from './edit-app/edit-app.component';
+import { EditFormComponent } from './edit-form/edit-form.component';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'users', loadChildren: usersModule },
-    { path: 'employees', component: EmployeeComponent},
-    { path: 'emailGroup', component: EmailGroupComponent},
-    { path: 'editEmployee', component: EmployeeEditComponent},
-    { path: 'editEmailGroup', component: EmailGroupEditComponent},
-    { path: 'stores', component: StoreListingComponent},
-    { path: 'editStore', component: EditStoreComponent},
-    // otherwise redirect to home
-    { path: '**', redirectTo: '' }
+  { path: '', redirectTo: 'tutorials', pathMatch: 'full' },
+  { path: 'tutorials', component: TutorialsListComponent },
+  { path: 'tutorials/:id', component: TutorialDetailsComponent },
+  { path: 'add', component: AddTutorialComponent },
+  { path: 'addTemplate', component: EditAppComponent },
+  { path: 'edit/:id', component: EditFormComponent },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

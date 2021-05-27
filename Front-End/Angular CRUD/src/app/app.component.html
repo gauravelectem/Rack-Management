@@ -1,22 +1,17 @@
-﻿<!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
-        <!-- <a class="nav-item nav-link" routerLink="/employees" routerLinkActive="active">Employee</a> -->
-        <a class="nav-item nav-link" routerLink="/stores" routerLinkActive="active">Store</a>
+<div>
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a href="#" class="navbar-brand"></a>
+    <div class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a routerLink="tutorials" class="nav-link">Item Template</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="add" class="nav-link">Add</a>
+      </li>
     </div>
-</nav>
+  </nav>
 
- <div class="app-container bg-light">
-    <alert></alert>
+  <div class="container mt-3">
     <router-outlet></router-outlet>
-    </div>
-
-    <!-- <div style="width: 30%;margin-left: 30%;">
-        <label>Select TimeZone</label> 
-        <select class="form-control" id="timezone" name="timezone" [(ngModel)]="selectedTimeZOne" (change)="selectTimeZone(selectedTimeZOne)"> 
-            <option *ngFor="let c of timezones" [ngValue]="c">{{c}}</option>
-        </select>
-        
-    </div> -->
+  </div>
+</div>

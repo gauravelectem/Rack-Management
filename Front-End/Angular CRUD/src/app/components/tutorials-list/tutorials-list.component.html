@@ -1,0 +1,59 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search"
+        [(ngModel)]="name"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchTitle()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+    <div>
+     <button class="m-3 btn btn-sm btn-danger" routerLink="/addTemplate/" style = "Background :#4b9272">
+          Add Item Template
+    </button>
+     </div>
+   
+  </div>
+  <div class="col-md-6">
+    <h4>Item Template List</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let tutorial of tutorials; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveTutorial(tutorial, i)"
+      >
+        {{ tutorial.name }}
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentTutorial">
+      <h4>Item Template</h4>
+      <div>
+        <label><strong>Name:</strong></label> {{ currentTutorial.name }}
+      </div>
+      <a class="badge badge-warning" routerLink="/edit/{{ currentTutorial.id }}">
+        Edit
+      </a>
+      <a class="badge badge-warning" routerLink="/edit/{{ currentTutorial.id }}">
+        view
+      </a>
+    </div>
+
+    <div *ngIf="!currentTutorial">
+      <br />
+      <p>Please click on a Item Template...</p>
+    </div>
+  </div>
+</div>
