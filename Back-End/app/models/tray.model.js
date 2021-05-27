@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
         rackId: {
             type: Sequelize.INTEGER,
             allowNull: false,
-            references: {         // User belongsTo Company 1:1
+            references: {         
               model: 'racks',
               key: 'id'
             }
