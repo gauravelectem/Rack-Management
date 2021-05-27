@@ -30,10 +30,13 @@ export class EditFormComponent implements OnInit {
 
 
     getFormData(id: string): void {
+      let datas ;
         this.tutorialService.get(id)
             .subscribe(
                 data => {
-                    this.model = data;
+                  datas = data;
+                  datas.attributes = JSON.parse(datas.attributes);
+                    this.model = datas;
                     //this.model = JSON.parse(this.model.attributes);
                     console.log(data);
                 },
@@ -41,7 +44,6 @@ export class EditFormComponent implements OnInit {
                     console.log(error);
                 });
     }
-
 
     submit(){
         let valid = true;
