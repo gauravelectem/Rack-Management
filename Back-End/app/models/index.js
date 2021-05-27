@@ -29,6 +29,7 @@ db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.users = require("./users.model.js")(sequelize, Sequelize);
 db.racks = require("./rack.model.js")(sequelize, Sequelize);
 db.trays = require("./tray.model.js")(sequelize, Sequelize);
+db.stores = require("../models/store.model.js")(sequelize, Sequelize);
 //db.itemtemplates = require("./itemTemplate.model.js")(sequelize, Sequelize);
 db.items = require("./item.model.js")(sequelize, Sequelize);
 db.itemtemplatepropertys = require("./itemTemplateProperty.js")(sequelize, Sequelize);
