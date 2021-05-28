@@ -2,6 +2,14 @@ const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
 
 module.exports = function(app) {
+  var router = require("express").Router();
+  const user = require("../controllers/user.controller.js");
+
+  // Create a new Rack
+  router.post("/", user.Create);
+
+  router.post("/login", user.login);
+
   app.use(function(req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",
@@ -29,4 +37,6 @@ module.exports = function(app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
   );
+
+  app.use('/api/user', router);
 };

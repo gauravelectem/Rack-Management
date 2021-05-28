@@ -12,6 +12,8 @@ import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.com
 import { TutorialDetailsComponent } from './components/tutorial-details/tutorial-details.component';
 import { TutorialsListComponent } from './components/tutorials-list/tutorials-list.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 const appRoutes: Routes = [
   //{ path: '', component: EditAppComponent },
 ];
@@ -19,6 +21,8 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
+    RegisterComponent,
     EditAppComponent,
     AddTutorialComponent,
     TutorialDetailsComponent,
