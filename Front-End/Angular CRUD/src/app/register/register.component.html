@@ -1,0 +1,63 @@
+<div class="submit-form">
+    <div *ngIf="!submitted">
+      <div class="form-group col-md-6">
+        <label for="title">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          required  
+          [(ngModel)]="user.username"
+          name="username"
+        />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="description">Email</label>
+        <input
+          class="form-control"
+          id="email"
+          required
+          [(ngModel)]="user.email"
+          name="email"
+        />
+      </div>
+
+      <div class="form-group col-md-6">
+          <label for="title">Password</label>
+          <input
+            type="text"
+            class="form-control"
+            id="password"
+            required  
+            [(ngModel)]="user.password"
+            name="password"
+          />
+        </div>
+  
+        <div class="form-group col-md-6">
+          <label for="description">Phone</label>
+          <input
+            class="form-control"
+            id="phone"
+            required
+            [(ngModel)]="user.phone"
+            name="phone"
+          />
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="description">Location</label>
+            <input
+              class="form-control"
+              id="location"
+              required
+              [(ngModel)]="user.location"
+              name="location"
+            />
+          </div>
+
+      <button (click)="saveUser()" class="btn btn-success ml-3">Submit</button>
+      <button routerLink="/login" class="btn btn-danger ml-2">Cancel</button>
+    </div>
+  </div>
