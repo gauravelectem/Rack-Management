@@ -7,6 +7,9 @@ import { EditAppComponent } from './edit-app/edit-app.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,6 +20,10 @@ const routes: Routes = [
   { path: 'add', component: AddTutorialComponent },
   { path: 'addTemplate', component: EditAppComponent },
   { path: 'edit/:id', component: EditFormComponent },
+  { path: 'addProduct', component: AddProductComponent },
+  { path: 'addProduct/:id', component: AddProductComponent},
+  { path: 'editProduct/:id', component: EditProductComponent },
+  { path: 'products', component: ProductListComponent },
 ];
 
 @NgModule({

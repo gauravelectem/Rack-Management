@@ -236,10 +236,6 @@
               </div>
             </div>
           </div>
-          
-
-
-        
         </div>
       </div>
       <!--optional placeholder element for dropzone-->
@@ -247,7 +243,12 @@
       <div class="dndPlaceholder" dndPlaceholderRef>
       </div>
       </section>
-
+      <div class="btn-cont" style="float: right;">
+        <span>
+          <button type="button"   (click)="submit()" class="btn btn-primary">Save</button>
+        </span>
+        <span class="pl-2"><button type="button" class="btn btn-danger pl-2" (click)="cancel()">Cancel</button></span>
+      </div>
     </div>
   </div>
 </div>

@@ -380,4 +380,9 @@ export class EditAppComponent implements OnInit {
         });
   }
 
+  cancel() {
+    this.router.navigate(['/tutorials']);
+          this.tutorialService.getAll();
+  }
+
 }

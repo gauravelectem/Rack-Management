@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tutorial } from '../models/tutorial.model';
+import { Product } from 'src/app/models/product.model';
 
 const baseUrl = 'http://localhost:8080/api/items';
+const productBaseUrl = 'http://localhost:8080/api/product';
 
 @Injectable({
   providedIn: 'root'
@@ -47,4 +49,13 @@ export class TutorialService {
   findByTitle(name: any): Observable<Tutorial[]> {
     return this.http.get<Tutorial[]>(`${baseUrl}?name=${name}`);
   }
+
+  createProduct(data: any): Observable<any> {
+    return this.http.post(productBaseUrl, data);
+  }
+
+  getAllProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(productBaseUrl);
+  }
+  
 }

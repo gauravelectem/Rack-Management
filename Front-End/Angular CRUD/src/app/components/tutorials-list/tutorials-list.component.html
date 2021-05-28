@@ -21,6 +21,9 @@
      <button class="m-3 btn btn-sm btn-danger" routerLink="/addTemplate/" style = "Background :#4b9272">
           Add Item Template
     </button>
+    <button class="m-3 btn btn-sm btn-danger" routerLink="/products/" style = "Background :#4b9272">
+      Product listing
+</button>
      </div>
    
   </div>
@@ -43,10 +46,10 @@
       <div>
         <label><strong>Name:</strong></label> {{ currentTutorial.name }}
       </div>
-      <a class="badge badge-warning" routerLink="/edit/{{ currentTutorial.id }}">
+      <a class="badge badge-warning" routerLink="/addProduct/{{ currentTutorial.id }}">
         Edit
       </a>
-      <a class="badge badge-warning" routerLink="/edit/{{ currentTutorial.id }}">
+      <a class="badge badge-warning" routerLink="/addProduct/{{ currentTutorial.id }}">
         view
       </a>
       <a class="badge badge-danger mr-2" (click)="deleteTutorial(currentTutorial.id)">

@@ -14,6 +14,9 @@ import { TutorialsListComponent } from './components/tutorials-list/tutorials-li
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
 const appRoutes: Routes = [
   //{ path: '', component: EditAppComponent },
 ];
@@ -28,6 +31,9 @@ const appRoutes: Routes = [
     TutorialDetailsComponent,
     TutorialsListComponent,
     EditFormComponent,
+    AddProductComponent,
+ EditProductComponent,
+ ProductListComponent,
     
   ],
   imports: [
