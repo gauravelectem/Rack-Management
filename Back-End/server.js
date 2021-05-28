@@ -43,6 +43,7 @@ require('./app/routes/item.routes')(app);
 require('./app/routes/itemTemplateProperty.routes')(app);
 require('./app/routes/store.routes')(app);
 require('./app/routes/menu.route')(app);
+require('./app/routes/product.routes')(app);
 initRoutes(app);
 
 // set port, listen for requests
