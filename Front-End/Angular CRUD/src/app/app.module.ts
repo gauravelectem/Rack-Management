@@ -14,9 +14,9 @@ import { TutorialsListComponent } from './components/tutorials-list/tutorials-li
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { AddProductComponent } from './components/add-product/add-product.component';
-import { EditProductComponent } from './components/edit-product/edit-product.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { AddProductComponent } from './components/add-product/add-forms.component';
+import { EditProductComponent } from './components/edit-forms/edit-forms.component';
+import { ProductListComponent } from './components/forms-list/forms-list.component';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MenuComponent } from './components/menu/menu.component';

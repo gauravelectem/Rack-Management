@@ -5,7 +5,7 @@ import { Tutorial } from '../models/tutorial.model';
 import { Product } from 'src/app/models/product.model';
 
 const baseUrl = 'http://localhost:8080/api/items';
-const productBaseUrl = 'http://localhost:8080/api/product';
+const formBaseUrl = 'http://localhost:8080/api/form';
 
 @Injectable({
   providedIn: 'root'
@@ -51,11 +51,26 @@ export class TutorialService {
   }
 
   createProduct(data: any): Observable<any> {
-    return this.http.post(productBaseUrl, data);
+    return this.http.post(formBaseUrl, data);
   }
 
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(productBaseUrl);
+    return this.http.get<Product[]>(formBaseUrl);
+  }
+
+  getFormData(id: any): Observable<Product> {
+    return this.http.get(`${formBaseUrl}/${id}`);
   }
   
+  updateProductForm(id: any, data: any): Observable<any> {
+    return this.http.put(`${formBaseUrl}/${id}`, data);
+  }
+
+  deleteProduct(id: any): Observable<any> {
+    return this.http.delete(`${formBaseUrl}/${id}`);
+  }
+
+  findByFormsName(name: any): Observable<Product[]> {
+    return this.http.get<Product[]>(`${formBaseUrl}?name=${name}`);
+  }
 }

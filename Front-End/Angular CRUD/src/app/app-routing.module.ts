@@ -9,9 +9,9 @@ import { EditAppComponent } from './edit-app/edit-app.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { AddProductComponent } from './components/add-product/add-product.component';
-import { EditProductComponent } from './components/edit-product/edit-product.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { AddProductComponent } from './components/add-product/add-forms.component';
+import { EditProductComponent } from './components/edit-forms/edit-forms.component';
+import { ProductListComponent } from './components/forms-list/forms-list.component';
 import { MenuComponent } from './components/menu/menu.component';
 
 const routes: Routes = [

@@ -4,9 +4,9 @@ import { TutorialService } from 'src/app/services/tutorial.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-forms-list',
+  templateUrl: './forms-list.component.html',
+  styleUrls: ['./forms-list.component.css']
 })
 export class ProductListComponent implements OnInit {
   products?: Product[];
@@ -60,7 +60,7 @@ export class ProductListComponent implements OnInit {
     this.currentTutorial = undefined;
     this.currentIndex = -1;
 
-    this.tutorialService.findByTitle(this.name)
+    this.tutorialService.findByFormsName(this.name)
       .subscribe(
         data => {
           this.products = data;
@@ -71,8 +71,8 @@ export class ProductListComponent implements OnInit {
         });
   }
   
-  deleteTutorial(id): void {
-    this.tutorialService.delete(id)
+  deleteProduct(id): void {
+    this.tutorialService.deleteProduct(id)
       .subscribe(
         response => {
           console.log(response);

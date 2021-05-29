@@ -5,9 +5,9 @@ import { TutorialService } from 'src/app/services/tutorial.service';
 
 import swal from 'sweetalert2';
 @Component({
-  selector: 'app-add-product',
-  templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.css']
+  selector: 'app-add-forms',
+  templateUrl: './add-forms.component.html',
+  styleUrls: ['./add-forms.component.css']
 })
 export class AddProductComponent implements OnInit {
   model: Formdata = {
@@ -29,6 +29,7 @@ export class AddProductComponent implements OnInit {
           .subscribe(
               data => {
                 datas = data;
+                datas.name = '';
                datas.attributes = JSON.parse(datas.attributes);
                   this.model = datas;
                   //this.model = JSON.parse(this.model.attributes);

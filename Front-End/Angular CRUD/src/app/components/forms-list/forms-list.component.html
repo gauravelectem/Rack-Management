@@ -22,7 +22,7 @@
       </div> 
     </div>
     <div class="col-md-6">
-      <h4>Product List</h4>
+      <h4>Forms List</h4>
       <ul class="list-group">
         <li
           class="list-group-item"
@@ -36,24 +36,24 @@
     </div>
     <div class="col-md-6">
       <div *ngIf="currentTutorial">
-        <h4>Product</h4>
+        <h4>Forms</h4>
         <div>
           <label><strong>Name:</strong></label> {{ currentTutorial.name }}
         </div>
-        <a class="badge badge-warning" routerLink="/addProduct/{{ currentTutorial.id }}">
+        <a class="badge badge-warning" routerLink="/editProduct/{{ currentTutorial.id }}">
           Edit
         </a>
         <a class="badge badge-warning" routerLink="/addProduct/{{ currentTutorial.id }}">
           view
         </a>
-        <a class="badge badge-danger mr-2" (click)="deleteTutorial(currentTutorial.id)">
+        <a class="badge badge-danger mr-2" (click)="deleteProduct(currentTutorial.id)">
         Delete
       </a>
       </div>
   
       <div *ngIf="!currentTutorial">
         <br />
-        <p>Please click on a Product...</p>
+        <p>Please click on a form...</p>
       </div>
     </div>
   </div>
