@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms' 
 import { RouterModule, Routes, ActivatedRoute, ActivatedRouteSnapshot} from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
     SweetAlert2Module.forRoot(),
     BrowserModule,
+    ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,

@@ -35,6 +35,7 @@ db.menus = require("../models/menu.model.js")(sequelize, Sequelize);
 db.items = require("./item.model.js")(sequelize, Sequelize);
 db.itemtemplatepropertys = require("./itemTemplateProperty.js")(sequelize, Sequelize);
 db.products = require("./product.model.js")(sequelize, Sequelize);
+db.clients = require("./client.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",

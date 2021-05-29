@@ -1,6 +1,7 @@
 const db = require("../models");
 const Op = db.Sequelize.Op;
 const User = db.user;
+const Client = db.clients;
 
 
 exports.allAccess = (req, res) => {
@@ -27,9 +28,10 @@ exports.Create = (req, res) => {
     password: req.body.password,
     phone: req.body.phone,
     location: req.body.location,
+    clientFk: req.body.clientFk,
   };
 
-  // Save Rack in the database
+  // Save User in the database
   User.create(user)
       .then(data => {
           res.send(data);
@@ -57,4 +59,24 @@ exports.login = (req, res) => {
               message: "Error retrieving Tray with id=" + id
           });
       });
+};
+
+exports.createClient = (req, res) => {
+
+  // Create a Client
+  const client = {
+    name: req.body.name,
+  };
+
+  // Save Client in the database
+  Client.create(client)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the client."
+      });
+    });
 };

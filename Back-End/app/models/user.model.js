@@ -20,8 +20,20 @@ module.exports = (sequelize, Sequelize) => {
     },
     location: {
       type: Sequelize.STRING
+    },
+    clientFk: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
+      references: {         
+        model: 'clients',
+        key: 'id'
+      }
     }
-  });
+  }, {});
+
+  User.associate = (models) => {
+    User.belongsTo(models.Client, { foreignKey: 'clientFk', as: 'client' })
+};
 
   return User;
 };

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html'
@@ -21,29 +22,50 @@ export class RegisterComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
+    private formBuilder: FormBuilder,
   ) { }
   loading = false;
   submitted = false;
+  registerForm: FormGroup;
 
   ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      username : ['', Validators.required],
+      email: ['', [Validators.required,Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      phone: ['', Validators.required],
+      location: ['', Validators.required],
+      clientFk: '',
+  });
   }
 
-  saveUser(): void {
-    const data = {
-      username: this.user.username,
-      email: this.user.email,
-      password: this.user.password,
-      phone: this.user.phone,
-      location: this.user.location
-    };
+  get f() { return this.registerForm.controls; }
 
-    this.userService.create(data)
+  saveUser(): void {
+    this.submitted = true;
+    if (this.registerForm.invalid) {
+      return;
+    }
+    const client = {
+      name: this.registerForm.value.username
+    }
+    this.userService.createClient(client)
       .subscribe(
         response => {
           console.log(response);
           this.submitted = true;
-          this.router.navigate(['/login']);
-        },
+          this.registerForm.value.clientFk = response.id;
+          this.userService.create(this.registerForm.value)
+            .subscribe(
+              response => {
+                console.log(response);
+                this.submitted = true;
+                this.router.navigate(['/login']);
+              },
+              error => {
+                console.log(error);
+              });
+              },
         error => {
           console.log(error);
         });

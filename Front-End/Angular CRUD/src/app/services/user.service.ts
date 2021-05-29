@@ -10,13 +10,17 @@ const baseUrl = 'http://localhost:8080/api/user';
 })
 export class UserService {
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    create(data: any): Observable<any> {
-        return this.http.post(baseUrl, data);
-      }
+  create(data: any): Observable<any> {
+    return this.http.post(baseUrl, data);
+  }
 
-    login(data: any): Observable<any> {
-    return this.http.post(baseUrl+'/login', data);
-    }
+  login(data: any): Observable<any> {
+    return this.http.post(baseUrl + '/login', data);
+  }
+
+  createClient(data: any): Observable<any> {
+    return this.http.post(baseUrl + '/client', data);
+  }
 }

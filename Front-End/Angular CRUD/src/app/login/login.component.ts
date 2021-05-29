@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup } from '@angular/forms';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -15,30 +15,29 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   showError = false;
   showSuccess = false;
-  user: User = {
-    email: '',
-    password: '',
-  };
   
   constructor(
     private userService: UserService,
     private router: Router,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
-
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
+
+  // convenience getter for easy access to form fields
+  get f() { return this.loginForm.controls; }
 
   onFormSubmit() {
     this.submitted = true;
-    if (this.user.email == "") {
-      return;
+    if (this.loginForm.invalid) {
+            return;
     }
-    const data = {
-      email: this.user.email,
-      password: this.user.password,
-    };
-    this.userService.login(data)
+    this.userService.login(this.loginForm.value)
     .subscribe(
       response => {
         console.log(response);

@@ -5,6 +5,8 @@ module.exports = function(app) {
   var router = require("express").Router();
   const user = require("../controllers/user.controller.js");
 
+  router.post("/client", user.createClient);
+
   // Create a new Rack
   router.post("/", user.Create);
 
