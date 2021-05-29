@@ -17,6 +17,11 @@ import { RegisterComponent } from './register/register.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { MatSliderModule } from '@angular/material/slider';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { MenuComponent } from './components/menu/menu.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
 const appRoutes: Routes = [
   //{ path: '', component: EditAppComponent },
 ];
@@ -34,6 +39,9 @@ const appRoutes: Routes = [
     AddProductComponent,
  EditProductComponent,
  ProductListComponent,
+ MenuComponent,
+ HomePageComponent,
+ ContactUsComponent,
     
   ],
   imports: [
@@ -44,6 +52,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     AppRoutingModule,
     DndModule,
+    MatSliderModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

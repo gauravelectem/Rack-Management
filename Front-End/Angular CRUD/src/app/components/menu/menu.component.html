@@ -1,0 +1,6 @@
+<mat-toolbar>
+    <a href="#" class="card-link" *ngFor="let item of menuData.menu;">
+        <a *ngIf="item.label==='Home'" routerLink="Home">{{item.label}}</a>
+        <a *ngIf="item.label==='Contact'" routerLink="Contact">{{item.label}}</a>
+    </a>
+ </mat-toolbar>

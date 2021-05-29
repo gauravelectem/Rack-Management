@@ -1,3 +1,5 @@
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TutorialsListComponent } from './components/tutorials-list/tutorials-list.component';
@@ -10,6 +12,7 @@ import { RegisterComponent } from './register/register.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -24,6 +27,11 @@ const routes: Routes = [
   { path: 'addProduct/:id', component: AddProductComponent},
   { path: 'editProduct/:id', component: EditProductComponent },
   { path: 'products', component: ProductListComponent },
+  { path: 'products/menu', component: MenuComponent },
+  { path: 'products/menu/Home', component: HomePageComponent },
+  { path: 'products/menu/Contact', component: ContactUsComponent },
+  
+  
 ];
 
 @NgModule({
