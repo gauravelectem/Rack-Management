@@ -8,23 +8,10 @@ import { MenuService } from 'src/app/services/menu.service';
 })
 export class MenuComponent implements OnInit {
 
-  menuData:any;
 
   constructor(private menuService:MenuService) { }
 
   ngOnInit(): void {
-    var roleId=1;
-    this.getRoleById(roleId);
-  }
-  getRoleById(id:any): void {
-    this.menuService.getRoleById(id)
-      .subscribe(
-        data => {
-          this.menuData = data;
-        },
-        error => {
-          console.log(error);
-        });
   }
 
 }

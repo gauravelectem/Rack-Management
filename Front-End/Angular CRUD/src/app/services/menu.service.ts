@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 
 const baseUrl = 'http://localhost:8080/api/menu/role';
 
+const baseUrlForMenus = 'http://localhost:8080/api/menu/';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,5 +15,9 @@ export class MenuService {
 
   getRoleById(roleId: any): Observable<any> {
     return this.http.get(`${baseUrl}/${roleId}`);
+  }
+
+  fetchAllMenus(): Observable<any> {
+    return this.http.get(`${baseUrlForMenus}`);
   }
 }
