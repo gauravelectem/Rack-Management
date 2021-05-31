@@ -1,7 +1,28 @@
 const db = require("../models");
+const config = require("../config/db.config.js");
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize(
+  config.DB,
+  config.USER,
+  config.PASSWORD,
+  {
+    host: config.HOST,
+    dialect: config.dialect,
+    operatorsAliases: false,
+
+    pool: {
+      max: config.pool.max,
+      min: config.pool.min,
+      acquire: config.pool.acquire,
+      idle: config.pool.idle
+    }
+  }
+);
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
 const Items = db.items;
 const Op = db.Sequelize.Op;
-
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
@@ -14,6 +35,32 @@ exports.create = (req, res) => {
     name: req.body.name,
     description: req.body.description
   };
+
+
+  let query = `CREATE TABLE ${req.body.name}_template (`;
+             query += `id SERIAL PRIMARY KEY, name character varying(255),  subscriberId integer, description character varying(255), attributes json, createdAt timestamp with time zone NULL,
+             updatedAt timestamp with time zone NULL`;
+        query += ")";
+         db.sequelize.query(query);
+        let insert = `INSERT INTO ${req.body.name}_template(`;
+        for (let key in item) {
+          if(key === 'description') {
+            insert += `${key}`;
+          }else {
+            insert += `${key}, `;
+          }
+           
+        }
+        insert += ") VALUES (";
+        for (let key in item) {
+          if(key === 'description') {
+            insert += `'${item[key]}'`;
+          }else {
+            insert += `'${item[key]}', `;
+          }
+        }
+        insert += ")";
+         db.sequelize.query(insert);
   
   // Save Tutorial in the database
   Items.create(item)
@@ -114,3 +161,5 @@ exports.findOne = (req, res) => {
       });
     });
 };
+
+
