@@ -15,7 +15,7 @@ import { ProductListComponent } from './components/forms-list/forms-list.compone
 import { MenuComponent } from './components/menu/menu.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', component: LoginComponent , pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'tutorials', component: TutorialsListComponent },
@@ -27,11 +27,9 @@ const routes: Routes = [
   { path: 'addProduct/:id', component: AddProductComponent},
   { path: 'editProduct/:id', component: EditProductComponent },
   { path: 'products', component: ProductListComponent },
-  { path: 'products/menu', component: MenuComponent },
-  { path: 'products/menu/Home', component: HomePageComponent },
-  { path: 'products/menu/Contact', component: ContactUsComponent },
-  
-  
+  { path: 'menu', component: MenuComponent },
+  { path: 'homePage', component: HomePageComponent },
+  { path: 'contactUs', component: ContactUsComponent },
 ];
 
 @NgModule({
