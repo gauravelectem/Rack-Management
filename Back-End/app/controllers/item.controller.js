@@ -69,23 +69,41 @@ exports.create = (req, res) => {
           }
         }
         insert += ")";
-         db.sequelize.query(insert);
-  
-  // Save Tutorial in the database
-  Items.create(item)
-    .then(data => {
-      var citemData = JSON.parse(data.dataValues.attributes);
-      citemData.forEach(function(citemData) {
-          data.dataValues[citemData.name] = citemData.value;
-      });
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the users."
-      });
-    });
+
+         pool.query(insert, (err, res) => {
+          if (err !== undefined) {
+            var keys = Object.keys(err);
+            console.log("Postgres error position:", err.position);
+          }
+        
+          // check if the response is not 'undefined'
+          if (res !== undefined) {
+            var keys = Object.keys(res);
+            console.log("\nkeys type:", typeof keys);
+            console.log("keys for Postgres response:", keys);
+        
+            if (res.rowCount > 0) {
+              console.log("# of records inserted:", res.rowCount);
+            } else {
+              console.log("No records were inserted.");
+            }
+          }
+        });
+
+        Items.create(item)
+        .then(data => {
+          var citemData = JSON.parse(data.dataValues.attributes);
+          citemData.forEach(function(citemData) {
+              data.dataValues[citemData.name] = citemData.value;
+          });
+          res.send(data);
+        })
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while creating the users."
+          });
+        });
 };
 
 // Retrieve all Tutorials from the database.
