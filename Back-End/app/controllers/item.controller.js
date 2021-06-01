@@ -1,6 +1,15 @@
 const db = require("../models");
 const config = require("../config/db.config.js");
 const Sequelize = require("sequelize");
+const { Pool, Client } = require("pg");
+
+const pool = new Pool({
+  user: "postgres",
+  host: "localhost",
+  database: "ItemFinals",
+  password: "postgres",
+  port: "5432"
+});
 const sequelize = new Sequelize(
   config.DB,
   config.USER,
@@ -41,7 +50,7 @@ exports.create = (req, res) => {
              query += `id SERIAL PRIMARY KEY, name character varying(255),  subscriberId integer, description character varying(255), attributes json, createdAt timestamp with time zone NULL,
              updatedAt timestamp with time zone NULL`;
         query += ")";
-         db.sequelize.query(query);
+        pool.query(query);
         let insert = `INSERT INTO ${req.body.name}_template(`;
         for (let key in item) {
           if(key === 'description') {
@@ -54,7 +63,7 @@ exports.create = (req, res) => {
         insert += ") VALUES (";
         for (let key in item) {
           if(key === 'description') {
-            insert += `'${item[key]}'`;
+            insert += `'${item[key]}'`; 
           }else {
             insert += `'${item[key]}', `;
           }
