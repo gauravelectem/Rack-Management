@@ -1,0 +1,22 @@
+<h3 class="p-3 text-center">Angular - Display a list of items with ngFor</h3>
+<div class="container">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Form Name</th>
+                <th>Input Type</th>
+                <th>Entered Value</th>
+                <!-- <th>Action</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let templateValue of model.attributes">
+                <td>{{model.name}}</td>
+                <td>{{templateValue.type}}</td>
+                <td>{{templateValue.value}}</td>
+                <!-- <td><button type="button" class="btn btn-primary mb-1" routerLink="/products">Back</button></td> -->
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary float-right" routerLink="/products">Back</button>
+</div>
