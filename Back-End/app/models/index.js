@@ -54,6 +54,12 @@ db.trays.belongsTo(db.racks, {
   as: "rack",
 });
 
+db.items.hasMany(db.menus, { as: "menu" });
+db.menus.belongsTo(db.items, {
+  foreignKey: "itemId",
+  as: "items",
+});
+
 db.role.hasMany(db.menus, { as: "menu" });
 db.menus.belongsTo(db.role, {
   foreignKey: "roleId",

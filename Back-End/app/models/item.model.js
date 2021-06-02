@@ -15,5 +15,11 @@ module.exports = (sequelize, Sequelize) => {
 		},
 
 	});
+
+	Item.associate = function (models) {
+		Item.hasMany(models.Menu, { as: 'menu' })
+	};
+
+
 	return Item;
 };

@@ -8,5 +8,7 @@ module.exports = app => {
 
     router.get("/", menus.findAll);
 
+    router.post("/createMenu", menus.menuCreate);
+
     app.use('/api/menu', router);
 };

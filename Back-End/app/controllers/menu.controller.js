@@ -3,6 +3,31 @@ const Op = db.Sequelize.Op;
 const Role = db.role;
 const Menu=db.menus;
 
+
+exports.menuCreate = (req, res) => {
+
+  const menu = {
+      label: req.body.label,
+      action: req.body.action,
+      menu_fk: req.body.menu_fk,
+      roleId: req.body.roleId,
+      itemId:req.body.itemId,
+  };
+
+  // Save Rack in the database
+  Menu.create(menu)
+      .then(data => {
+          res.send(data);
+      })
+      .catch(err => {
+          res.status(500).send({
+              message:
+                  err.message || "Some error occurred while creating the Rack."
+          });
+      });
+};
+
+
 // Find a single Menu with an id
 exports.findRoleById = (req, res) => {
     const roleId = req.params.roleId;
@@ -13,7 +38,7 @@ exports.findRoleById = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Tray with id=" + roleId
+                message: "Error retrieving Role with id=" + roleId
             });
         });
 };
@@ -29,7 +54,7 @@ exports.findAll = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving Users."
+            err.message || "Some error occurred while retrieving menu records."
         });
       });
   };
