@@ -3,8 +3,7 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    // Retrieve a single Tray with id
-    router.get("/role/:roleId", menus.findRoleById);
+    router.get("/item/:itemId", menus.findMenuByItemId);
 
     router.get("/", menus.findAll);
 

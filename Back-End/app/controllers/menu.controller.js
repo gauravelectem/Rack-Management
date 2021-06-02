@@ -28,21 +28,21 @@ exports.menuCreate = (req, res) => {
 };
 
 
-// Find a single Menu with an id
-exports.findRoleById = (req, res) => {
-    const roleId = req.params.roleId;
 
-    Role.findByPk(roleId, { include: ["menu"] })
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Role with id=" + roleId
-            });
+exports.findMenuByItemId = (req, res) => {
+    const id = req.params.itemId;
+  
+    Menu.findByPk(id)
+      .then(data => {
+       // data.dataValues.attributes =JSON.parse(data.dataValues.attributes);
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving Tutorial with id=" + id
         });
-};
-
+      });
+  };
 exports.findAll = (req, res) => {
     const title = req.query.label;
     var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;

@@ -175,7 +175,7 @@ exports.delete = (req, res) => {
 
 // Find a single Customer with a customerId
 exports.findOne = (req, res) => {
-  const id = req.params.itemId;
+  const id = req.params.id;
 
   Items.findByPk(id)
     .then(data => {
