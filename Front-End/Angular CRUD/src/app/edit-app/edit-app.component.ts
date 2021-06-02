@@ -371,7 +371,7 @@ export class EditAppComponent implements OnInit {
         response => {
           console.log(response);
           this.success = true;
-          this.router.navigate(['/tutorials']);
+          this.router.navigate(['/menu',JSON.stringify(response)]);
           this.tutorialService.getAll();
          // this.submitted = true;
         },

@@ -22,6 +22,8 @@ export class TutorialDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.message = '';
+    var id='';
+    id = this.route.snapshot.params['id'];
     this.getTutorial(this.route.snapshot.params.id);
   }
 

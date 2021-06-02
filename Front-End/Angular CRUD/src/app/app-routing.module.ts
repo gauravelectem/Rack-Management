@@ -1,3 +1,4 @@
+import { AppComponent } from './app.component';
 import { ViewTemplateComponent } from './components/view-template/view-template.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
@@ -29,7 +30,7 @@ const routes: Routes = [
   { path: 'addProduct/:id', component: AddProductComponent},
   { path: 'editProduct/:id', component: EditProductComponent },
   { path: 'products', component: ProductListComponent },
-  { path: 'menu', component: MenuComponent },
+  { path: 'menu/:response', component: AppComponent },
   { path: 'homePage', component: HomePageComponent },
   { path: 'contactUs', component: ContactUsComponent },
   { path: 'products/viewForm/:id', component:ViewFormDetailsComponent },

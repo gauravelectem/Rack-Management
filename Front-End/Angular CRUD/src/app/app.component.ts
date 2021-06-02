@@ -1,5 +1,8 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { MenuService } from './services/menu.service';
+import { Menu } from './models/menu.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,35 +11,58 @@ import { MenuService } from './services/menu.service';
 })
 export class AppComponent {
   title = 'Angular 11 Crud';
+  response:any;
+  private subscription: Subscription;
 
-  menuData:any;
+  menu: Menu = {
+    label: '',
+    action: '',
+    menu_fk: '',
+    roleId: '',
+    itemId: '',
+  };
 
-  constructor(private menuService:MenuService) { }
+  constructor(private menuService:MenuService, 
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { 
+      this.subscription = activatedRoute.params.subscribe(
+        (param: any) => this.response = JSON.parse(param['response'])
+      );
+    }
 
-  ngOnInit(): void {
-    var roleId=1;
-    this.getRoleById(roleId);
-    //this.fetchAllMenus();
+    
+  ngOnDestroy() { 
+    this.subscription.unsubscribe();
   }
-  getRoleById(id:any): void {
-    this.menuService.getRoleById(id)
+
+  ngOnInit(): void {  
+    console.log(this.response);
+    this.menu.label=this.response.description,
+    this.menu.action=this.response.name,
+    this.menu.menu_fk=1,
+    this.menu.roleId=2
+    this.menu.itemId=this.response.id;
+
+     this.createMenu(this.menu);
+  }
+
+  createMenu(menu:any): void {
+    const data = {
+      label: this.menu.label,
+      action: this.menu.action,
+      menu_fk:menu.menu_fk,
+      roleId:menu.roleId,
+      itemId:this.menu.itemId
+    };
+
+    this.menuService.createMenu(data)
       .subscribe(
-        data => {
-          this.menuData = data;
+        response => {
+          console.log(response);
         },
         error => {
           console.log(error);
         });
   }
 
-  fetchAllMenus(): void {
-    this.menuService.fetchAllMenus()
-      .subscribe(
-        data => {
-          this.menuData = data;
-        },
-        error => {
-          console.log(error);
-        });
-  }
 }

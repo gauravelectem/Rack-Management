@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 
 const baseUrl = 'http://localhost:8080/api/menu/role';
 
-const baseUrlForMenus = 'http://localhost:8080/api/menu/';
+const baseUrlForMenus = 'http://localhost:8080/api/menu/createMenu';
 
 @Injectable({
   providedIn: 'root'
@@ -20,4 +20,9 @@ export class MenuService {
   fetchAllMenus(): Observable<any> {
     return this.http.get(`${baseUrlForMenus}`);
   }
+
+  createMenu(data: any): Observable<any> {
+    return this.http.post(baseUrlForMenus, data);
+  }
+
 }
