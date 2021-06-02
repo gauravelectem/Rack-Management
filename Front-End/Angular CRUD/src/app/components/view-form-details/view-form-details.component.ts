@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { TutorialService } from 'src/app/services/tutorial.service';
+import { FormService } from 'src/app/services/app.form.service';
 import { Formdata } from 'src/app/models/form-builder.model';
 
 @Component({
@@ -16,7 +16,7 @@ export class ViewFormDetailsComponent implements OnInit {
     attributes: [],
   };
 
-  constructor(private tutorialService: TutorialService,
+  constructor(private tutorialService: FormService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {

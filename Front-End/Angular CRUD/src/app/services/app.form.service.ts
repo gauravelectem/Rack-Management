@@ -10,7 +10,7 @@ const formBaseUrl = 'http://localhost:8080/api/form';
 @Injectable({
   providedIn: 'root'
 })
-export class TutorialService {
+export class FormService {
 
   constructor(private http: HttpClient) { }
 

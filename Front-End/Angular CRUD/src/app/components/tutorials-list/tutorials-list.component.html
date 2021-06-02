@@ -46,10 +46,10 @@
       <div>
         <label><strong>Name:</strong></label> {{ currentTutorial.name }}
       </div>
-      <a class="badge badge-warning" routerLink="/addProduct/{{ currentTutorial.id }}">
+      <a class="badge badge-warning" routerLink="/edit/{{ currentTutorial.id }}">
         Edit
       </a>
-      <a class="badge badge-warning" routerLink="/products/template/{{ currentTutorial.id }}">
+      <a class="badge badge-warning" routerLink="/addProduct/{{ currentTutorial.id }}">
         view
       </a>
       <a class="badge badge-danger mr-2" (click)="deleteTutorial(currentTutorial.id)">

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
-import { TutorialService } from 'src/app/services/tutorial.service';
+import { FormService } from 'src/app/services/app.form.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Formdata } from 'src/app/models/form-builder.model';
 
@@ -18,7 +18,7 @@ export class EditProductComponent implements OnInit {
   };
 
 success = false;
-constructor(private tutorialService: TutorialService,
+constructor(private formService: FormService,
     private route: ActivatedRoute,
     private router: Router) {}
 
@@ -28,7 +28,7 @@ ngOnInit(): void {
 
 getFormData(id: string): void {
   let datas ;
-    this.tutorialService.getFormData(id)
+    this.formService.getFormData(id)
         .subscribe(
             data => {
                 datas = data;
@@ -46,7 +46,7 @@ getFormData(id: string): void {
 
 cancel() {
   this.router.navigate(['/products']);
-        this.tutorialService.getAllProducts();
+        this.formService.getAllProducts();
 }
 
 submit(){
@@ -83,27 +83,19 @@ submit(){
   let input = new FormData;
   input.append('formId',this.model.id);
   input.append('attributes',JSON.stringify(this.model.attributes))
-  // this.us.postDataApi('/user/formFill',input).subscribe(r=>{
-  //   console.log(r);
-  //   swal('Success','You have contact sucessfully','success');
-  //   this.success = true;
-  // },error=>{
-  //   swal('Error',error.message,'error');
-  // });
  const data = {
     name: this.model.name,
     description: this.model.description,
     attributes: this.model.attributes
   };
 
-  this.tutorialService.updateProductForm(this.model.id, this.model)
+  this.formService.updateProductForm(this.model.id, this.model)
     .subscribe(
       response => {
         console.log(response);
         this.success = true;
         this.router.navigate(['/products']);
-        this.tutorialService.getAllProducts();
-       // this.submitted = true;
+        this.formService.getAllProducts();
       },
       error => {
         console.log(error);

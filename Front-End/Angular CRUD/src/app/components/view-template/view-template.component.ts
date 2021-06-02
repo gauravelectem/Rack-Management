@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { TutorialService } from 'src/app/services/tutorial.service';
+import { FormService } from 'src/app/services/app.form.service';
 import { Formdata } from 'src/app/models/form-builder.model';
 
 @Component({
@@ -17,7 +17,7 @@ export class ViewTemplateComponent implements OnInit {
   };
   success = false;
   constructor(private route: ActivatedRoute,
-    private router: Router,private tutorialService: TutorialService) { }
+    private router: Router,private tutorialService: FormService) { }
 
   ngOnInit(): void {
     this.getFormData(this.route.snapshot.params.id);

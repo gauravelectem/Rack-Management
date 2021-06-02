@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         console.log(response);
         if(!!response){
           this.submitted = true;
-          this.router.navigate(['/tutorials']);
+          this.router.navigate(['/template']);
         } else{
           this.showError = true;
         }

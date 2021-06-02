@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
-import { TutorialService } from 'src/app/services/tutorial.service';
+import { FormService } from 'src/app/services/app.form.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ export class ProductListComponent implements OnInit {
   currentTutorial?: Product;
   currentIndex = -1;
   name = '';
-  constructor(private tutorialService: TutorialService,
+  constructor(private tutorialService: FormService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -77,7 +77,7 @@ export class ProductListComponent implements OnInit {
         response => {
           console.log(response);
           this.tutorialService.getAll();
-          this.router.navigate(['/tutorials']);
+          this.router.navigate(['/template']);
          
         },
         error => {

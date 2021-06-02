@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Formdata } from 'src/app/models/form-builder.model';
-import { TutorialService } from 'src/app/services/tutorial.service';
+import { FormService } from 'src/app/services/app.form.service';
 
 import swal from 'sweetalert2';
 @Component({
@@ -17,7 +17,7 @@ export class AddProductComponent implements OnInit {
   };
   success = false;
   constructor(private route: ActivatedRoute,
-    private router: Router,private tutorialService: TutorialService) { }
+    private router: Router,private tutorialService: FormService) { }
 
   ngOnInit(): void {
     this.getFormData(this.route.snapshot.params.id);
@@ -27,21 +27,22 @@ export class AddProductComponent implements OnInit {
     let datas ;
       this.tutorialService.get(id)
           .subscribe(
-              data => {
-                datas = data;
-                datas.name = '';
-               datas.attributes = JSON.parse(datas.attributes);
-                  this.model = datas;
-                  //this.model = JSON.parse(this.model.attributes);
-                  console.log(data);
-              },
+            data => {
+              datas = data;
+              if(Array.isArray(datas.attributes)) {
+                this.model = datas;
+              } else {
+                datas.attributes = JSON.parse(datas.attributes);
+                this.model = datas;
+              }
+          },
               error => {
                   console.log(error);
               });
   }    
 
   cancel() {
-    this.router.navigate(['/tutorials']);
+    this.router.navigate(['/template']);
           this.tutorialService.getAll();
   }
 
@@ -97,7 +98,7 @@ export class AddProductComponent implements OnInit {
         response => {
           console.log(response);
           this.success = true;
-          this.router.navigate(['/tutorials']);
+          this.router.navigate(['/template']);
           this.tutorialService.getAll();
          // this.submitted = true;
         },

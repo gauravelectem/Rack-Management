@@ -3,7 +3,7 @@ import { DndDropEvent,DropEffect} from 'ngx-drag-drop';
 import { field, value } from '../global.model';
 import { ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
-import { TutorialService } from 'src/app/services/tutorial.service';
+import { FormService } from 'src/app/services/app.form.service';
 @Component({
   selector: 'app-edit-app',
   templateUrl: './edit-app.component.html',
@@ -177,21 +177,11 @@ export class EditAppComponent implements OnInit {
   reports:any = [];
 
   constructor(
-    private route:ActivatedRoute, private tutorialService :TutorialService, private router: Router
+    private route:ActivatedRoute, private tutorialService :FormService, private router: Router
   ) { }
 
   ngOnInit() {
-    // this.route.params.subscribe( params =>{
-    //   console.log(params);
-    //   this.us.getDataApi('/admin/getFormById',{id:params.id}).subscribe(r=>{
-    //     console.log(r);
-    //     this.model = r['data'];
-    //   });
-    // });
-
-
-    // this.model = this.cs.data; 
-    // console.log(this.model.data);
+    
 
   }
 
@@ -270,11 +260,6 @@ export class EditAppComponent implements OnInit {
     input.append('bgColor',this.model.theme.bgColor);
     input.append('textColor',this.model.theme.textColor);
     input.append('attributes',JSON.stringify(this.model.attributes));
-
-    // this.us.putDataApi('/admin/updateForm',input).subscribe(r=>{
-    //   console.log(r);
-    //   swal('Success','App updated successfully','success');
-    // });
   }
 
   
@@ -300,17 +285,6 @@ export class EditAppComponent implements OnInit {
     let input = {
       id:this.model._id
     }
-    // this.us.getDataApi('/admin/allFilledForms',input).subscribe(r=>{
-    //   this.reports = r.data;
-    //   console.log('reports',this.reports);
-    //   this.reports.map(records=>{
-    //     return records.attributes.map(record=>{
-    //       if(record.type=='checkbox'){
-    //         record.value = record.values.filter(r=>r.selected).map(i=>i.value).join(',');
-    //       }
-    //     })
-    //   });
-    // });
   }
 
 
@@ -353,13 +327,6 @@ export class EditAppComponent implements OnInit {
     let input = new FormData;
     input.append('formId',this.model._id);
     input.append('attributes',JSON.stringify(this.model.attributes))
-    // this.us.postDataApi('/user/formFill',input).subscribe(r=>{
-    //   console.log(r);
-    //   swal('Success','You have contact sucessfully','success');
-    //   this.success = true;
-    // },error=>{
-    //   swal('Error',error.message,'error');
-    // });
    const data = {
       name: this.model.name,
       description: this.model.description,
@@ -381,7 +348,7 @@ export class EditAppComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/tutorials']);
+    this.router.navigate(['/template']);
           this.tutorialService.getAll();
   }
 
