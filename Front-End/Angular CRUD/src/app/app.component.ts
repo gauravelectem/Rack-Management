@@ -1,8 +1,9 @@
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { MenuService } from './services/menu.service';
 import { Menu } from './models/menu.model';
-import { Subscription } from 'rxjs';
+import { ItemService } from './services/item.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Angular 11 Crud';
-  response: any;
-  private subscription: Subscription;
+  response:any;
+  itemPk:any;
+  itemObject:any;
+  dataObject:any;
+  menuObject:any;
 
   menu: Menu = {
     label: '',
@@ -22,47 +25,57 @@ export class AppComponent {
     itemId: '',
   };
 
-  constructor(private menuService: MenuService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router) {
-      this.subscription = activatedRoute.params.subscribe(
-        (param: any) => this.response = JSON.parse(param['response'])
-      );
-    }
+constructor(private menuService: MenuService,
+  private itemService:ItemService,
+  private activatedRoute: ActivatedRoute) { } 
 
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+  ngOnInit(): void {  
+    this.itemPk = this.activatedRoute.snapshot.params['id'];
+    this.fetchItemById(this.itemPk);
   }
 
-  ngOnInit(): void {
-    console.log(this.response);
-    this.menu.label = this.response.description,
-    this.menu.action = this.response.name,
-    this.menu.menu_fk = 1,
-    this.menu.roleId = 2;
-    this.menu.itemId = this.response.id;
+   fetchItemById(itemId:any) {
+    this.itemService.getItemById(itemId)
+      .subscribe(
+        data => {
+          this.itemObject = data;
+          this.createMenu(this.menu);
+        },
+        error => {
+          console.log(error);
+        });
+      }
 
-     this.createMenu(this.menu);
-  }
-
-  createMenu(menu: any): void {
+  createMenu(menu:any): void {
     const data = {
-      label: this.menu.label,
-      action: this.menu.action,
-      menu_fk: menu.menu_fk,
-      roleId: menu.roleId,
-      itemId: this.menu.itemId
+      label: this.itemObject.name,
+      action:"editProduct/"+this.itemObject.name+"/"+this.itemObject.id,
+      menu_fk:1,
+      roleId:2,
+      itemId:this.itemObject.id,
     };
 
     this.menuService.createMenu(data)
       .subscribe(
-        response => {
-          console.log(response);
+        data => {
+          this.dataObject = data;
+          this.getMenuByItemId(this.dataObject.itemId);
         },
         error => {
           console.log(error);
         });
   }
+
+  getMenuByItemId(itemId:any) {
+    this.menuService.getMenuByItemId(itemId)
+      .subscribe(
+        data => {
+          this.menuObject = data;
+          console.log(this.menuObject);
+        },
+        error => {
+          console.log(error);
+        });
+      }
 
 }

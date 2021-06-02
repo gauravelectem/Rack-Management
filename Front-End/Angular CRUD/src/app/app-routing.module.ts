@@ -30,11 +30,11 @@ const routes: Routes = [
   { path: 'addProduct/:id', component: AddProductComponent},
   { path: 'editProduct/:id', component: EditProductComponent },
   { path: 'products', component: ProductListComponent },
-  { path: 'menu/:response', component: AppComponent },
   { path: 'homePage', component: HomePageComponent },
   { path: 'contactUs', component: ContactUsComponent },
   { path: 'products/viewForm/:id', component: ViewFormDetailsComponent },
   { path: 'products/template/:id', component: ViewTemplateComponent },
+  { path: 'menu/:id', component: AppComponent }
 ];
 
 @NgModule({
