@@ -33,8 +33,8 @@ const routes: Routes = [
   { path: 'menu/:response', component: AppComponent },
   { path: 'homePage', component: HomePageComponent },
   { path: 'contactUs', component: ContactUsComponent },
-  { path: 'products/viewForm/:id', component:ViewFormDetailsComponent },
-  { path: 'products/template/:id', component:ViewTemplateComponent },
+  { path: 'products/viewForm/:id', component: ViewFormDetailsComponent },
+  { path: 'products/template/:id', component: ViewTemplateComponent },
 ];
 
 @NgModule({

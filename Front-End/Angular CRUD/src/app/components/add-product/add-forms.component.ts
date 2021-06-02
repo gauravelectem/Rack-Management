@@ -17,7 +17,7 @@ export class AddProductComponent implements OnInit {
   };
   success = false;
   constructor(private route: ActivatedRoute,
-    private router: Router,private tutorialService: FormService) { }
+    private router: Router, private tutorialService: FormService) { }
 
   ngOnInit(): void {
     this.getFormData(this.route.snapshot.params.id);
@@ -29,7 +29,7 @@ export class AddProductComponent implements OnInit {
           .subscribe(
             data => {
               datas = data;
-              if(Array.isArray(datas.attributes)) {
+              if (Array.isArray(datas.attributes)) {
                 this.model = datas;
               } else {
                 datas.attributes = JSON.parse(datas.attributes);
@@ -39,47 +39,47 @@ export class AddProductComponent implements OnInit {
               error => {
                   console.log(error);
               });
-  }    
+  }
 
   cancel() {
     this.router.navigate(['/template']);
           this.tutorialService.getAll();
   }
 
-  submit(){
+  submit() {
     let valid = true;
-    let validationArray = JSON.parse(JSON.stringify(this.model.attributes));
+    const validationArray = JSON.parse(JSON.stringify(this.model.attributes));
     validationArray.reverse().forEach(field => {
-      console.log(field.label+'=>'+field.required+"=>"+field.value);
-      if(field.required && !field.value && field.type != 'checkbox'){
-        swal('Error','Please enter '+field.label,'error');
+      console.log(field.label + '=>' + field.required + '=>' + field.value);
+      if (field.required && !field.value && field.type != 'checkbox') {
+        swal('Error', 'Please enter ' + field.label, 'error');
         valid = false;
         return false;
       }
-      if(field.required && field.regex){
-        let regex = new RegExp(field.regex);
-        if(regex.test(field.value) == false){
-          swal('Error',field.errorText,'error');
+      if (field.required && field.regex) {
+        const regex = new RegExp(field.regex);
+        if (regex.test(field.value) == false) {
+          swal('Error', field.errorText, 'error');
           valid = false;
           return false;
         }
       }
-      if(field.required && field.type == 'checkbox'){
-        if(field.values.filter(r=>r.selected).length == 0){
-          swal('Error','Please enterrr '+field.label,'error');
+      if (field.required && field.type == 'checkbox') {
+        if (field.values.filter(r => r.selected).length == 0) {
+          swal('Error', 'Please enterrr ' + field.label, 'error');
           valid = false;
           return false;
         }
 
       }
     });
-    if(!valid){
+    if (!valid) {
       return false;
     }
-    console.log('Save',this.model);
-    let input = new FormData;
-    input.append('formId',this.model.id);
-    input.append('attributes',JSON.stringify(this.model.attributes))
+    console.log('Save', this.model);
+    const input = new FormData;
+    input.append('formId', this.model.id);
+    input.append('attributes', JSON.stringify(this.model.attributes));
     // this.us.postDataApi('/user/formFill',input).subscribe(r=>{
     //   console.log(r);
     //   swal('Success','You have contact sucessfully','success');

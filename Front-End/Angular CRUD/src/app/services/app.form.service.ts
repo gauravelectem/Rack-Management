@@ -61,7 +61,7 @@ export class FormService {
   getFormData(id: any): Observable<Product> {
     return this.http.get(`${formBaseUrl}/${id}`);
   }
-  
+
   updateProductForm(id: any, data: any): Observable<any> {
     return this.http.put(`${formBaseUrl}/${id}`, data);
   }

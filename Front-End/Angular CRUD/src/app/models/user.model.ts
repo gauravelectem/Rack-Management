@@ -6,4 +6,4 @@ export class User {
     phone?: string;
     location?: string;
   }
-  
+

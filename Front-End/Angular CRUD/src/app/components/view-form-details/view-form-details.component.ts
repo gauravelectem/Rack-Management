@@ -23,13 +23,13 @@ export class ViewFormDetailsComponent implements OnInit {
     this.getFormData(this.route.snapshot.params.id);
   }
   getFormData(id: string): void {
-    var datas ;
+    let datas ;
       this.tutorialService.getFormData(id)
           .subscribe(
               data => {
                   datas = data;
                   console.log(datas.name);
-                  if(Array.isArray(datas.attributes)) {
+                  if (Array.isArray(datas.attributes)) {
                     this.model = datas;
                   } else {
                     datas.attributes = JSON.parse(datas.attributes);
@@ -39,6 +39,6 @@ export class ViewFormDetailsComponent implements OnInit {
               error => {
                   console.log(error);
               });
-  }  
+  }
 
 }

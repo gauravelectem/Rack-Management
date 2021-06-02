@@ -70,7 +70,7 @@ export class ProductListComponent implements OnInit {
           console.log(error);
         });
   }
-  
+
   deleteProduct(id): void {
     this.tutorialService.deleteProduct(id)
       .subscribe(
@@ -78,7 +78,7 @@ export class ProductListComponent implements OnInit {
           console.log(response);
           this.tutorialService.getAll();
           this.router.navigate(['/template']);
-         
+
         },
         error => {
           console.log(error);

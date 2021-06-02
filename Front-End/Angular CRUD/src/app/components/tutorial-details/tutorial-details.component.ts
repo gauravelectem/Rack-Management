@@ -22,7 +22,7 @@ export class TutorialDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.message = '';
-    var id='';
+    let id = '';
     id = this.route.snapshot.params['id'];
     this.getTutorial(this.route.snapshot.params.id);
   }
@@ -50,7 +50,7 @@ export class TutorialDetailsComponent implements OnInit {
     this.tutorialService.update(this.currentTutorial.id, data)
       .subscribe(
         response => {
-          
+
           console.log(response);
           this.message = response.message ? response.message : 'This tutorial was updated successfully!';
         },

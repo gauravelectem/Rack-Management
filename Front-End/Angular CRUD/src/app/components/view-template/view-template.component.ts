@@ -9,7 +9,7 @@ import { Formdata } from 'src/app/models/form-builder.model';
   styleUrls: ['./view-template.component.css']
 })
 export class ViewTemplateComponent implements OnInit {
-  
+
   model: Formdata = {
     name: '',
     description: '',
@@ -17,7 +17,7 @@ export class ViewTemplateComponent implements OnInit {
   };
   success = false;
   constructor(private route: ActivatedRoute,
-    private router: Router,private tutorialService: FormService) { }
+    private router: Router, private tutorialService: FormService) { }
 
   ngOnInit(): void {
     this.getFormData(this.route.snapshot.params.id);
@@ -31,13 +31,13 @@ export class ViewTemplateComponent implements OnInit {
                 datas = data;
                datas.attributes = JSON.parse(datas.attributes);
                   this.model = datas;
-                  //this.model = JSON.parse(this.model.attributes);
+                  // this.model = JSON.parse(this.model.attributes);
                   console.log(data);
               },
               error => {
                   console.log(error);
               });
-  } 
-  
+  }
+
 
 }

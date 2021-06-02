@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       username : ['', Validators.required],
-      email: ['', [Validators.required,Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       phone: ['', Validators.required],
       location: ['', Validators.required],
@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
     }
     const client = {
       name: this.registerForm.value.username
-    }
+    };
     this.userService.createClient(client)
       .subscribe(
         response => {

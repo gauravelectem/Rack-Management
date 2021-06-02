@@ -71,7 +71,7 @@ export class TutorialsListComponent implements OnInit {
           console.log(error);
         });
   }
-  
+
   deleteTutorial(id): void {
     this.tutorialService.delete(id)
       .subscribe(
@@ -79,7 +79,7 @@ export class TutorialsListComponent implements OnInit {
           console.log(response);
           this.tutorialService.getAll();
           this.router.navigate(['/template']);
-         
+
         },
         error => {
           console.log(error);

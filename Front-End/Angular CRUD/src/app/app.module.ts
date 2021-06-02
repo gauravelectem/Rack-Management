@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule} from '@angular/forms' 
+import { ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Routes, ActivatedRoute, ActivatedRouteSnapshot} from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,7 +26,7 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
 import { ViewTemplateComponent } from './components/view-template/view-template.component';
 import { ViewFormDetailsComponent } from './components/view-form-details/view-form-details.component';
 const appRoutes: Routes = [
-  //{ path: '', component: EditAppComponent },
+  // { path: '', component: EditAppComponent },
 ];
 
 @NgModule({
@@ -47,7 +47,7 @@ const appRoutes: Routes = [
  ContactUsComponent,
  ViewTemplateComponent,
  ViewFormDetailsComponent,
-    
+
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),

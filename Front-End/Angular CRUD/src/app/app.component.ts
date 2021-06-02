@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent {
   title = 'Angular 11 Crud';
-  response:any;
+  response: any;
   private subscription: Subscription;
 
   menu: Menu = {
@@ -22,37 +22,37 @@ export class AppComponent {
     itemId: '',
   };
 
-  constructor(private menuService:MenuService, 
+  constructor(private menuService: MenuService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { 
+    private router: Router) {
       this.subscription = activatedRoute.params.subscribe(
         (param: any) => this.response = JSON.parse(param['response'])
       );
     }
 
-    
-  ngOnDestroy() { 
+
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
     console.log(this.response);
-    this.menu.label=this.response.description,
-    this.menu.action=this.response.name,
-    this.menu.menu_fk=1,
-    this.menu.roleId=2
-    this.menu.itemId=this.response.id;
+    this.menu.label = this.response.description,
+    this.menu.action = this.response.name,
+    this.menu.menu_fk = 1,
+    this.menu.roleId = 2;
+    this.menu.itemId = this.response.id;
 
      this.createMenu(this.menu);
   }
 
-  createMenu(menu:any): void {
+  createMenu(menu: any): void {
     const data = {
       label: this.menu.label,
       action: this.menu.action,
-      menu_fk:menu.menu_fk,
-      roleId:menu.roleId,
-      itemId:this.menu.itemId
+      menu_fk: menu.menu_fk,
+      roleId: menu.roleId,
+      itemId: this.menu.itemId
     };
 
     this.menuService.createMenu(data)

@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   showError = false;
   showSuccess = false;
-  
+
   constructor(
     private userService: UserService,
     private router: Router,
@@ -41,10 +41,10 @@ export class LoginComponent implements OnInit {
     .subscribe(
       response => {
         console.log(response);
-        if(!!response){
+        if (!!response) {
           this.submitted = true;
           this.router.navigate(['/template']);
-        } else{
+        } else {
           this.showError = true;
         }
       },
