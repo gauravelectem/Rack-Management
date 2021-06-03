@@ -4,6 +4,7 @@ import { field, value } from '../global.model';
 import { ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
 import { FormService } from 'src/app/services/app.form.service';
+import { Client } from '../client';
 
 @Component({
     selector: 'app-edit-form',
@@ -196,11 +197,9 @@ export class EditFormComponent implements OnInit {
                 } else {
                   datas.attributes = JSON.parse(datas.attributes);
                 }
-                 // this.model = datas;
                   this.model.name = datas.name;
                   this.model.description = datas.description;
                   this.model.attributes = datas.attributes;
-                  // this.model = JSON.parse(this.model.attributes);
                   console.log(data);
               },
               error => {
@@ -363,7 +362,7 @@ export class EditFormComponent implements OnInit {
         console.log(response);
         this.success = true;
         this.router.navigate(['/template']);
-        this.tutorialService.getAll();
+        this.tutorialService.getAll(Client.clientFK);
        // this.submitted = true;
       },
       error => {
@@ -373,7 +372,7 @@ export class EditFormComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['/template']);
-          this.tutorialService.getAll();
+          this.tutorialService.getAll(Client.clientFK);
   }
 
 }

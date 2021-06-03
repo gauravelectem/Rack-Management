@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Formdata } from 'src/app/models/form-builder.model';
 import { FormService } from 'src/app/services/app.form.service';
-
+import { Client } from '../../client';
 import swal from 'sweetalert2';
 @Component({
   selector: 'app-add-forms',
@@ -43,7 +43,7 @@ export class AddProductComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['/template']);
-          this.tutorialService.getAll();
+          this.tutorialService.getAll(Client.clientFK);
   }
 
   submit() {
@@ -99,7 +99,7 @@ export class AddProductComponent implements OnInit {
           console.log(response);
           this.success = true;
           this.router.navigate(['/template']);
-          this.tutorialService.getAll();
+          this.tutorialService.getAll(Client.clientFK);
          // this.submitted = true;
         },
         error => {

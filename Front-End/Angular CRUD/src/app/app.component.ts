@@ -32,6 +32,7 @@ constructor(private menuService: MenuService,
   ngOnInit(): void {  
     this.itemPk = this.activatedRoute.snapshot.params['id'];
     this.fetchItemById(this.itemPk);
+    this.fetchAllmenus();
   }
 
    fetchItemById(itemId:any) {
@@ -49,7 +50,7 @@ constructor(private menuService: MenuService,
   createMenu(menu:any): void {
     const data = {
       label: this.itemObject.name,
-      action:"editProduct/"+this.itemObject.id,
+      action:"menu/"+this.itemObject.name+"/"+this.itemObject.id,
       menu_fk:1,
       roleId:2,
       itemId:this.itemObject.id,

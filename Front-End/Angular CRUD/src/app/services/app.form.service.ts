@@ -13,9 +13,9 @@ const formBaseUrl = 'http://localhost:8080/api/form';
 export class FormService {
 
   constructor(private http: HttpClient) { }
-
-  getAll(): Observable<Tutorial[]> {
-    return this.http.get<Tutorial[]>(baseUrl);
+  
+  getAll(clientFk:any): Observable<Tutorial[]> {
+    return this.http.get<Tutorial[]>(`${baseUrl}?clientFk=${clientFk}`);
   }
 
   get(id: any): Observable<Tutorial> {

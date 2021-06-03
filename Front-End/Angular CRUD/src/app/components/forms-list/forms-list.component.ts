@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
 import { FormService } from 'src/app/services/app.form.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { Client } from '../../client';
 @Component({
   selector: 'app-forms-list',
   templateUrl: './forms-list.component.html',
@@ -76,7 +76,7 @@ export class ProductListComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          this.tutorialService.getAll();
+          this.tutorialService.getAll(Client.clientFK);
           this.router.navigate(['/template']);
 
         },

@@ -4,6 +4,8 @@ import { field, value } from '../global.model';
 import { ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
 import { FormService } from 'src/app/services/app.form.service';
+import { Client } from '../client';
+import { MenuService } from '../services/menu.service';
 @Component({
   selector: 'app-edit-app',
   templateUrl: './edit-app.component.html',
@@ -170,14 +172,15 @@ export class EditAppComponent implements OnInit {
       textColor: '555555',
       bannerImage: ''
     },
-    attributes: this.modelFields
+    attributes: this.modelFields,
+    clientFk: Client.clientFK
   };
 
   report = false;
   reports: any = [];
 
   constructor(
-    private route: ActivatedRoute, private tutorialService: FormService, private router: Router
+    private route: ActivatedRoute, private tutorialService: FormService, private router: Router, private menuService: MenuService
   ) { }
 
   ngOnInit() {
@@ -331,7 +334,8 @@ export class EditAppComponent implements OnInit {
    const data = {
       name: this.model.name,
       description: this.model.description,
-      attributes: this.model.attributes
+      attributes: this.model.attributes,
+      clientFk: this.model.clientFk,
     };
 
     this.tutorialService.saveForm(data)
@@ -339,8 +343,25 @@ export class EditAppComponent implements OnInit {
         response => {
           console.log(response);
           this.success = true;
-          this.router.navigate(['menu', response.id]);
-          this.tutorialService.getAll();
+          const datas = {
+            label: response.name,
+            action:"menu/"+response.name+"/"+response.id,
+            menu_fk:1,
+            roleId:2,
+            itemId:response.id,
+          };
+          this.menuService.createMenu(datas)
+            .subscribe(
+              data => {
+              //  this.dataObject = data;
+              this.menuService.fetchAllMenus();
+              },
+              error => {
+                console.log(error);
+              });
+          this.router.navigate(['/template']);
+         // this.router.navigate(['menu', response.id]);
+          this.tutorialService.getAll(Client.clientFK);
          // this.submitted = true;
         },
         error => {
@@ -350,7 +371,7 @@ export class EditAppComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['/template']);
-          this.tutorialService.getAll();
+          this.tutorialService.getAll(Client.clientFK);
   }
 
 }

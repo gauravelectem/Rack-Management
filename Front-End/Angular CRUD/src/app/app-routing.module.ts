@@ -30,11 +30,13 @@ const routes: Routes = [
   { path: 'addProduct/:id', component: AddProductComponent},
   { path: 'editProduct/:id', component: EditProductComponent },
   { path: 'products', component: ProductListComponent },
+  { path: 'products/:name/:id', component: ProductListComponent },
   { path: 'homePage', component: HomePageComponent },
   { path: 'contactUs', component: ContactUsComponent },
   { path: 'products/viewForm/:id', component: ViewFormDetailsComponent },
   { path: 'products/template/:id', component: ViewTemplateComponent },
   { path: 'menu/:id', component: AppComponent },
+  { path: 'menu/:name/:id', component: ProductListComponent},
   { path: 'editProduct/:id', component:AppComponent},
 ];
 

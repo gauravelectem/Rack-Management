@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Client } from '../client';
 
 @Component({
   selector: 'app-login',
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
     .subscribe(
       response => {
         console.log(response);
+        Client.clientFK = response.clientFk;
         if (!!response) {
           this.submitted = true;
           this.router.navigate(['/template']);
