@@ -2,7 +2,7 @@ import { AppComponent } from './app.component';
 import { ViewTemplateComponent } from './components/view-template/view-template.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TutorialsListComponent } from './components/tutorials-list/tutorials-list.component';
 import { TutorialDetailsComponent } from './components/tutorial-details/tutorial-details.component';
@@ -34,7 +34,8 @@ const routes: Routes = [
   { path: 'contactUs', component: ContactUsComponent },
   { path: 'products/viewForm/:id', component: ViewFormDetailsComponent },
   { path: 'products/template/:id', component: ViewTemplateComponent },
-  { path: 'menu/:id', component: AppComponent }
+  { path: 'menu/:id', component: AppComponent },
+  { path: 'editProduct/:id', component:AppComponent},
 ];
 
 @NgModule({

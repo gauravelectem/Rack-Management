@@ -11,8 +11,8 @@ import { ItemService } from './services/item.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  response:any;
   itemPk:any;
+  itemlabel:any;
   itemObject:any;
   dataObject:any;
   menuObject:any;
@@ -49,7 +49,7 @@ constructor(private menuService: MenuService,
   createMenu(menu:any): void {
     const data = {
       label: this.itemObject.name,
-      action:"editProduct/"+this.itemObject.name+"/"+this.itemObject.id,
+      action:"editProduct/"+this.itemObject.id,
       menu_fk:1,
       roleId:2,
       itemId:this.itemObject.id,
@@ -59,23 +59,24 @@ constructor(private menuService: MenuService,
       .subscribe(
         data => {
           this.dataObject = data;
-          this.getMenuByItemId(this.dataObject.itemId);
+          this.fetchAllmenus();
         },
         error => {
           console.log(error);
         });
   }
 
-  getMenuByItemId(itemId:any) {
-    this.menuService.getMenuByItemId(itemId)
+  
+  fetchAllmenus() {
+    this.menuService.fetchAllMenus()
       .subscribe(
         data => {
           this.menuObject = data;
-          console.log(this.menuObject);
         },
         error => {
           console.log(error);
         });
       }
+
 
 }

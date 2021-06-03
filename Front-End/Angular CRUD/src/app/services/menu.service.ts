@@ -6,6 +6,8 @@ const baseUrl = 'http://localhost:8080/api/menu/item';
 
 const baseUrlForMenus = 'http://localhost:8080/api/menu/createMenu';
 
+const fetchAllMenus = 'http://localhost:8080/api/menu/';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +24,7 @@ export class MenuService {
   }
 
   fetchAllMenus(): Observable<any> {
-    return this.http.get(`${baseUrlForMenus}`);
+    return this.http.get(`${fetchAllMenus}`);
   }
 
   createMenu(data: any): Observable<any> {
