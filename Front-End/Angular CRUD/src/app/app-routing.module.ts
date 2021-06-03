@@ -37,7 +37,6 @@ const routes: Routes = [
   { path: 'products/template/:id', component: ViewTemplateComponent },
   { path: 'menu/:id', component: AppComponent },
   { path: 'menu/:name/:id', component: ProductListComponent},
-  { path: 'editProduct/:id', component:AppComponent},
 ];
 
 @NgModule({

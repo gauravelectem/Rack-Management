@@ -13,11 +13,13 @@ export class ProductListComponent implements OnInit {
   currentTutorial?: Product;
   currentIndex = -1;
   name = '';
+   tempid = '';
   constructor(private tutorialService: FormService,
     private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {
+    this.tempid = this.route.snapshot.params['id'];
     this.retrieveProducts();
   }
 
@@ -84,5 +86,11 @@ export class ProductListComponent implements OnInit {
           console.log(error);
         });
   }
+
+  
+  addNewForm(): void {
+    this.router.navigate(['/addProduct/' + this.tempid]);
+  }
+
 
 }

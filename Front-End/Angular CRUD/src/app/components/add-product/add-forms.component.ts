@@ -15,11 +15,13 @@ export class AddProductComponent implements OnInit {
     description: '',
     attributes: [],
   };
+  itemTempId = '';
   success = false;
   constructor(private route: ActivatedRoute,
     private router: Router, private tutorialService: FormService) { }
 
   ngOnInit(): void {
+    this.itemTempId = this.route.snapshot.params.id;
     this.getFormData(this.route.snapshot.params.id);
   }
 
@@ -29,6 +31,7 @@ export class AddProductComponent implements OnInit {
           .subscribe(
             data => {
               datas = data;
+              datas.name = '';
               if (Array.isArray(datas.attributes)) {
                 this.model = datas;
               } else {
@@ -90,10 +93,12 @@ export class AddProductComponent implements OnInit {
    const data = {
       name: this.model.name,
       description: this.model.description,
-      attributes: this.model.attributes
+      attributes: this.model.attributes,
+      itemTempId: this.itemTempId,
     };
+    
 
-    this.tutorialService.createProduct(this.model)
+    this.tutorialService.createProduct(data)
       .subscribe(
         response => {
           console.log(response);
