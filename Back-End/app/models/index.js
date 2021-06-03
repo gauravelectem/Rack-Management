@@ -34,7 +34,7 @@ db.menus = require("../models/menu.model.js")(sequelize, Sequelize);
 //db.itemtemplates = require("./itemTemplate.model.js")(sequelize, Sequelize);
 db.items = require("./item.model.js")(sequelize, Sequelize);
 db.itemtemplatepropertys = require("./itemTemplateProperty.js")(sequelize, Sequelize);
-db.products = require("./product.model.js")(sequelize, Sequelize);
+db.products = require("./itemForm.model.js")(sequelize, Sequelize);
 db.clients = require("./client.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
@@ -81,11 +81,11 @@ db.items.belongsToMany(db.trays, {
   otherKey: "trayId"
 });
 
-db.products.belongsToMany(db.items, {
-  through: "product_item",
-  foreignKey: "itemId",
-  otherKey: "productId"
-});
+// db.products.belongsToMany(db.items, {
+//   through: "product_item",
+//   foreignKey: "itemId",
+//   otherKey: "productId"
+// });
 
 db.ROLES = ["user", "admin", "moderator"];
 

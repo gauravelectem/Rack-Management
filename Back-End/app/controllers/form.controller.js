@@ -1,4 +1,4 @@
-const db = require("../models");
+  const db = require("../models");
 const Forms = db.products;
 const Op = db.Sequelize.Op;
 
@@ -12,7 +12,8 @@ exports.create = (req, res) => {
     const product = {
       attributes: formData,
       name: req.body.name,
-      description: req.body.description
+      description: req.body.description,
+      itemTempId: req.body.itemTempId,
     };
     
     // Save Forms in the database
