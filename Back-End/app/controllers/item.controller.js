@@ -42,53 +42,9 @@ exports.create = (req, res) => {
   const item = {
     attributes: ites,
     name: req.body.name,
-    description: req.body.description
+    description: req.body.description,
+    clientFk: req.body.clientFk,
   };
-
-
-  let query = `CREATE TABLE ${req.body.name}_template (`;
-             query += `id SERIAL PRIMARY KEY, name character varying(255),  subscriberId integer, description character varying(255), attributes json, createdAt timestamp with time zone NULL,
-             updatedAt timestamp with time zone NULL`;
-        query += ")";
-        pool.query(query);
-        let insert = `INSERT INTO ${req.body.name}_template(`;
-        for (let key in item) {
-          if(key === 'description') {
-            insert += `${key}`;
-          }else {
-            insert += `${key}, `;
-          }
-           
-        }
-        insert += ") VALUES (";
-        for (let key in item) {
-          if(key === 'description') {
-            insert += `'${item[key]}'`; 
-          }else {
-            insert += `'${item[key]}', `;
-          }
-        }
-        insert += ")";
-
-         pool.query(insert, (err, res) => {
-          if (err !== undefined) {
-            var keys = Object.keys(err);
-            console.log("Postgres error position:", err.position);
-          }
-        
-          // check if the response is not 'undefined'
-          if (res !== undefined) {
-            var keys = Object.keys(res);
-            console.log("\nkeys type:", typeof keys);
-            console.log("keys for Postgres response:", keys);
-        
-            if (res.rowCount > 0) {
-              console.log("# of records inserted:", res.rowCount);
-            } else {
-              console.log("No records were inserted.");
-            }
-          }
-        });
 
         Items.create(item)
         .then(data => {
@@ -109,9 +65,10 @@ exports.create = (req, res) => {
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
   var name = req.query.name;
+  var clientFk = req.query.clientFk;
   var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
-
-  Items.findAll({ where: condition })
+  var conditions = clientFk == clientFk;
+  Items.findAll({ where: conditions})
     .then(data => {
       res.send(data);
     })

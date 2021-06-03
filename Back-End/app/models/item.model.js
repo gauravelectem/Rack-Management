@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-	const Item = sequelize.define("items", {
+	const Item = sequelize.define("itemTemplate", {
 		name: {
 			type: Sequelize.STRING
 		},
@@ -13,11 +13,23 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.JSON,
 
 		},
-
+		clientFk: {
+			type: Sequelize.INTEGER,
+			allowNull: true,
+			references: {         
+			  model: 'clients',
+			  key: 'id'
+			}
+		  },
 	});
 
 	Item.associate = function (models) {
 		Item.hasMany(models.Menu, { as: 'menu' })
+	};
+
+
+	Item.associate = (models) => {
+		Item.belongsTo(models.Client, { foreignKey: 'clientFk', as: 'client' })
 	};
 
 

@@ -70,19 +70,6 @@ db.menus.belongsTo(db.menus, {
   as: "menu",
 });
 
-// db.itemtemplates.hasMany(db.itemtemplatepropertys, { as: "itemtemplateproperty" });
-// db.itemtemplatepropertys.belongsTo(db.itemtemplates, {
-//   foreignKey: "itemtemplateId",
-//   as: "itemtemplate",
-// });
-
-
-// db.itemtemplatepropertys.hasMany(db.items, { as: "item" });
-// db.items.belongsTo(db.itemtemplatepropertys, {
-//   foreignKey: "itemTemplatePropertyId",
-//   as: "itemtemplatepropertys",
-// });
-
 db.trays.belongsToMany(db.items, {
   through: "tray_item",
   foreignKey: "trayId",
