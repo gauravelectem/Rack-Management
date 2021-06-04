@@ -66,8 +66,8 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
   var name = req.query.name;
   var clientFk = req.query.clientFk;
-  var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
- // var condition = clientFk ? { clientFk: { [Op.eq]: clientFk } } : null;
+ // var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+  var condition = clientFk ? { clientFk: { [Op.eq]: clientFk } } : null;
   Items.findAll({ where: condition})
     .then(data => {
       res.send(data);
