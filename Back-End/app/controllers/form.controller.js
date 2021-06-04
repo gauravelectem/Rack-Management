@@ -36,9 +36,9 @@ exports.create = (req, res) => {
 
   // Retrieve all Forms from the database.
 exports.findAll = (req, res) => {
-  var name = req.query.name;
-  var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
-
+  var itemTempId = req.query.itemTempId;
+  //var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+   var condition = itemTempId ? { itemTempId: { [Op.eq]: itemTempId } } : null;
   Forms.findAll({ where: condition })
     .then(data => {
       res.send(data);
