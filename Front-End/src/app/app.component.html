@@ -1,8 +1,16 @@
  
-    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-            <span href="#" class="card-link" *ngFor="let item of menuObject ;">
-                <a  routerLink="/{{ item.action }}"  target="_self" >{{item.label}}</a>
-            </span>
-        </nav>
- <router-outlet></router-outlet>
+<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-primary">
+    <div class="navbar-nav"  *ngFor="let item of menuObject ;">
+        <a  class="nav-item nav-link" style="color: white;" routerLink="/{{ item.action }}"  target="_self" >{{item.label}}</a>
+    </div>
+    <a class="nav-item nav-link" (click)="logout()" style="color: white;">Logout</a>
+</nav>
 
+    <!-- main app container -->
+<div class="app-container" [ngClass]="{ 'bg-light': user }">
+    <alert></alert>
+    <div class="col-md-6 offset-md-3 mt-5">
+        <router-outlet></router-outlet>
+    </div>
+</div>

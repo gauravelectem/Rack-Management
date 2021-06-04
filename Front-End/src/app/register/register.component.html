@@ -1,6 +1,8 @@
-<div class="submit-form">
+<div class="card">
+  <h4 class="card-header">Register</h4>
+<div class="card-body">
     <form name="myForm" [formGroup]="registerForm" (ngSubmit)="saveUser()">
-      <div class="form-group col-md-6">
+      <div class="form-group">
         <label for="title">Username</label>
         <input type="text" class="form-control" id="username" formControlName="username"  [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
           name="username"/>
@@ -9,7 +11,7 @@
         </div>
       </div>
 
-      <div class="form-group col-md-6">
+      <div class="form-group">
         <label for="description">Email</label>
         <input type="text" class="form-control" id="email" formControlName="email"  
         [ngClass]="{ 'is-invalid': submitted && f.email.errors }" name="email"/>
@@ -18,7 +20,7 @@
         </div>
       </div>
 
-      <div class="form-group col-md-6">
+      <div class="form-group">
           <label for="title">Password</label>
           <input type="text" class="form-control" id="password" formControlName="password"  
         [ngClass]="{ 'is-invalid': submitted && f.password.errors }" name="email"/>
@@ -27,7 +29,7 @@
         </div>
         </div>
   
-        <div class="form-group col-md-6">
+        <div class="form-group">
           <label for="description">Phone</label>
           <input type="text" class="form-control" id="phone" formControlName="phone"  
             [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" name="phone"/>
@@ -36,7 +38,7 @@
         </div>
         </div>
 
-        <div class="form-group col-md-6">
+        <div class="form-group">
             <label for="description">Location</label>
             <input type="text" class="form-control" id="location" formControlName="location"  
               [ngClass]="{ 'is-invalid': submitted && f.location.errors }" name="email"/>
@@ -44,8 +46,11 @@
               <div *ngIf="f.location.errors.required">Location is required</div>
           </div>
         </div>
-
-      <button class="btn btn-success ml-3">Submit</button>
-      <button routerLink="/login" class="btn btn-danger ml-2">Cancel</button>
+        <div class="form-group">
+          <button  class="btn btn-primary">Submit</button>
+          <a routerLink="/login" class="btn btn-link">Cancel</a>
+      </div>
+      
     </form>
+  </div>
   </div>
