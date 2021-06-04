@@ -30,8 +30,9 @@ constructor(private menuService: MenuService,
   private itemService:ItemService,
   private activatedRoute: ActivatedRoute,
   private router: Router) { } 
-
+  UserObj : any = {};
   ngOnInit(): void {  
+    this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
     this.itemPk = this.activatedRoute.snapshot.params['id'];
     this.fetchItemById(this.itemPk);
     this.fetchAllmenus();
@@ -83,6 +84,11 @@ constructor(private menuService: MenuService,
 
       redirect(action : any) {
         this.router.navigate(['/action']);
+      }
+
+      logout() {
+        window.sessionStorage.clear();
+        this.router.navigate(['/login']);
       }
 
 }
