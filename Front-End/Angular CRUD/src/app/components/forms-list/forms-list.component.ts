@@ -14,6 +14,8 @@ export class ProductListComponent implements OnInit {
   currentIndex = -1;
   name = '';
    tempid = '';
+  clientFk = ''; 
+  UserObj : any = {};
   constructor(private tutorialService: FormService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -21,6 +23,8 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.tempid = this.route.snapshot.params['id'];
     this.retrieveProducts();
+    this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
+    this.clientFk = this.UserObj.clientFk;
   }
 
   retrieveProducts(): void {
@@ -78,7 +82,7 @@ export class ProductListComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          this.tutorialService.getAll(Client.clientFK);
+          this.tutorialService.getAll(this.clientFk);
           this.router.navigate(['/template']);
 
         },

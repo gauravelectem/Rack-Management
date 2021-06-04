@@ -176,12 +176,15 @@ export class EditFormComponent implements OnInit {
 
   report = false;
   reports: any = [];
-
+  UserObj : any = {};
+  clientFk : '';
   constructor(
     private route: ActivatedRoute, private tutorialService: FormService, private router: Router
   ) { }
 
   ngOnInit() {
+    this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
+    this.clientFk = this.UserObj.clientFk;
     this.getFormData(this.route.snapshot.params.id);
 
   }
@@ -362,7 +365,7 @@ export class EditFormComponent implements OnInit {
         console.log(response);
         this.success = true;
         this.router.navigate(['/template']);
-        this.tutorialService.getAll(Client.clientFK);
+        this.tutorialService.getAll(this.clientFk);
        // this.submitted = true;
       },
       error => {
@@ -372,7 +375,7 @@ export class EditFormComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['/template']);
-          this.tutorialService.getAll(Client.clientFK);
+          this.tutorialService.getAll(this.clientFk);
   }
 
 }

@@ -13,17 +13,21 @@ export class TutorialsListComponent implements OnInit {
   currentTutorial?: Tutorial;
   currentIndex = -1;
   name = '';
+  UserObj : any = {};
+  clientFk : '';
 
   constructor(private tutorialService: FormService,
     private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {
+    this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
+    this.clientFk = this.UserObj.clientFk;
     this.retrieveTutorials();
   }
 
   retrieveTutorials(): void {
-    this.tutorialService.getAll(Client.clientFK)
+    this.tutorialService.getAll(this.clientFk)
       .subscribe(
         data => {
           this.tutorials = data;
@@ -77,7 +81,7 @@ export class TutorialsListComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          this.tutorialService.getAll(Client.clientFK);
+          this.tutorialService.getAll(this.clientFk);
           this.router.navigate(['/template']);
 
         },

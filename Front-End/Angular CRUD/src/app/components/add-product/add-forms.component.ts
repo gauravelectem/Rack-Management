@@ -17,12 +17,16 @@ export class AddProductComponent implements OnInit {
   };
   itemTempId = '';
   success = false;
+  UserObj : any = {};
+  clientFk : '';
   constructor(private route: ActivatedRoute,
     private router: Router, private tutorialService: FormService) { }
 
   ngOnInit(): void {
+    this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
     this.itemTempId = this.route.snapshot.params.id;
     this.getFormData(this.route.snapshot.params.id);
+    this.clientFk = this.UserObj.clientFk;
   }
 
   getFormData(id: string): void {
@@ -46,7 +50,7 @@ export class AddProductComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['/template']);
-          this.tutorialService.getAll(Client.clientFK);
+          this.tutorialService.getAll(this.clientFk);
   }
 
   submit() {
@@ -104,7 +108,7 @@ export class AddProductComponent implements OnInit {
           console.log(response);
           this.success = true;
           this.router.navigate(['/template']);
-          this.tutorialService.getAll(Client.clientFK);
+          this.tutorialService.getAll(this.clientFk );
          // this.submitted = true;
         },
         error => {

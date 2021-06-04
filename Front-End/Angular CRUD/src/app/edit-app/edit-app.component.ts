@@ -173,19 +173,20 @@ export class EditAppComponent implements OnInit {
       bannerImage: ''
     },
     attributes: this.modelFields,
-    clientFk: Client.clientFK
+    clientFk: ''
   };
 
   report = false;
   reports: any = [];
+   UserObj : any = {};
 
   constructor(
     private route: ActivatedRoute, private tutorialService: FormService, private router: Router, private menuService: MenuService
   ) { }
 
   ngOnInit() {
-
-
+     this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
+     this.model.clientFk = this.UserObj.clientFk;
   }
 
   onDragStart(event: DragEvent) {
@@ -335,7 +336,7 @@ export class EditAppComponent implements OnInit {
       name: this.model.name,
       description: this.model.description,
       attributes: this.model.attributes,
-      clientFk: this.model.clientFk,
+      clientFk: this.UserObj.clientFk,
     };
 
     this.tutorialService.saveForm(data)
@@ -361,7 +362,7 @@ export class EditAppComponent implements OnInit {
               });
           this.router.navigate(['/template']);
          // this.router.navigate(['menu', response.id]);
-          this.tutorialService.getAll(Client.clientFK);
+          this.tutorialService.getAll(this.UserObj.clientFk);
          // this.submitted = true;
         },
         error => {
@@ -371,7 +372,7 @@ export class EditAppComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['/template']);
-          this.tutorialService.getAll(Client.clientFK);
+          this.tutorialService.getAll(this.UserObj.clientFk);
   }
 
 }
