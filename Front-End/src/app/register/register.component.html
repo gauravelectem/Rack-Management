@@ -1,0 +1,51 @@
+<div class="submit-form">
+    <form name="myForm" [formGroup]="registerForm" (ngSubmit)="saveUser()">
+      <div class="form-group col-md-6">
+        <label for="title">Username</label>
+        <input type="text" class="form-control" id="username" formControlName="username"  [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+          name="username"/>
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="description">Email</label>
+        <input type="text" class="form-control" id="email" formControlName="email"  
+        [ngClass]="{ 'is-invalid': submitted && f.email.errors }" name="email"/>
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+          <label for="title">Password</label>
+          <input type="text" class="form-control" id="password" formControlName="password"  
+        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" name="email"/>
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+        </div>
+  
+        <div class="form-group col-md-6">
+          <label for="description">Phone</label>
+          <input type="text" class="form-control" id="phone" formControlName="phone"  
+            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" name="phone"/>
+        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+            <div *ngIf="f.phone.errors.required">Phone is required</div>
+        </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="description">Location</label>
+            <input type="text" class="form-control" id="location" formControlName="location"  
+              [ngClass]="{ 'is-invalid': submitted && f.location.errors }" name="email"/>
+          <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+              <div *ngIf="f.location.errors.required">Location is required</div>
+          </div>
+        </div>
+
+      <button class="btn btn-success ml-3">Submit</button>
+      <button routerLink="/login" class="btn btn-danger ml-2">Cancel</button>
+    </form>
+  </div>
