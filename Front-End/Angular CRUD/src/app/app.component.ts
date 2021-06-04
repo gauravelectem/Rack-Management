@@ -5,6 +5,7 @@ import { MenuService } from './services/menu.service';
 import { Menu } from './models/menu.model';
 import { ItemService } from './services/item.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,7 +28,8 @@ export class AppComponent {
 
 constructor(private menuService: MenuService,
   private itemService:ItemService,
-  private activatedRoute: ActivatedRoute) { } 
+  private activatedRoute: ActivatedRoute,
+  private router: Router) { } 
 
   ngOnInit(): void {  
     this.itemPk = this.activatedRoute.snapshot.params['id'];
@@ -79,5 +81,8 @@ constructor(private menuService: MenuService,
         });
       }
 
+      redirect(action : any) {
+        this.router.navigate(['/action']);
+      }
 
 }

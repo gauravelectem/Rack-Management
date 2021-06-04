@@ -58,6 +58,10 @@ export class FormService {
     return this.http.get<Product[]>(formBaseUrl);
   }
 
+  getAllProductsByItemTempId(itemTempId:any): Observable<Product[]> {
+    return this.http.get<Product[]>(`${formBaseUrl}?itemTempId=${itemTempId}`);
+  }
+
   getFormData(id: any): Observable<Product> {
     return this.http.get(`${formBaseUrl}/${id}`);
   }

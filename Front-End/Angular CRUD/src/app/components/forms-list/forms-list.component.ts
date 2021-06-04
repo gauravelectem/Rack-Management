@@ -24,7 +24,7 @@ export class ProductListComponent implements OnInit {
   }
 
   retrieveProducts(): void {
-    this.tutorialService.getAllProducts()
+    this.tutorialService.getAllProductsByItemTempId(this.tempid)
       .subscribe(
         data => {
           this.products = data;

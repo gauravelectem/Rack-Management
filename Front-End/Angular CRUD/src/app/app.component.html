@@ -1,9 +1,8 @@
- <div class="container">
-    <mat-toolbar class="mt-3">
+ 
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
             <span href="#" class="card-link" *ngFor="let item of menuObject ;">
-                <a  routerLink="/{{ item.action }}">{{item.label}}</a>
+                <a  routerLink="/{{ item.action }}"  target="_self" >{{item.label}}</a>
             </span>
-    </mat-toolbar>
-</div>
+        </nav>
  <router-outlet></router-outlet>
 
