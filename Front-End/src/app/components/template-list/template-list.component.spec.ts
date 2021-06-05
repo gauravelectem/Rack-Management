@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TemplateListComponent } from './tutorials-list.component';
+import { TemplateListComponent } from './template-list.component';
 
 describe('TemplateListComponent', () => {
   let component: TemplateListComponent;

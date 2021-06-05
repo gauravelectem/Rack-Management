@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Tutorial } from '../models/tutorial.model';
-import { Product } from 'src/app/models/product.model';
+import { Tutorial } from '../models/template.model';
+import { Product } from 'src/app/models/form.model';
 
 const baseUrl = 'http://localhost:8080/api/items';
 const formBaseUrl = 'http://localhost:8080/api/form';

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/product.model';
+import { Product } from 'src/app/models/form.model';
 import { FormService } from 'src/app/services/app.form.service';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({

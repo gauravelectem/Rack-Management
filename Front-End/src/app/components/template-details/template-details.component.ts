@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormService } from 'src/app/services/app.form.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Tutorial } from 'src/app/models/tutorial.model';
+import { Tutorial } from 'src/app/models/template.model';
 
 @Component({
   selector: 'app-tutorial-details',

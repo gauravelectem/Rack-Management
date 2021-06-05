@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Tutorial } from 'src/app/models/tutorial.model';
+import { Tutorial } from 'src/app/models/template.model';
 import { FormService } from 'src/app/services/app.form.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from '../../client';
