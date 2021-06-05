@@ -20,9 +20,6 @@ import { EditFormsComponent } from './components/edit-forms/edit-forms.component
 import { FormListComponent } from './components/forms-list/forms-list.component';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { MenuComponent } from './components/menu/menu.component';
-import { HomePageComponent } from './components/home-page/home-page.component';
-import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { ViewTemplateComponent } from './components/view-template/view-template.component';
 import { ViewFormDetailsComponent } from './components/view-form-details/view-form-details.component';
 const appRoutes: Routes = [
@@ -42,9 +39,6 @@ const appRoutes: Routes = [
     AddFormComponent,
     EditFormsComponent,
  FormListComponent,
- MenuComponent,
- HomePageComponent,
- ContactUsComponent,
  ViewTemplateComponent,
  ViewFormDetailsComponent,
 
