@@ -5,8 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from '../../client';
 @Component({
   selector: 'app-tutorials-list',
-  templateUrl: './tutorials-list.component.html',
-  styleUrls: ['./tutorials-list.component.css']
+  templateUrl: './template-list.component.html',
+  styleUrls: ['./template-list.component.css']
 })
 export class TemplateListComponent implements OnInit {
   tutorials?: Tutorial[];

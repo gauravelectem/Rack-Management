@@ -5,8 +5,8 @@ import { Tutorial } from 'src/app/models/template.model';
 
 @Component({
   selector: 'app-tutorial-details',
-  templateUrl: './tutorial-details.component.html',
-  styleUrls: ['./tutorial-details.component.css']
+  templateUrl: './template-details.component.html',
+  styleUrls: ['./template-details.component.css']
 })
 export class TemplateDetailsComponent implements OnInit {
   currentTutorial: Tutorial = {
