@@ -46,7 +46,7 @@
       <div>
         <label><strong>Name:</strong></label> {{ currentTutorial.name }}
       </div>
-      <a class="badge badge-warning" routerLink="/edit/{{ currentTutorial.id }}">
+      <a class="badge badge-warning" routerLink="/edit/{{ currentTutorial.name }}/{{ currentTutorial.id }}">
         Edit
       </a>
       <a class="badge badge-warning" routerLink="/addProduct/{{ currentTutorial.id }}">

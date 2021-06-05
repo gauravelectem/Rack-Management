@@ -26,6 +26,7 @@ const routes: Routes = [
   { path: 'add', component: AddTutorialComponent },
   { path: 'addTemplate', component: EditAppComponent },
   { path: 'edit/:id', component: EditFormComponent },
+  { path: 'edit/:name/:id', component: EditFormComponent},
   { path: 'addProduct', component: AddProductComponent },
   { path: 'addProduct/:id', component: AddProductComponent},
   { path: 'editProduct/:id', component: EditProductComponent },

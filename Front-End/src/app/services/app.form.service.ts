@@ -22,6 +22,10 @@ export class FormService {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
+  getById(name:any, id: any): Observable<Tutorial> {
+    return this.http.get(`${baseUrl}/${name}/${id}`);
+  }
+
   create(data: any): Observable<any> {
     return this.http.post(baseUrl, data);
   }
