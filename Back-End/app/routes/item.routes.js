@@ -9,7 +9,7 @@ module.exports = app => {
     // Retrieve all Tutorialscls
     router.get("/", items.findAll);
 
-    router.get("/:id", items.findOne);
+    router.get("/:name/:id", items.findOne);
 
     // Update a Tutorial with id
     router.put("/:id", items.update);

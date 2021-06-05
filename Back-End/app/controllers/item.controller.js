@@ -124,8 +124,8 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
   var name = req.query.name;
   var clientFk = req.query.clientFk;
- // var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
-  var condition = clientFk ? { clientFk: { [Op.eq]: clientFk } } : null;
+  var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+ // var condition = clientFk ? { clientFk: { [Op.eq]: clientFk } } : null;
   Items.findAll({ where: condition})
     .then(data => {
       res.send(data);
@@ -142,9 +142,10 @@ exports.findAll = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Items.update(req.body, {
-    where: { id: id }
-  })
+  let query = `UPDATE ${req.body.name}_template SET name = '${req.body.name}',description = '${req.body.description}',
+  attributes = '${JSON.stringify(req.body.attributes)}' WHERE id = ${id}`;
+  sequelize.query(query).then(([results, metadata]) => {
+    })
     .then(num => {
       if (num == 1) {
         res.send({
@@ -191,17 +192,16 @@ exports.delete = (req, res) => {
 // Find a single Customer with a customerId
 exports.findOne = (req, res) => {
   const id = req.params.id;
-
-  Items.findByPk(id)
-    .then(data => {
-     // data.dataValues.attributes =JSON.parse(data.dataValues.attributes);
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error retrieving Tutorial with id=" + id
-      });
+  let querys = `SELECT * FROM ${req.params.name}_template WHERE id = ${id}`;
+  sequelize.query(querys, { type: sequelize.QueryTypes.SELECT})
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Error retrieving Tutorial with id=" + id
     });
+  });
 };
 
 
