@@ -179,7 +179,7 @@ export class EditFormComponent implements OnInit {
   UserObj : any = {};
   clientFk : '';
   constructor(
-    private route: ActivatedRoute, private tutorialService: FormService, private router: Router
+    private route: ActivatedRoute, private formService: FormService, private router: Router
   ) { }
 
   ngOnInit() {
@@ -191,7 +191,7 @@ export class EditFormComponent implements OnInit {
 
   getFormData(name:string, id: string): void {
     let datas ;
-      this.tutorialService.getById(name,id)
+      this.formService.getById(name,id)
           .subscribe(
               data => {
                 datas = data[0];
@@ -295,7 +295,7 @@ export class EditFormComponent implements OnInit {
       description: this.model.description
     };
 
-    this.tutorialService.saveForm(data)
+    this.formService.saveForm(data)
       .subscribe(
         response => {
           console.log(response);
@@ -359,13 +359,13 @@ export class EditFormComponent implements OnInit {
       attributes: this.model.attributes
     };
 
-    this.tutorialService.updateForm(this.route.snapshot.params.id, this.model)
+    this.formService.updateForm(this.route.snapshot.params.id, this.model)
     .subscribe(
       response => {
         console.log(response);
         this.success = true;
         this.router.navigate(['/template']);
-        this.tutorialService.getAll(this.clientFk);
+        this.formService.getAll(this.clientFk);
        // this.submitted = true;
       },
       error => {
@@ -375,7 +375,7 @@ export class EditFormComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['/template']);
-          this.tutorialService.getAll(this.clientFk);
+          this.formService.getAll(this.clientFk);
   }
 
 }

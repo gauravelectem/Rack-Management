@@ -8,7 +8,7 @@ import { Client } from '../../client';
   templateUrl: './tutorials-list.component.html',
   styleUrls: ['./tutorials-list.component.css']
 })
-export class TutorialsListComponent implements OnInit {
+export class TemplateListComponent implements OnInit {
   tutorials?: Tutorial[];
   currentTutorial?: Tutorial;
   currentIndex = -1;
@@ -16,7 +16,7 @@ export class TutorialsListComponent implements OnInit {
   UserObj : any = {};
   clientFk : '';
 
-  constructor(private tutorialService: FormService,
+  constructor(private formService: FormService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -27,7 +27,7 @@ export class TutorialsListComponent implements OnInit {
   }
 
   retrieveTutorials(): void {
-    this.tutorialService.getAll(this.clientFk)
+    this.formService.getAll(this.clientFk)
       .subscribe(
         data => {
           this.tutorials = data;
@@ -50,7 +50,7 @@ export class TutorialsListComponent implements OnInit {
   }
 
   removeAllTutorials(): void {
-    this.tutorialService.deleteAll()
+    this.formService.deleteAll()
       .subscribe(
         response => {
           console.log(response);
@@ -65,7 +65,7 @@ export class TutorialsListComponent implements OnInit {
     this.currentTutorial = undefined;
     this.currentIndex = -1;
 
-    this.tutorialService.findByTitle(this.name)
+    this.formService.findByTitle(this.name)
       .subscribe(
         data => {
           this.tutorials = data;
@@ -77,11 +77,11 @@ export class TutorialsListComponent implements OnInit {
   }
 
   deleteTutorial(id): void {
-    this.tutorialService.delete(id)
+    this.formService.delete(id)
       .subscribe(
         response => {
           console.log(response);
-          this.tutorialService.getAll(this.clientFk);
+          this.formService.getAll(this.clientFk);
           this.router.navigate(['/template']);
 
         },

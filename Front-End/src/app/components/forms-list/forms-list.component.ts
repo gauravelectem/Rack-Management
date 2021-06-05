@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './forms-list.component.html',
   styleUrls: ['./forms-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class FormListComponent implements OnInit {
   products?: Product[];
   currentTutorial?: Product;
   currentIndex = -1;

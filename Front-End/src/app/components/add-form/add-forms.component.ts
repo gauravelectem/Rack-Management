@@ -9,7 +9,7 @@ import swal from 'sweetalert2';
   templateUrl: './add-forms.component.html',
   styleUrls: ['./add-forms.component.css']
 })
-export class AddProductComponent implements OnInit {
+export class AddFormComponent implements OnInit {
   model: Formdata = {
     name: '',
     description: '',

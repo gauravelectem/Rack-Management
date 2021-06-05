@@ -8,7 +8,7 @@ import { Tutorial } from 'src/app/models/tutorial.model';
   templateUrl: './tutorial-details.component.html',
   styleUrls: ['./tutorial-details.component.css']
 })
-export class TutorialDetailsComponent implements OnInit {
+export class TemplateDetailsComponent implements OnInit {
   currentTutorial: Tutorial = {
     name: '',
     subscriberId: '',
@@ -16,7 +16,7 @@ export class TutorialDetailsComponent implements OnInit {
   message = '';
 
   constructor(
-    private tutorialService: FormService,
+    private formService: FormService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -28,7 +28,7 @@ export class TutorialDetailsComponent implements OnInit {
   }
 
   getTutorial(id: string): void {
-    this.tutorialService.get(id)
+    this.formService.get(id)
       .subscribe(
         data => {
           this.currentTutorial = data;
@@ -47,7 +47,7 @@ export class TutorialDetailsComponent implements OnInit {
 
     this.message = '';
 
-    this.tutorialService.update(this.currentTutorial.id, data)
+    this.formService.update(this.currentTutorial.id, data)
       .subscribe(
         response => {
 
@@ -62,7 +62,7 @@ export class TutorialDetailsComponent implements OnInit {
   updateTutorial(): void {
     this.message = '';
 
-    this.tutorialService.update(this.currentTutorial.id, this.currentTutorial)
+    this.formService.update(this.currentTutorial.id, this.currentTutorial)
       .subscribe(
         response => {
           console.log(response);
@@ -74,7 +74,7 @@ export class TutorialDetailsComponent implements OnInit {
   }
 
   deleteTutorial(): void {
-    this.tutorialService.delete(this.currentTutorial.id)
+    this.formService.delete(this.currentTutorial.id)
       .subscribe(
         response => {
           console.log(response);

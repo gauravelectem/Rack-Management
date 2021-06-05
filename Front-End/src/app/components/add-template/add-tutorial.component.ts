@@ -7,7 +7,7 @@ import { FormService } from 'src/app/services/app.form.service';
   templateUrl: './add-tutorial.component.html',
   styleUrls: ['./add-tutorial.component.css']
 })
-export class AddTutorialComponent implements OnInit {
+export class AddTemplateComponent implements OnInit {
   tutorial: Tutorial = {
     name: '',
     subscriberId: '',

@@ -9,7 +9,7 @@ import { Formdata } from 'src/app/models/form-builder.model';
   templateUrl: './edit-forms.component.html',
   styleUrls: ['./edit-forms.component.css']
 })
-export class EditProductComponent implements OnInit {
+export class EditFormsComponent implements OnInit {
 
   model: Formdata = {
     name: '',

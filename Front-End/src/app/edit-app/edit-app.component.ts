@@ -181,7 +181,7 @@ export class EditAppComponent implements OnInit {
    UserObj : any = {};
 
   constructor(
-    private route: ActivatedRoute, private tutorialService: FormService, private router: Router, private menuService: MenuService
+    private route: ActivatedRoute, private formService: FormService, private router: Router, private menuService: MenuService
   ) { }
 
   ngOnInit() {
@@ -274,7 +274,7 @@ export class EditAppComponent implements OnInit {
       description: this.model.description
     };
 
-    this.tutorialService.saveForm(data)
+    this.formService.saveForm(data)
       .subscribe(
         response => {
           console.log(response);
@@ -339,7 +339,7 @@ export class EditAppComponent implements OnInit {
       clientFk: this.UserObj.clientFk,
     };
 
-    this.tutorialService.saveForm(data)
+    this.formService.saveForm(data)
       .subscribe(
         response => {
           console.log(response);
@@ -362,7 +362,7 @@ export class EditAppComponent implements OnInit {
               });
           this.router.navigate(['/template']);
          // this.router.navigate(['menu', response.id]);
-          this.tutorialService.getAll(this.UserObj.clientFk);
+          this.formService.getAll(this.UserObj.clientFk);
          // this.submitted = true;
         },
         error => {
@@ -372,7 +372,7 @@ export class EditAppComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['/template']);
-          this.tutorialService.getAll(this.UserObj.clientFk);
+          this.formService.getAll(this.UserObj.clientFk);
   }
 
 }

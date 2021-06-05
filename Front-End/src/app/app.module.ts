@@ -9,15 +9,15 @@ import { EditAppComponent } from './edit-app/edit-app.component';
 import { DndModule } from 'ngx-drag-drop';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { HttpClientModule } from '@angular/common/http';
-import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.component';
-import { TutorialDetailsComponent } from './components/tutorial-details/tutorial-details.component';
-import { TutorialsListComponent } from './components/tutorials-list/tutorials-list.component';
+import { AddTemplateComponent } from './components/add-template/add-tutorial.component';
+import { TemplateDetailsComponent } from './components/template-details/tutorial-details.component';
+import { TemplateListComponent } from './components/template-list/tutorials-list.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { AddProductComponent } from './components/add-product/add-forms.component';
-import { EditProductComponent } from './components/edit-forms/edit-forms.component';
-import { ProductListComponent } from './components/forms-list/forms-list.component';
+import { AddFormComponent } from './components/add-form/add-forms.component';
+import { EditFormsComponent } from './components/edit-forms/edit-forms.component';
+import { FormListComponent } from './components/forms-list/forms-list.component';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MenuComponent } from './components/menu/menu.component';
@@ -35,13 +35,13 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     EditAppComponent,
-    AddTutorialComponent,
-    TutorialDetailsComponent,
-    TutorialsListComponent,
+    AddTemplateComponent,
+    TemplateDetailsComponent,
+    TemplateListComponent,
     EditFormComponent,
-    AddProductComponent,
- EditProductComponent,
- ProductListComponent,
+    AddFormComponent,
+    EditFormsComponent,
+ FormListComponent,
  MenuComponent,
  HomePageComponent,
  ContactUsComponent,
