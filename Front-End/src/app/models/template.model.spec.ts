@@ -1,4 +1,4 @@
-import { Tutorial } from './tutorial.model';
+import { Tutorial } from './template.model';
 
 describe('Tutorial', () => {
   it('should create an instance', () => {

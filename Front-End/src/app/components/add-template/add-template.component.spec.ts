@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddTemplateComponent } from './add-tutorial.component';
+import { AddTemplateComponent } from './add-template.component';
 
 describe('AddTemplateComponent', () => {
   let component: AddTemplateComponent;
