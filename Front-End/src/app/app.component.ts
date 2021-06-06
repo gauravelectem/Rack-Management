@@ -34,7 +34,7 @@ constructor(private menuService: MenuService,
   ngOnInit(): void {  
     this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
     this.itemPk = this.activatedRoute.snapshot.params['id'];
-    this.fetchItemById(this.itemPk);
+    //this.fetchItemById(this.itemPk);
     this.fetchAllmenus();
   }
 
