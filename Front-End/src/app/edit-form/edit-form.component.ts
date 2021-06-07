@@ -3,7 +3,7 @@ import { DndDropEvent, DropEffect} from 'ngx-drag-drop';
 import { field, value } from '../global.model';
 import { ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
-import { FormService } from 'src/app/services/app.form.service';
+import { FormService } from '../services/app.form.service';
 import { Client } from '../client';
 
 @Component({

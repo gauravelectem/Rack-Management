@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/form.model';
-import { FormService } from 'src/app/services/app.form.service';
+import { FormService } from './../../services/app.form.service';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-forms-list',
@@ -15,7 +15,8 @@ export class FormListComponent implements OnInit {
    tempid = '';
   clientFk = ''; 
   UserObj : any = {};
-  constructor(private tutorialService: FormService,
+  templateName:any;
+  constructor(private formService: FormService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -27,7 +28,7 @@ export class FormListComponent implements OnInit {
   }
 
   retrieveProducts(): void {
-    this.tutorialService.getAllProductsByItemTempId(this.tempid)
+    this.formService.getAllProductsByItemTempId(this.tempid)
       .subscribe(
         data => {
           this.products = data;
@@ -50,7 +51,7 @@ export class FormListComponent implements OnInit {
   }
 
   removeAllTutorials(): void {
-    this.tutorialService.deleteAll()
+    this.formService.deleteAll()
       .subscribe(
         response => {
           console.log(response);
@@ -65,7 +66,7 @@ export class FormListComponent implements OnInit {
     this.currentTutorial = undefined;
     this.currentIndex = -1;
 
-    this.tutorialService.findByFormsName(this.name)
+    this.formService.findByFormsName(this.name)
       .subscribe(
         data => {
           this.products = data;
@@ -77,11 +78,11 @@ export class FormListComponent implements OnInit {
   }
 
   deleteProduct(id): void {
-    this.tutorialService.deleteProduct(id)
+    this.formService.deleteProduct(id)
       .subscribe(
         response => {
           console.log(response);
-          this.tutorialService.getAll(this.clientFk);
+          this.formService.getAll(this.clientFk);
           this.router.navigate(['/template']);
 
         },

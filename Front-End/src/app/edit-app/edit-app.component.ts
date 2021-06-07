@@ -3,7 +3,7 @@ import { DndDropEvent, DropEffect} from 'ngx-drag-drop';
 import { field, value } from '../global.model';
 import { ActivatedRoute, Router} from '@angular/router';
 import swal from 'sweetalert2';
-import { FormService } from 'src/app/services/app.form.service';
+import { FormService } from '../services/app.form.service';
 import { Client } from '../client';
 import { MenuService } from '../services/menu.service';
 @Component({
@@ -179,6 +179,7 @@ export class EditAppComponent implements OnInit {
   report = false;
   reports: any = [];
    UserObj : any = {};
+   response:any;
 
   constructor(
     private route: ActivatedRoute, private formService: FormService, private router: Router, private menuService: MenuService
@@ -346,9 +347,9 @@ export class EditAppComponent implements OnInit {
           this.success = true;
           const datas = {
             label: response.name,
-            action:"menu/"+response.name+"/"+response.id,
+            action:"menu/"+response.name,
             menu_fk:1,
-            roleId:2,
+            roleId:1,
             itemId:response.id,
           };
           this.menuService.createMenu(datas)

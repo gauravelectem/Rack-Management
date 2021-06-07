@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Formdata } from 'src/app/models/form-builder.model';
-import { FormService } from 'src/app/services/app.form.service';
+import { FormService } from './../../services/app.form.service';
 import { Client } from '../../client';
 import swal from 'sweetalert2';
 @Component({
