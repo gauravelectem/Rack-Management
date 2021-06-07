@@ -1,12 +1,8 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-const baseUrl = 'http://localhost:8080/api/menu/item';
-
-const baseUrlForMenus = 'http://localhost:8080/api/menu/createMenu';
-
-const fetchAllMenus = 'http://localhost:8080/api/menu/';
+import { environment } from '../../environments/environment';
+const baseUrl = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -16,19 +12,19 @@ export class MenuService {
   constructor(private http: HttpClient) { }
 
   getRoleById(roleId: any): Observable<any> {
-    return this.http.get(`${baseUrl}/${roleId}`);
+    return this.http.get(`${baseUrl}/api/menu/item/${roleId}`);
   }
 
   getMenuByItemId(itemId: any): Observable<any> {
-    return this.http.get(`${baseUrl}/${itemId}`);
+    return this.http.get(`${baseUrl}/api/menu/item/${itemId}`);
   }
 
   fetchAllMenus(): Observable<any> {
-    return this.http.get(`${fetchAllMenus}`);
+    return this.http.get(`${baseUrl}/api/menu/`);
   }
 
   createMenu(data: any): Observable<any> {
-    return this.http.post(baseUrlForMenus, data);
+    return this.http.post(baseUrl + '/api/menu/createMenu', data);
   }
 
 }
