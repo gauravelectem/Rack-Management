@@ -26,7 +26,7 @@ exports.create = (req, res) => {
         sequelize.query(query, { type: sequelize.QueryTypes.CREATE})
         .then(data => {
            insertRecords(item);
-           res.send(data);
+           res.send(item);
         })
         .catch(err => {
           res.status(500).send({
@@ -52,6 +52,16 @@ exports.findAll = (req, res) => {
       });
     });
 };
+
+// exports.findAll = (req, res) => {
+//   const tableName = req.query.name;
+
+//   sequelize.query ( "SELECT * FROM "+tableName).then( myTableRows => { 
+//     res.send(myTableRows);
+//   }
+//   )
+
+// }
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {

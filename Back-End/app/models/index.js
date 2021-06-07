@@ -20,21 +20,16 @@ db.itemtemplatepropertys = require("./itemTemplateProperty.js")(sequelize, Seque
 db.products = require("./itemForm.model.js")(sequelize, Sequelize);
 db.clients = require("./client.model.js")(sequelize, Sequelize);
 
-db.role.belongsToMany(db.user, {
-  through: "user_roles",
-  foreignKey: "roleId",
-  otherKey: "userId"
-});
-db.user.belongsToMany(db.role, {
-  through: "user_roles",
-  foreignKey: "userId",
-  otherKey: "roleId"
-});
-
 db.racks.hasMany(db.trays, { as: "tray" });
 db.trays.belongsTo(db.racks, {
   foreignKey: "rackId",
   as: "rack",
+});
+
+db.role.hasMany(db.user, { as: "users" });
+db.user.belongsTo(db.role, {
+  foreignKey: "roleId",
+  as: "role",
 });
 
 db.items.hasMany(db.menus, { as: "menu" });

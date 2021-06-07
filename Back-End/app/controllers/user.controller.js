@@ -1,8 +1,8 @@
 const db = require("../models");
+const crypto = require('crypto');
 const Op = db.Sequelize.Op;
 const User = db.user;
 const Client = db.clients;
-
 
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
@@ -28,8 +28,11 @@ exports.Create = (req, res) => {
     password: req.body.password,
     phone: req.body.phone,
     location: req.body.location,
-    clientFk: req.body.clientFk,
+    clientFk: req.body.clientFk
   };
+  
+  var hash = crypto.createHash('md5').update(user.password).digest('hex');
+  user.password = hash;
 
   // Save User in the database
   User.create(user)
@@ -48,9 +51,12 @@ exports.login = (req, res) => {
   const user = {
     email: req.body.email,
     password: req.body.password,
+    status:'ACTIVE'
   };
+  var hash = crypto.createHash('md5').update(user.password).digest('hex');
+  user.password = hash;
 
-  User.findOne({where:user})
+  User.findOne({where:user })
       .then(data => {
           res.send(data);
       })

@@ -21,6 +21,10 @@ module.exports = (sequelize, Sequelize) => {
     location: {
       type: Sequelize.STRING
     },
+    status:{
+      type:Sequelize.STRING,
+      defaultValue:"registered"
+    },
     clientFk: {
       type: Sequelize.INTEGER,
       allowNull: true,
@@ -33,6 +37,10 @@ module.exports = (sequelize, Sequelize) => {
 
   User.associate = (models) => {
     User.belongsTo(models.Client, { foreignKey: 'clientFk', as: 'client' })
+};
+
+User.associate = (models) => {
+  User.belongsTo(models.Role, { foreignKey: 'roleId', as: 'role' })
 };
 
   return User;

@@ -13,6 +13,10 @@ module.exports = (sequelize, Sequelize) => {
     Role.hasMany(models.Menu, { as: 'menu' })
 };
 
+Role.associate = function (models) {
+  Role.hasMany(models.User, { as: 'users' })
+};
+
 
   return Role;
 };
