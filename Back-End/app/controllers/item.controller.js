@@ -1,32 +1,6 @@
 const db = require("../models");
-const config = require("../config/db.config.js");
 const Sequelize = require("sequelize");
-const { Pool, Client } = require("pg");
-
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "ItemFinals",
-  password: "postgres",
-  port: "5432"
-});
-const sequelize = new Sequelize(
-  config.DB,
-  config.USER,
-  config.PASSWORD,
-  {
-    host: config.HOST,
-    dialect: config.dialect,
-    operatorsAliases: false,
-
-    pool: {
-      max: config.pool.max,
-      min: config.pool.min,
-      acquire: config.pool.acquire,
-      idle: config.pool.idle
-    }
-  }
-);
+const sequelize = require("../config/seq.config.js");
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
@@ -35,8 +9,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
- 
-  
+
   //const data =  JSON.stringify(req.body.itemData)
   var ites = JSON.stringify(req.body.attributes)
   const item = {
@@ -45,82 +18,24 @@ exports.create = (req, res) => {
     description: req.body.description
   };
 
-
   let query = `CREATE TABLE ${req.body.name}_template (`;
              query += `id SERIAL PRIMARY KEY, name character varying(255),  subscriberId integer, description character varying(255), attributes json, createdAt timestamp with time zone NULL,
              updatedAt timestamp with time zone NULL`;
         query += ")";
-        pool.query(query);
-        let insert = `INSERT INTO ${req.body.name}_template(`;
-        for (let key in item) {
-          if(key === 'description') {
-            insert += `${key}`;
-          }else {
-            insert += `${key}, `;
-          }
-           
-        }
-        insert += ") VALUES (";
-        for (let key in item) {
-          if(key === 'description') {
-            insert += `'${item[key]}'`; 
-          }else {
-            insert += `'${item[key]}', `;
-          }
-        }
-        insert += ")";
-        db.sequelize.query(insert);
 
-         pool.query(insert, (err, res) => {
-          if (err !== undefined) {
-            // log the error to console
-            console.log("Postgres INSERT error:", err);
-        
-            // get the keys for the error
-            var keys = Object.keys(err);
-            console.log("\nkeys for Postgres error:", keys);
-        
-            // get the error position of SQL string
-            console.log("Postgres error position:", err.position);
-          }
-        
-          // check if the response is not 'undefined'
-          if (res !== undefined) {
-            // log the response to console
-            console.log("Postgres response:", res);
-        
-            // get the keys for the response object
-            var keys = Object.keys(res);
-        
-            // log the response keys to console
-            console.log("\nkeys type:", typeof keys);
-            console.log("keys for Postgres response:", keys);
-        
-            if (res.rowCount > 0) {
-              console.log("# of records inserted:", res.rowCount);
-            } else {
-              console.log("No records were inserted.");
-            }
-          }
-        });
-
-        Items.create(item)
+        sequelize.query(query, { type: sequelize.QueryTypes.CREATE})
         .then(data => {
-          var citemData = JSON.parse(data.dataValues.attributes);
-          citemData.forEach(function(citemData) {
-              data.dataValues[citemData.name] = citemData.value;
-          });
-          res.send(data);
+           insertRecords(item);
+           res.send(data);
         })
         .catch(err => {
           res.status(500).send({
-            message:
-              err.message || "Some error occurred while creating the users."
+            message: "Error retrieving Templates with id=" + id
           });
-        });
+    });        
 };
 
-// Retrieve all Tutorials from the database.
+// Retrieve all Templates from the database.
 exports.findAll = (req, res) => {
   var name = req.query.name;
   var clientFk = req.query.clientFk;
@@ -202,6 +117,34 @@ exports.findOne = (req, res) => {
       message: "Error retrieving Tutorial with id=" + id
     });
   });
+};
+
+insertRecords = (item) => {
+
+  let insert = `INSERT INTO ${item.name}_template(`;
+  for (let key in item) {
+    if(key === 'description') {
+      insert += `${key}`;
+    }else {
+      insert += `${key}, `;
+    }
+     
+  }
+  insert += ") VALUES (";
+  for (let key in item) {
+    if(key === 'description') {
+      insert += `'${item[key]}'`; 
+    }else {
+      insert += `'${item[key]}', `;
+    }
+  }
+  insert += ")";
+
+  insert += "RETURNING id";
+  sequelize.query(insert, { type: sequelize.QueryTypes.INSERT, raw: true})
+  .then(data => {
+     console.log("Successfully inserted");
+  })
 };
 
 
