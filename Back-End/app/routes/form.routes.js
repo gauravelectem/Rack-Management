@@ -3,19 +3,19 @@ module.exports = app => {
   
     var router = require("express").Router();
   
-    // Create a new Tutorial
+    // Create a new Form             
     router.post("/", form.create);
   
-    // Retrieve all Tutorialscls
+    // Retrieve all Form
     router.get("/", form.findAll);
 
-    router.get("/:prodId", form.findOne);
+    router.get("/:prodId/:name", form.findOne);
 
-    // Update a Tutorial with id
-    router.put("/:id", form.update);
+    // Update a Form with id
+    router.put("/:id/:name", form.update);
   
-    // Delete a Tutorial with id
-    router.delete("/:id", form.delete);
+    // Delete a Form with id
+    router.delete("/:id/:name", form.delete);
       
     app.use('/api/form', router);
   };

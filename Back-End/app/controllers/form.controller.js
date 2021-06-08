@@ -1,93 +1,101 @@
-  const db = require("../models");
+const db = require("../models");
 const Forms = db.products;
+const Sequelize = require("sequelize");
 const Op = db.Sequelize.Op;
-
+const sequelize = require("../config/seq.config.js");
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 // Create and Save a new Product
 exports.create = (req, res) => {
-    // Validate request
-   
-    
     //const data =  JSON.stringify(req.body.itemData)
+    var itemName = req.query.tempName;
     var formData = JSON.stringify(req.body.attributes)
-    const product = {
+    const item = {
       attributes: formData,
       name: req.body.name,
-      description: req.body.description,
       itemTempId: req.body.itemTempId,
+      description: req.body.description,
     };
     
-    // Save Forms in the database
-    Forms.create(product)
-      .then(data => {
-        var citemData = JSON.parse(data.dataValues.attributes);
-        citemData.forEach(function(citemData) {
-            data.dataValues[citemData.name] = citemData.value;
-        });
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while creating the users."
-        });
-      });
+    let insert = `INSERT INTO ${itemName}_template(`;
+  for (let key in item) {
+    if(key === 'description') {
+      insert += `${key}`;
+    }else {
+      insert += `${key}, `;
+    }
+     
+  }
+  insert += ") VALUES (";
+  for (let key in item) {
+    if(key === 'description') {
+      insert += `'${item[key]}'`; 
+    }else {
+      insert += `'${item[key]}', `;
+    }
+  }
+  insert += ")";
+
+  insert += "RETURNING id";
+  sequelize.query(insert, { type: sequelize.QueryTypes.INSERT, raw: true})
+  .then(data => {
+    res.send(data);
+  })
   };
 
 
   // Retrieve all Forms from the database.
 exports.findAll = (req, res) => {
   var itemTempId = req.query.itemTempId;
+  var formName = req.query.formName;
   //var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
-   var condition = itemTempId ? { itemTempId: { [Op.eq]: itemTempId } } : null;
-  Forms.findAll({ where: condition })
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving Forms."
-      });
-    });
+  // var condition = itemTempId ? { itemTempId: { [Op.eq]: itemTempId } } : null;
+   let querys = `SELECT * FROM ${formName}_template`;
+   sequelize.query(querys, { type: sequelize.QueryTypes.SELECT})
+   .then(data => {
+     res.send(data);
+   })
+   .catch(err => {
+     res.status(500).send({
+       message: "Error retrieving Form with id=" + id
+     });
+   });
 };
 
 // Find a single Forms with a customerId
 exports.findOne = (req, res) => {
   const id = req.params.prodId;
-
-  Forms.findByPk(id)
-    .then(data => {
-     // data.dataValues.attributes =JSON.parse(data.dataValues.attributes);
-      res.send(data);
-    })
-    .catch(err => {
+  var name =  req.params.name;
+  let query = `SELECT * FROM ${name}_template  WHERE id = ${id} `;
+  sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
+  .then(data => {
+    res.send(data);
+  }).catch(err => {
       res.status(500).send({
-        message: "Error retrieving Tutorial with id=" + id
+        message: "Error retrieving Form with id=" + id
       });
     });
 };
 
-// Update a Forms by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
-
-  Forms.update(req.body, {
-    where: { id: id }
-  })
-    .then(num => {
+  const name = req.params.name;
+  let query = `UPDATE ${name}_template SET name = '${req.body.name}',description = '${req.body.description}',
+  attributes = '${JSON.stringify(req.body.attributes)}' WHERE id = ${id}`;
+  sequelize.query(query).then(num => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was updated successfully."
+          message: "Form was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+          message: `Cannot update Form with id=${id}. Maybe Form was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + id
+        message: "Error updating Form with id=" + id
       });
     });
 };
@@ -95,24 +103,22 @@ exports.update = (req, res) => {
 // Delete a Forms with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
-
-  Forms.destroy({
-    where: { id: id }
-  })
-    .then(num => {
+  const name = req.params.name;
+  let query = `Delete from ${name}_template WHERE id = ${id}`;
+  sequelize.query(query, { type: sequelize.QueryTypes.DELETE}).then(num => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was deleted successfully!"
+          message: "Form was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+          message: `Cannot delete Form with id=${id}. Maybe Form was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete Tutorial with id=" + id
+        message: "Could not delete Form with id=" + id
       });
     });
 };

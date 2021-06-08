@@ -6,7 +6,7 @@ db.Sequelize = Sequelize;
 
 const Items = db.items;
 const Op = db.Sequelize.Op;
-// Create and Save a new Tutorial
+// Create and Save a new Template
 exports.create = (req, res) => {
   // Validate request
 
@@ -19,20 +19,36 @@ exports.create = (req, res) => {
   };
 
   let query = `CREATE TABLE ${req.body.name}_template (`;
-             query += `id SERIAL PRIMARY KEY, name character varying(255),  subscriberId integer, description character varying(255), attributes json, createdAt timestamp with time zone NULL,
-             updatedAt timestamp with time zone NULL`;
+             query += `id SERIAL PRIMARY KEY, name character varying(255),  itemTempId integer, description character varying(255), attributes json, createdAt timestamp with time zone NULL,
+             updatedAt timestamp with time zone NULL, CONSTRAINT ${req.body.name}_fkey FOREIGN KEY (itemTempId)
+             REFERENCES items (id)
+             ON UPDATE NO ACTION ON DELETE NO ACTION`;
         query += ")";
 
         sequelize.query(query, { type: sequelize.QueryTypes.CREATE})
         .then(data => {
-           insertRecords(item);
-           res.send(item);
         })
         .catch(err => {
           res.status(500).send({
             message: "Error retrieving Templates with id=" + id
           });
-    });        
+    });   
+    
+     // Save Template in the database
+  Items.create(item)
+  .then(data => {
+    var citemData = JSON.parse(data.dataValues.attributes);
+    citemData.forEach(function(citemData) {
+        data.dataValues[citemData.name] = citemData.value;
+    });
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while creating the users."
+    });
+  });
 };
 
 // Retrieve all Templates from the database.
@@ -40,7 +56,7 @@ exports.findAll = (req, res) => {
   var name = req.query.name;
   var clientFk = req.query.clientFk;
   var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
- // var condition = clientFk ? { clientFk: { [Op.eq]: clientFk } } : null;
+  //var condition = clientFk ? { clientFk: { [Op.eq]: clientFk } } : null;
   Items.findAll({ where: condition})
     .then(data => {
       res.send(data);
@@ -53,43 +69,32 @@ exports.findAll = (req, res) => {
     });
 };
 
-// exports.findAll = (req, res) => {
-//   const tableName = req.query.name;
-
-//   sequelize.query ( "SELECT * FROM "+tableName).then( myTableRows => { 
-//     res.send(myTableRows);
-//   }
-//   )
-
-// }
-
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  let query = `UPDATE ${req.body.name}_template SET name = '${req.body.name}',description = '${req.body.description}',
-  attributes = '${JSON.stringify(req.body.attributes)}' WHERE id = ${id}`;
-  sequelize.query(query).then(([results, metadata]) => {
-    })
+  Items.update(req.body, {
+    where: { id: id }
+  })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was updated successfully."
+          message: "Template was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+          message: `Cannot update Template with id=${id}. Maybe Template was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + id
+        message: "Error updating Template with id=" + id
       });
     });
 };
 
-// Delete a Tutorial with the specified id in the request
+// Delete a Template with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
@@ -99,17 +104,17 @@ exports.delete = (req, res) => {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was deleted successfully!"
+          message: "Template was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+          message: `Cannot delete Template with id=${id}. Maybe Template was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete Tutorial with id=" + id
+        message: "Could not delete Template with id=" + id
       });
     });
 };
@@ -117,44 +122,17 @@ exports.delete = (req, res) => {
 // Find a single Customer with a customerId
 exports.findOne = (req, res) => {
   const id = req.params.id;
-  let querys = `SELECT * FROM ${req.params.name}_template WHERE id = ${id}`;
-  sequelize.query(querys, { type: sequelize.QueryTypes.SELECT})
-  .then(data => {
-    res.send(data);
-  })
-  .catch(err => {
-    res.status(500).send({
-      message: "Error retrieving Tutorial with id=" + id
+
+  Items.findByPk(id)
+    .then(data => {
+     // data.dataValues.attributes =JSON.parse(data.dataValues.attributes);
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Template with id=" + id
+      });
     });
-  });
-};
-
-insertRecords = (item) => {
-
-  let insert = `INSERT INTO ${item.name}_template(`;
-  for (let key in item) {
-    if(key === 'description') {
-      insert += `${key}`;
-    }else {
-      insert += `${key}, `;
-    }
-     
-  }
-  insert += ") VALUES (";
-  for (let key in item) {
-    if(key === 'description') {
-      insert += `'${item[key]}'`; 
-    }else {
-      insert += `'${item[key]}', `;
-    }
-  }
-  insert += ")";
-
-  insert += "RETURNING id";
-  sequelize.query(insert, { type: sequelize.QueryTypes.INSERT, raw: true})
-  .then(data => {
-     console.log("Successfully inserted");
-  })
 };
 
 

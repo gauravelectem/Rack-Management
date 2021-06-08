@@ -43,10 +43,7 @@ db.menus.belongsTo(db.role, {
   foreignKey: "roleId",
   as: "role",
 });
-db.menus.belongsTo(db.menus, {
-  foreignKey: "menu_fk",
-  as: "menu",
-});
+      
 
 db.trays.belongsToMany(db.items, {
   through: "tray_item",

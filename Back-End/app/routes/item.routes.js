@@ -11,6 +11,8 @@ module.exports = app => {
 
     router.get("/:name/:id", items.findOne);
 
+    router.get("/:id", items.findOne);
+  
     // Update a Tutorial with id
     router.put("/:id", items.update);
   
