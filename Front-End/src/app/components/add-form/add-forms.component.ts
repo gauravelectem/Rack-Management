@@ -49,7 +49,7 @@ export class AddFormComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/template']);
+          this.router.navigate(['/template']);
           this.tutorialService.getAll(this.clientFk);
   }
 
@@ -102,12 +102,12 @@ export class AddFormComponent implements OnInit {
     };
     
 
-    this.tutorialService.createProduct(data)
+    this.tutorialService.createForm(data,  this.route.snapshot.params.name) 
       .subscribe(
         response => {
           console.log(response);
           this.success = true;
-          this.router.navigate(['/template']);
+          this.router.navigate(['/menu/' +   this.route.snapshot.params.name + '/' +  this.route.snapshot.params.id]);
           this.tutorialService.getAll(this.clientFk );
          // this.submitted = true;
         },

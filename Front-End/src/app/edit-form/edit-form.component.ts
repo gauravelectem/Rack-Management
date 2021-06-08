@@ -194,7 +194,7 @@ export class EditFormComponent implements OnInit {
       this.formService.getById(name,id)
           .subscribe(
               data => {
-                datas = data[0];
+                datas = data;
                 if (Array.isArray(datas.attributes)) {
                   datas.attributes = datas.attributes;
                 } else {

@@ -46,7 +46,10 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem("userObj", JSON.stringify(response));
         if (!!response) {
           this.submitted = true;
-          this.router.navigate(['/template']);
+          this.router.navigate(['/template'])
+          .then(() => {
+            window.location.reload();
+          });
         } else {
           this.showError = true;
         }

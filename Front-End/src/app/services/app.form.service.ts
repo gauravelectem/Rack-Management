@@ -54,28 +54,32 @@ export class FormService {
     return this.http.get<Tutorial[]>(`${baseUrl}/api/items?name=${name}`);
   }
 
-  createProduct(data: any): Observable<any> {
-    return this.http.post(baseUrl+'/api/form', data);
+  createForm(data: any, tempName:any): Observable<any> {
+    return this.http.post(`${baseUrl}/api/form?tempName=${tempName}`,data);
   }
 
   getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(baseUrl+'/api/form');
   }
 
-  getAllProductsByItemTempId(itemTempId:any): Observable<Product[]> {
-    return this.http.get<Product[]>(`${baseUrl}/api/form?itemTempId=${itemTempId}`);
+  getAllProductsByItemTempId(itemTempId:any, formName:any): Observable<Product[]> {
+    return this.http.get<Product[]>(`${baseUrl}/api/form?itemTempId=${itemTempId}&formName=${formName}`);
   }
 
   getFormData(id: any): Observable<Product> {
     return this.http.get(`${baseUrl}/api/form/${id}`);
   }
 
-  updateProductForm(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/api/form/${id}`, data);
+  getFormDataByName(id: any, name:any): Observable<Product> {
+    return this.http.get(`${baseUrl}/api/form/${id}/${name}`);
   }
 
-  deleteProduct(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/api/form/${id}`);
+  updateFormData(id: any, data: any, name:any): Observable<any> {
+    return this.http.put(`${baseUrl}/api/form/${id}/${name}`, data);
+  }
+
+  deleteFormData(id: any, name:any): Observable<any> {
+    return this.http.delete(`${baseUrl}/api/form/${id}/${name}`);
   }
 
   findByFormsName(name: any): Observable<Product[]> {

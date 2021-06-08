@@ -78,7 +78,7 @@ export class TemplateDetailsComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          this.router.navigate(['/tutorials']);
+          this.router.navigate(['/template']);
         },
         error => {
           console.log(error);

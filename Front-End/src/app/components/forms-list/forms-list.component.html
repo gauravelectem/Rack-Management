@@ -41,13 +41,13 @@
         <div>
           <label><strong>Name:</strong></label> {{ currentTutorial.name }}
         </div>
-        <a class="badge badge-warning" routerLink="/editProduct/{{ currentTutorial.id }}">
+        <a class="badge badge-warning" routerLink="/editProduct/{{this.route.snapshot.params.name}}/{{ currentTutorial.id }}">
           Edit
         </a>
         <a class="badge badge-warning" routerLink="/products/viewForm/{{ currentTutorial.id }}">
           view
-        </a>
-        <a class="badge badge-danger mr-2" (click)="deleteProduct(currentTutorial.id)">
+        </a>  
+        <a class="badge badge-danger mr-2" (click)="removeForm(currentTutorial.id)">
         Delete
       </a>
       </div>

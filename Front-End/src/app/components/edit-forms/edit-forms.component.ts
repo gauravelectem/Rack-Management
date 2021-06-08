@@ -23,15 +23,15 @@ constructor(private formService: FormService,
     private router: Router) {}
 
 ngOnInit(): void {
-    this.getFormData(this.route.snapshot.params.id);
+    this.getFormData(this.route.snapshot.params.id, this.route.snapshot.params.name);
 }
 
-getFormData(id: string): void {
+getFormData(id: string, name: String): void {
   let datas ;
-    this.formService.getFormData(id)
+    this.formService.getFormDataByName(id, name)
         .subscribe(
             data => {
-                datas = data;
+                datas = data[0];
                 if (Array.isArray(datas.attributes)) {
                   this.model = datas;
                 } else {
@@ -89,12 +89,12 @@ submit() {
     attributes: this.model.attributes
   };
 
-  this.formService.updateProductForm(this.model.id, this.model)
+  this.formService.updateFormData(this.model.id, this.model, this.route.snapshot.params.name)
     .subscribe(
       response => {
         console.log(response);
         this.success = true;
-        this.router.navigate(['/products']);
+        this.router.navigate(['/menu/' + this.route.snapshot.params.name + '/' + this.route.snapshot.params.id]);
         this.formService.getAllProducts();
       },
       error => {

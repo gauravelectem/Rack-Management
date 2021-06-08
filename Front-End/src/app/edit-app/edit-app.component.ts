@@ -347,7 +347,7 @@ export class EditAppComponent implements OnInit {
           this.success = true;
           const datas = {
             label: response.name,
-            action:"menu/"+response.name,
+            action:"menu/"+response.name + '/' +response.id,
             menu_fk:1,
             roleId:1,
             itemId:response.id,
@@ -361,7 +361,10 @@ export class EditAppComponent implements OnInit {
               error => {
                 console.log(error);
               });
-          this.router.navigate(['/template']);
+              this.router.navigate(['/template'])
+              .then(() => {
+                window.location.reload();
+              });
          // this.router.navigate(['menu', response.id]);
           this.formService.getAll(this.UserObj.clientFk);
          // this.submitted = true;
