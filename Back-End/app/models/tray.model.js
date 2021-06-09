@@ -1,27 +1,69 @@
 module.exports = (sequelize, Sequelize) => {
     const Tray = sequelize.define("tray", {
-        label: {
+        x: {
+            type: Sequelize.INTEGER
+        },
+        y: {
+            type: Sequelize.INTEGER
+        },
+        h: {
+            type: Sequelize.INTEGER
+        },
+        w: {
+            type: Sequelize.INTEGER
+        },
+        name: {
             type: Sequelize.STRING
         },
-        dimension: {
+        color: {
             type: Sequelize.STRING
         },
-        type: {
+        quantity: {
+            type: Sequelize.INTEGER
+        },
+        eSearchable: {
+            type: Sequelize.BOOLEAN
+        },
+        attr1: {
             type: Sequelize.STRING
         },
-        rackId: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-            references: {         
-              model: 'racks',
-              key: 'id'
-            }
-          }
-    }, {});
-
-    Tray.associate = (models) => {
-        Tray.belongsTo(models.Rack, { foreignKey: 'rackId', as: 'rack' })
-    };
+        val1: {
+            type: Sequelize.INTEGER
+        },
+        attr2: {
+            type: Sequelize.STRING
+        },
+        val2: {
+            type: Sequelize.INTEGER
+        },
+        attr3: {
+            type: Sequelize.STRING
+        },
+        val3: {
+            type: Sequelize.INTEGER
+        },
+        attr4: {
+            type: Sequelize.STRING
+        },
+        val4: {
+            type: Sequelize.INTEGER
+        },
+        attr5: {
+            type: Sequelize.STRING
+        },
+        val5: {
+            type: Sequelize.INTEGER
+        },
+        attribute: {
+            type: Sequelize.STRING
+        },
+        createdBy: {
+            type: Sequelize.STRING
+        },
+        modifiedBy: {
+            type: Sequelize.STRING
+    }, 
+    });
 
     return Tray;
 };

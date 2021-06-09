@@ -4,10 +4,14 @@ module.exports = app => {
     var router = require("express").Router();
 
     // Create a new Rack
-    router.post("/", racks.rackCreate);
+    router.post("/createRack/", racks.rackCreate);
 
-    // Retrieve a single Rack with id
-    router.get("/:id", racks.findOne);
+    // router.get("/", racks.findAll);
+
+    // router.get("/:no_of_rows", racks.findAll);
+
+    //Retrieve a single Rack with id
+    router.get("/rackById/:id", racks.findOne);
 
     // Update a Rack with id
     router.put("/:id", racks.update);
@@ -27,5 +31,5 @@ module.exports = app => {
     // Delete a Tray with id
     router.delete("/tray/:id", racks.deleteTray);
 
-    app.use('/api/racks', router);
+    app.use('/api/rack', router);
 };

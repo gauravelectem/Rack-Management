@@ -1,19 +1,20 @@
 module.exports = (sequelize, Sequelize) => {
     const Rack = sequelize.define("rack", {
-        label: {
+        rackName: {
         type: Sequelize.STRING
       },
-      state: {
-        type: Sequelize.STRING
+      no_of_rows: {
+        type: Sequelize.INTEGER
       },
-      type: {
+      no_of_columns: {
         type: Sequelize.STRING
       }
     });
 
-    Rack.associate = function (models) {
-        Rack.hasMany(models.Tray, { as: 'tray' })
-    };
+    Rack.associate = (models) => {
+      Rack.belongsTo(models.Client, { foreignKey: 'client_fk', as: 'client' })
+  };
+
   
     return Rack;
   };
