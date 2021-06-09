@@ -17,10 +17,10 @@ export class AddFormComponent implements OnInit {
   };
   itemTempId = '';
   success = false;
-  UserObj : any = {};
-  clientFk : '';
+  UserObj: any = {};
+  clientFk: '';
   constructor(private route: ActivatedRoute,
-    private router: Router, private tutorialService: FormService) { }
+    private router: Router, private formService: FormService) { }
 
   ngOnInit(): void {
     this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
@@ -31,7 +31,7 @@ export class AddFormComponent implements OnInit {
 
   getFormData(id: string): void {
     let datas ;
-      this.tutorialService.get(id)
+      this.formService.get(id)
           .subscribe(
             data => {
               datas = data;
@@ -50,7 +50,7 @@ export class AddFormComponent implements OnInit {
 
   cancel() {
           this.router.navigate(['/template']);
-          this.tutorialService.getAll(this.clientFk);
+          this.formService.getAll(this.clientFk);
   }
 
   submit() {
@@ -100,15 +100,15 @@ export class AddFormComponent implements OnInit {
       attributes: this.model.attributes,
       itemTempId: this.itemTempId,
     };
-    
 
-    this.tutorialService.createForm(data,  this.route.snapshot.params.name) 
+
+    this.formService.createForm(data,  this.route.snapshot.params.name)
       .subscribe(
         response => {
           console.log(response);
           this.success = true;
           this.router.navigate(['/menu/' +   this.route.snapshot.params.name + '/' +  this.route.snapshot.params.id]);
-          this.tutorialService.getAll(this.clientFk );
+          this.formService.getAll(this.clientFk );
          // this.submitted = true;
         },
         error => {

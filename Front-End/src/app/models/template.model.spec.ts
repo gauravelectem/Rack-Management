@@ -1,7 +1,7 @@
-import { Tutorial } from './template.model';
+import { Template } from './template.model';
 
-describe('Tutorial', () => {
+describe('Template', () => {
   it('should create an instance', () => {
-    expect(new Tutorial()).toBeTruthy();
+    expect(new Template()).toBeTruthy();
   });
 });

@@ -1,31 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { Tutorial } from 'src/app/models/template.model';
+import { Template } from 'src/app/models/template.model';
 import { FormService } from './../../services/app.form.service';
 
 @Component({
-  selector: 'app-add-tutorial',
+  selector: 'app-add-Template',
   templateUrl: './add-template.component.html',
   styleUrls: ['./add-template.component.css']
 })
 export class AddTemplateComponent implements OnInit {
-  tutorial: Tutorial = {
+  Template: Template = {
     name: '',
     subscriberId: '',
   };
   submitted = false;
 
-  constructor(private tutorialService: FormService) { }
+  constructor(private formService: FormService) { }
 
   ngOnInit(): void {
   }
 
-  saveTutorial(): void {
+  saveTemplate(): void {
     const data = {
-      name: this.tutorial.name,
-      subscriberId: this.tutorial.subscriberId
+      name: this.Template.name,
+      subscriberId: this.Template.subscriberId
     };
 
-    this.tutorialService.create(data)
+    this.formService.create(data)
       .subscribe(
         response => {
           console.log(response);
@@ -36,9 +36,9 @@ export class AddTemplateComponent implements OnInit {
         });
   }
 
-  newTutorial(): void {
+  newTemplate(): void {
     this.submitted = false;
-    this.tutorial = {
+    this.Template = {
       name: '',
       subscriberId: '',
     };

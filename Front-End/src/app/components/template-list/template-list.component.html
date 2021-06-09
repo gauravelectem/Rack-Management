@@ -32,32 +32,32 @@
     <ul class="list-group">
       <li
         class="list-group-item"
-        *ngFor="let tutorial of tutorials; let i = index"
+        *ngFor="let Template of Templates; let i = index"
         [class.active]="i == currentIndex"
-        (click)="setActiveTutorial(tutorial, i)"
+        (click)="setActiveTemplate(Template, i)"
       >
-        {{ tutorial.name }}
+        {{ Template.name }}
       </li>
     </ul>
   </div>
   <div class="col-md-6">
-    <div *ngIf="currentTutorial">
+    <div *ngIf="currentTemplate">
       <h4>Item Template</h4>
       <div>
-        <label><strong>Name:</strong></label> {{ currentTutorial.name }}
+        <label><strong>Name:</strong></label> {{ currentTemplate.name }}
       </div>
-      <a class="badge badge-warning" routerLink="/edit/{{ currentTutorial.name }}/{{ currentTutorial.id }}">
+      <a class="badge badge-warning" routerLink="/edit/{{ currentTemplate.name }}/{{ currentTemplate.id }}">
         Edit
       </a>
-      <a class="badge badge-warning" routerLink="/addProduct/{{ currentTutorial.id }}">
+      <a class="badge badge-warning" routerLink="/addForm/{{ currentTemplate.id }}">
         view
       </a>
-      <a class="badge badge-danger mr-2" (click)="removeTemplate(currentTutorial.id)">
+      <a class="badge badge-danger mr-2" (click)="removeTemplate(currentTemplate.id)">
       Delete
     </a>
     </div>
 
-    <div *ngIf="!currentTutorial">
+    <div *ngIf="!currentTemplate">
       <br />
       <p>Please click on a Item Template...</p>
     </div>

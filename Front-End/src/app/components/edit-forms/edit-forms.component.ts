@@ -45,7 +45,7 @@ getFormData(id: string, name: String): void {
 }
 
 cancel() {
-  this.router.navigate(['/products']);
+  this.router.navigate(['/form']);
         this.formService.getAllProducts();
 }
 

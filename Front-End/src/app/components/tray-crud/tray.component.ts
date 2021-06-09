@@ -6,7 +6,7 @@ import {
     KtdDragEnd, KtdDragStart, KtdGridComponent, KtdGridLayout, KtdGridLayoutItem, KtdResizeEnd, KtdResizeStart, ktdTrackById
 } from '@katoid/angular-grid-layout';
 import { ktdArrayRemoveItem } from './tray.utils';
-import { FormGroup, FormControl, Validators, FormBuilder } 
+import { FormGroup, FormControl, Validators, FormBuilder }
     from '@angular/forms';
 
 
@@ -16,6 +16,10 @@ import { FormGroup, FormControl, Validators, FormBuilder }
     styleUrls: ['./tray.component.scss']
 })
 export class TrayComponent implements OnInit, OnDestroy {
+
+    constructor(private ngZone: NgZone) {
+        // this.ngZone.onUnstable.subscribe(() => console.log('UnStable'));
+    }
     @ViewChild(KtdGridComponent, {static: true}) grid: KtdGridComponent;
     trackById = ktdTrackById;
 
@@ -28,15 +32,15 @@ export class TrayComponent implements OnInit, OnDestroy {
         {id: '2', x: 3, y: 7, w: 1, h: 2},
         {id: '3', x: 2, y: 0, w: 3, h: 2}
     ];
-    
+
     trayDataList = [
-        {"id": "0", "trayLayoutId": "0", "name": "test1", "img": "http://vue-grid-layout.surge.sh/static/monarch-on-plant.png", "color":"#0000ff", "quantity": 442, "searchable": true, cssClass:""},
-        {"id": "2", "trayLayoutId": "1", "name": "test2", "img": "/assets/testimg/luna-moth-adult-2.png", "color":"#0000ff","quantity": 12, "searchable": true, cssClass:""},
-        {"id": "3", "trayLayoutId": "2", "name": "test3", "img": "/assets/testimg/monarch-03.png","quantity": 22, "color":"#0000ff", "searchable": true, cssClass:""},
-        {"id": "3", "trayLayoutId": "3", "name": "test4", "img": "/assets/testimg/monarch-04.png", "color":"#ff0000", "quantity": 222, "searchable": true, cssClass:""}
-    ]
-    
-    
+        {'id': '0', 'trayLayoutId': '0', 'name': 'test1', 'img': 'http://vue-grid-layout.surge.sh/static/monarch-on-plant.png', 'color': '#0000ff', 'quantity': 442, 'searchable': true, cssClass: ''},
+        {'id': '2', 'trayLayoutId': '1', 'name': 'test2', 'img': '/assets/testimg/luna-moth-adult-2.png', 'color': '#0000ff', 'quantity': 12, 'searchable': true, cssClass: ''},
+        {'id': '3', 'trayLayoutId': '2', 'name': 'test3', 'img': '/assets/testimg/monarch-03.png', 'quantity': 22, 'color': '#0000ff', 'searchable': true, cssClass: ''},
+        {'id': '3', 'trayLayoutId': '3', 'name': 'test4', 'img': '/assets/testimg/monarch-04.png', 'color': '#ff0000', 'quantity': 222, 'searchable': true, cssClass: ''}
+    ];
+
+
     transitions: { name: string, value: string }[] = [
         {name: 'ease', value: 'transform 500ms ease, width 500ms ease, height 500ms ease'},
         {name: 'ease-out', value: 'transform 500ms ease-out, width 500ms ease-out, height 500ms ease-out'},
@@ -61,13 +65,22 @@ export class TrayComponent implements OnInit, OnDestroy {
     resizeSubscription: Subscription;
     currentlyBeingEditedTray = null;
     traySelected = false;
-    
-    constructor(private ngZone: NgZone) {
-        // this.ngZone.onUnstable.subscribe(() => console.log('UnStable'));
-    }
+
+
+    currentlyTraySearchable = false;
+
+
+    form = new FormGroup({
+        'quantity': new FormControl('', Validators.required),
+        'trayname': new FormControl('', Validators.required),
+    });
+
+    isColorOpen = false;
+
+    openFileUpload: false;
 
     ngOnInit() {
-        //this.trayList = testdata
+        // this.trayList = testdata
         this.resizeSubscription = merge(
             fromEvent(window, 'resize'),
             fromEvent(window, 'orientationchange')
@@ -175,20 +188,17 @@ export class TrayComponent implements OnInit, OnDestroy {
 
     /** Removes the item from the layout */
     removeTray() {
-        //TODO: based on the ID execute database call and then in the success response execute the code below. 
+        // TODO: based on the ID execute database call and then in the success response execute the code below.
         this.trayList = ktdArrayRemoveItem(this.trayList, (item) => item.id === this.currentlyBeingEditedTray.id);
     }
-
-
-    currentlyTraySearchable:boolean = false;
-    editTray(id: string) {            
-        this.traySelected = true;  
+    editTray(id: string) {
+        this.traySelected = true;
         const index = this.trayList.findIndex((item) => item.id === id);
         if (index > -1) {
-            this.currentlyBeingEditedTray = this.trayDataList[index]; 
+            this.currentlyBeingEditedTray = this.trayDataList[index];
             this.form.setValue({trayname: this.currentlyBeingEditedTray.name, quantity: this.currentlyBeingEditedTray.quantity});
             this.currentlyTraySearchable = this.currentlyBeingEditedTray.searchable;
-            this.currentlyBeingEditedTray.cssClass = "traySelected";
+            this.currentlyBeingEditedTray.cssClass = 'traySelected';
         }
     }
 
@@ -196,25 +206,15 @@ export class TrayComponent implements OnInit, OnDestroy {
         this.currentlyBeingEditedTray.searchable = !this.currentlyBeingEditedTray.searchable;
         this.currentlyTraySearchable = this.currentlyBeingEditedTray.searchable;
     }
-    
-
-    form = new FormGroup({
-        "quantity": new FormControl("", Validators.required),
-        "trayname": new FormControl("", Validators.required),
-    });
 
     saveTray() {
         console.log(this.form);
         this.currentlyBeingEditedTray.name = this.form.controls.trayname.value;
         this.currentlyBeingEditedTray.quantity = this.form.controls.quantity.value;
-        console.log(this.currentlyBeingEditedTray)
+        console.log(this.currentlyBeingEditedTray);
     }
-
-    isColorOpen = false;
     changeColorComplete(event) {
         this.currentlyBeingEditedTray.color = event.color.hex;
     }
-
-    openFileUpload: false;
 
 }

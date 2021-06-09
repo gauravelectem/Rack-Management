@@ -10,13 +10,13 @@ import swal from 'sweetalert2';
 })
 export class FormListComponent implements OnInit {
   products?: Product[];
-  currentTutorial?: Product;
+  currentTemplate?: Product;
   currentIndex = -1;
   name = '';
    tempid = '';
-  clientFk = ''; 
-  UserObj : any = {};
-  templateName:any;
+  clientFk = '';
+  UserObj: any = {};
+  templateName: any;
   constructor(private formService: FormService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -42,16 +42,16 @@ export class FormListComponent implements OnInit {
 
   refreshList(): void {
     this.retrieveProducts();
-    this.currentTutorial = undefined;
+    this.currentTemplate = undefined;
     this.currentIndex = -1;
   }
 
-  setActiveTutorial(tutorial: Product, index: number): void {
-    this.currentTutorial = tutorial;
+  setActiveTemplate(Template: Product, index: number): void {
+    this.currentTemplate = Template;
     this.currentIndex = index;
   }
 
-  removeAllTutorials(): void {
+  removeAllTemplates(): void {
     this.formService.deleteAll()
       .subscribe(
         response => {
@@ -64,7 +64,7 @@ export class FormListComponent implements OnInit {
   }
 
   searchTitle(): void {
-    this.currentTutorial = undefined;
+    this.currentTemplate = undefined;
     this.currentIndex = -1;
 
     this.formService.findByFormsName(this.name)
@@ -103,14 +103,14 @@ export class FormListComponent implements OnInit {
       confirmButtonText: 'Yes, remove!'
     }).then((result) => {
       if (result.value) {
-        this.deleteFormData(id)
+        this.deleteFormData(id);
       }
     });
 
   }
-  
+
   addNewForm(): void {
-    this.router.navigate(['/addProduct/' + this.route.snapshot.params.name + '/' +this.tempid ]);
+    this.router.navigate(['/addForm/' + this.route.snapshot.params.name + '/' + this.tempid ]);
   }
 
 

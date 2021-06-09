@@ -12,11 +12,11 @@ import { ItemService } from './services/item.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  itemPk:any;
-  itemlabel:any;
-  itemObject:any;
-  dataObject:any;
-  menuObject:any;
+  itemPk: any;
+  itemlabel: any;
+  itemObject: any;
+  dataObject: any;
+  menuObject: any;
 
   menu: Menu = {
     label: '',
@@ -27,18 +27,18 @@ export class AppComponent {
   };
 
 constructor(private menuService: MenuService,
-  private itemService:ItemService,
+  private itemService: ItemService,
   private activatedRoute: ActivatedRoute,
-  private router: Router) { } 
-  UserObj : any = {};
-  ngOnInit(): void {  
+  private router: Router) { }
+  UserObj: any = {};
+  ngOnInit(): void {
     this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
     this.itemPk = this.activatedRoute.snapshot.params['id'];
-    //this.fetchItemById(this.itemPk);
+    // this.fetchItemById(this.itemPk);
     this.fetchAllmenus();
   }
 
-   fetchItemById(itemId:any) {
+   fetchItemById(itemId: any) {
     this.itemService.getItemById(itemId)
       .subscribe(
         data => {
@@ -50,13 +50,13 @@ constructor(private menuService: MenuService,
         });
       }
 
-  createMenu(menu:any): void {
+  createMenu(menu: any): void {
     const data = {
       label: this.itemObject.name,
-      action:"menu/"+this.itemObject.name+"/"+this.itemObject.id,
-      menu_fk:1,
-      roleId:1,
-      itemId:this.itemObject.id,
+      action: 'menu/' + this.itemObject.name + '/' + this.itemObject.id,
+      menu_fk: 1,
+      roleId: 1,
+      itemId: this.itemObject.id,
     };
 
     this.menuService.createMenu(data)
@@ -70,7 +70,7 @@ constructor(private menuService: MenuService,
         });
   }
 
-  
+
   fetchAllmenus() {
     this.menuService.fetchAllMenus()
       .subscribe(
@@ -82,7 +82,7 @@ constructor(private menuService: MenuService,
         });
       }
 
-      redirect(action : any) {
+      redirect(action: any) {
         this.router.navigate(['/action']);
       }
 
@@ -95,7 +95,7 @@ constructor(private menuService: MenuService,
       }
 
     refreshPage(action) {
-      this.router.navigate(['/' +action])
+      this.router.navigate(['/' + action])
       .then(() => {
         window.location.reload();
       });

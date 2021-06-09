@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Tutorial } from 'src/app/models/template.model';
+import { Template } from 'src/app/models/template.model';
 import { FormService } from 'src/app/services/app.form.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
 @Component({
-  selector: 'app-tutorials-list',
+  selector: 'app-Templates-list',
   templateUrl: './template-list.component.html',
   styleUrls: ['./template-list.component.css']
 })
 export class TemplateListComponent implements OnInit {
-  tutorials?: Tutorial[];
-  currentTutorial?: Tutorial;
+  Templates?: Template[];
+  currentTemplate?: Template;
   currentIndex = -1;
   name = '';
-  UserObj : any = {};
-  clientFk : '';
+  UserObj: any = {};
+  clientFk: '';
 
   constructor(private formService: FormService,
     private route: ActivatedRoute,
@@ -23,14 +23,14 @@ export class TemplateListComponent implements OnInit {
   ngOnInit(): void {
     this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
     this.clientFk = this.UserObj.clientFk;
-    this.retrieveTutorials();
+    this.retrieveTemplates();
   }
 
-  retrieveTutorials(): void {
+  retrieveTemplates(): void {
     this.formService.getAll(this.clientFk)
       .subscribe(
         data => {
-          this.tutorials = data;
+          this.Templates = data;
           console.log(data);
         },
         error => {
@@ -39,17 +39,17 @@ export class TemplateListComponent implements OnInit {
   }
 
   refreshList(): void {
-    this.retrieveTutorials();
-    this.currentTutorial = undefined;
+    this.retrieveTemplates();
+    this.currentTemplate = undefined;
     this.currentIndex = -1;
   }
 
-  setActiveTutorial(tutorial: Tutorial, index: number): void {
-    this.currentTutorial = tutorial;
+  setActiveTemplate(Template: Template, index: number): void {
+    this.currentTemplate = Template;
     this.currentIndex = index;
   }
 
-  removeAllTutorials(): void {
+  removeAllTemplates(): void {
     this.formService.deleteAll()
       .subscribe(
         response => {
@@ -62,13 +62,13 @@ export class TemplateListComponent implements OnInit {
   }
 
   searchTitle(): void {
-    this.currentTutorial = undefined;
+    this.currentTemplate = undefined;
     this.currentIndex = -1;
 
     this.formService.findByTitle(this.name)
       .subscribe(
         data => {
-          this.tutorials = data;
+          this.Templates = data;
           console.log(data);
         },
         error => {
@@ -100,7 +100,7 @@ export class TemplateListComponent implements OnInit {
       confirmButtonText: 'Yes, remove!'
     }).then((result) => {
       if (result.value) {
-        this.deleteTemplate(id)
+        this.deleteTemplate(id);
       }
     });
 

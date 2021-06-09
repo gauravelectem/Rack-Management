@@ -20,8 +20,6 @@ import { EditFormsComponent } from './components/edit-forms/edit-forms.component
 import { FormListComponent } from './components/forms-list/forms-list.component';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { ViewTemplateComponent } from './components/view-template/view-template.component';
-import { ViewFormDetailsComponent } from './components/view-form-details/view-form-details.component';
 const appRoutes: Routes = [
   // { path: '', component: EditAppComponent },
 ];
@@ -39,9 +37,6 @@ const appRoutes: Routes = [
     AddFormComponent,
     EditFormsComponent,
  FormListComponent,
- ViewTemplateComponent,
- ViewFormDetailsComponent,
-
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),

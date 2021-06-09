@@ -1,15 +1,15 @@
 import { FormService } from './../../services/app.form.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Tutorial } from 'src/app/models/template.model';
+import { Template } from 'src/app/models/template.model';
 
 @Component({
-  selector: 'app-tutorial-details',
+  selector: 'app-Template-details',
   templateUrl: './template-details.component.html',
   styleUrls: ['./template-details.component.css']
 })
 export class TemplateDetailsComponent implements OnInit {
-  currentTutorial: Tutorial = {
+  currentTemplate: Template = {
     name: '',
     subscriberId: '',
   };
@@ -24,14 +24,14 @@ export class TemplateDetailsComponent implements OnInit {
     this.message = '';
     let id = '';
     id = this.route.snapshot.params['id'];
-    this.getTutorial(this.route.snapshot.params.id);
+    this.getTemplate(this.route.snapshot.params.id);
   }
 
-  getTutorial(id: string): void {
+  getTemplate(id: string): void {
     this.formService.get(id)
       .subscribe(
         data => {
-          this.currentTutorial = data;
+          this.currentTemplate = data;
           console.log(data);
         },
         error => {
@@ -41,40 +41,40 @@ export class TemplateDetailsComponent implements OnInit {
 
   updatePublished(status: boolean): void {
     const data = {
-      name: this.currentTutorial.name,
-      subscriberId: this.currentTutorial.subscriberId,
+      name: this.currentTemplate.name,
+      subscriberId: this.currentTemplate.subscriberId,
     };
 
     this.message = '';
 
-    this.formService.update(this.currentTutorial.id, data)
+    this.formService.update(this.currentTemplate.id, data)
       .subscribe(
         response => {
 
           console.log(response);
-          this.message = response.message ? response.message : 'This tutorial was updated successfully!';
+          this.message = response.message ? response.message : 'This Template was updated successfully!';
         },
         error => {
           console.log(error);
         });
   }
 
-  updateTutorial(): void {
+  updateTemplate(): void {
     this.message = '';
 
-    this.formService.update(this.currentTutorial.id, this.currentTutorial)
+    this.formService.update(this.currentTemplate.id, this.currentTemplate)
       .subscribe(
         response => {
           console.log(response);
-          this.message = response.message ? response.message : 'This tutorial was updated successfully!';
+          this.message = response.message ? response.message : 'This Template was updated successfully!';
         },
         error => {
           console.log(error);
         });
   }
 
-  deleteTutorial(): void {
-    this.formService.delete(this.currentTutorial.id)
+  deleteTemplate(): void {
+    this.formService.delete(this.currentTemplate.id)
       .subscribe(
         response => {
           console.log(response);

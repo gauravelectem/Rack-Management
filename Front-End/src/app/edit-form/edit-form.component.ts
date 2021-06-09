@@ -176,8 +176,8 @@ export class EditFormComponent implements OnInit {
 
   report = false;
   reports: any = [];
-  UserObj : any = {};
-  clientFk : '';
+  UserObj: any = {};
+  clientFk: '';
   constructor(
     private route: ActivatedRoute, private formService: FormService, private router: Router
   ) { }
@@ -185,13 +185,13 @@ export class EditFormComponent implements OnInit {
   ngOnInit() {
     this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
     this.clientFk = this.UserObj.clientFk;
-    this.getFormData(this.route.snapshot.params.name,this.route.snapshot.params.id);
+    this.getFormData(this.route.snapshot.params.name, this.route.snapshot.params.id);
 
   }
 
-  getFormData(name:string, id: string): void {
+  getFormData(name: string, id: string): void {
     let datas ;
-      this.formService.getById(name,id)
+      this.formService.getById(name, id)
           .subscribe(
               data => {
                 datas = data;

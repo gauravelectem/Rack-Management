@@ -6,5 +6,5 @@ export class Tray {
     name: string;
     searchable?: boolean;
     img?: string;
-    cssClass?: string = "";
+    cssClass = '';
   }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Tutorial } from '../models/template.model';
+import { Template } from '../models/template.model';
 import { Product } from 'src/app/models/form.model';
 import { environment } from '../../environments/environment';
 
@@ -13,16 +13,16 @@ const baseUrl = environment.baseUrl;
 export class FormService {
 
   constructor(private http: HttpClient) { }
-  
-  getAll(clientFk:any): Observable<Tutorial[]> {
-    return this.http.get<Tutorial[]>(`${baseUrl}/api/items?clientFk=${clientFk}`);
+
+  getAll(clientFk: any): Observable<Template[]> {
+    return this.http.get<Template[]>(`${baseUrl}/api/items?clientFk=${clientFk}`);
   }
 
-  get(id: any): Observable<Tutorial> {
+  get(id: any): Observable<Template> {
     return this.http.get(`${baseUrl}/api/items/${id}`);
   }
 
-  getById(name:any, id: any): Observable<Tutorial> {
+  getById(name: any, id: any): Observable<Template> {
     return this.http.get(`${baseUrl}/api/items/${name}/${id}`);
   }
 
@@ -47,22 +47,22 @@ export class FormService {
   }
 
   deleteAll(): Observable<any> {
-    return this.http.delete(baseUrl+'/api/items');
+    return this.http.delete(baseUrl + '/api/items');
   }
 
-  findByTitle(name: any): Observable<Tutorial[]> {
-    return this.http.get<Tutorial[]>(`${baseUrl}/api/items?name=${name}`);
+  findByTitle(name: any): Observable<Template[]> {
+    return this.http.get<Template[]>(`${baseUrl}/api/items?name=${name}`);
   }
 
-  createForm(data: any, tempName:any): Observable<any> {
-    return this.http.post(`${baseUrl}/api/form?tempName=${tempName}`,data);
+  createForm(data: any, tempName: any): Observable<any> {
+    return this.http.post(`${baseUrl}/api/form?tempName=${tempName}`, data);
   }
 
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(baseUrl+'/api/form');
+    return this.http.get<Product[]>(baseUrl + '/api/form');
   }
 
-  getAllProductsByItemTempId(itemTempId:any, formName:any): Observable<Product[]> {
+  getAllProductsByItemTempId(itemTempId: any, formName: any): Observable<Product[]> {
     return this.http.get<Product[]>(`${baseUrl}/api/form?itemTempId=${itemTempId}&formName=${formName}`);
   }
 
@@ -70,15 +70,15 @@ export class FormService {
     return this.http.get(`${baseUrl}/api/form/${id}`);
   }
 
-  getFormDataByName(id: any, name:any): Observable<Product> {
+  getFormDataByName(id: any, name: any): Observable<Product> {
     return this.http.get(`${baseUrl}/api/form/${id}/${name}`);
   }
 
-  updateFormData(id: any, data: any, name:any): Observable<any> {
+  updateFormData(id: any, data: any, name: any): Observable<any> {
     return this.http.put(`${baseUrl}/api/form/${id}/${name}`, data);
   }
 
-  deleteFormData(id: any, name:any): Observable<any> {
+  deleteFormData(id: any, name: any): Observable<any> {
     return this.http.delete(`${baseUrl}/api/form/${id}/${name}`);
   }
 

@@ -178,8 +178,8 @@ export class EditAppComponent implements OnInit {
 
   report = false;
   reports: any = [];
-   UserObj : any = {};
-   response:any;
+   UserObj: any = {};
+   response: any;
 
   constructor(
     private route: ActivatedRoute, private formService: FormService, private router: Router, private menuService: MenuService
@@ -347,10 +347,10 @@ export class EditAppComponent implements OnInit {
           this.success = true;
           const datas = {
             label: response.name,
-            action:"menu/"+response.name + '/' +response.id,
-            menu_fk:1,
-            roleId:1,
-            itemId:response.id,
+            action: 'menu/' + response.name + '/' + response.id,
+            menu_fk: 1,
+            roleId: 1,
+            itemId: response.id,
           };
           this.menuService.createMenu(datas)
             .subscribe(

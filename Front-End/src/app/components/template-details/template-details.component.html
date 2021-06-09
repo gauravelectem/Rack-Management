@@ -1,6 +1,6 @@
 <div>
-  <div *ngIf="currentTutorial.id" class="edit-form">
-    <h4>Tutorial</h4>
+  <div *ngIf="currentTemplate.id" class="edit-form">
+    <h4>Template</h4>
     <form>
       <div class="form-group">
         <label for="title">Title</label>
@@ -8,7 +8,7 @@
           type="text"
           class="form-control"
           id="title"
-          [(ngModel)]="currentTutorial.title"
+          [(ngModel)]="currentTemplate.title"
           name="title"
         />
       </div>
@@ -18,48 +18,48 @@
           type="text"
           class="form-control"
           id="description"
-          [(ngModel)]="currentTutorial.description"
+          [(ngModel)]="currentTemplate.description"
           name="description"
         />
       </div>
 
       <div class="form-group">
         <label><strong>Status:</strong></label>
-        {{ currentTutorial.published ? "Published" : "Pending" }}
+        {{ currentTemplate.published ? "Published" : "Pending" }}
       </div>
     </form>
 
     <button
       class="badge badge-primary mr-2"
-      *ngIf="currentTutorial.published"
+      *ngIf="currentTemplate.published"
       (click)="updatePublished(false)"
     >
       UnPublish
     </button>
     <button
-      *ngIf="!currentTutorial.published"
+      *ngIf="!currentTemplate.published"
       class="badge badge-primary mr-2"
       (click)="updatePublished(true)"
     >
       Publish
     </button>
 
-    <button class="badge badge-danger mr-2" (click)="deleteTutorial()">
+    <button class="badge badge-danger mr-2" (click)="deleteTemplate()">
       Delete
     </button>
 
     <button
       type="submit"
       class="badge badge-success mb-2"
-      (click)="updateTutorial()"
+      (click)="updateTemplate()"
     >
       Update
     </button>
     <p>{{ message }}</p>
   </div>
 
-  <div *ngIf="!currentTutorial.id">
+  <div *ngIf="!currentTemplate.id">
     <br />
-    <p>Cannot access this Tutorial...</p>
+    <p>Cannot access this Template...</p>
   </div>
 </div>

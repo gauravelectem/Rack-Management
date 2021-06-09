@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       response => {
         console.log(response);
         Client.clientFK = response.clientFk;
-        sessionStorage.setItem("userObj", JSON.stringify(response));
+        sessionStorage.setItem('userObj', JSON.stringify(response));
         if (!!response) {
           this.submitted = true;
           this.router.navigate(['/template'])
