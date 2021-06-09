@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/form.model';
 import { FormService } from './../../services/app.form.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import swal from 'sweetalert2';
 @Component({
   selector: 'app-forms-list',
   templateUrl: './forms-list.component.html',
@@ -28,7 +29,7 @@ export class FormListComponent implements OnInit {
   }
 
   retrieveProducts(): void {
-    this.formService.getAllProductsByItemTempId(this.tempid)
+    this.formService.getAllProductsByItemTempId(this.tempid, this.route.snapshot.params.name)
       .subscribe(
         data => {
           this.products = data;
@@ -77,23 +78,39 @@ export class FormListComponent implements OnInit {
         });
   }
 
-  deleteProduct(id): void {
-    this.formService.deleteProduct(id)
+  deleteFormData(id): void {
+    this.formService.deleteFormData(id, this.route.snapshot.params.name)
       .subscribe(
         response => {
           console.log(response);
           this.formService.getAll(this.clientFk);
           this.router.navigate(['/template']);
-
         },
         error => {
           console.log(error);
         });
   }
 
+
+  removeForm(id) {
+    swal({
+      title: 'Are you sure?',
+      text: 'Do you want to remove this form?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#00B96F',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, remove!'
+    }).then((result) => {
+      if (result.value) {
+        this.deleteFormData(id)
+      }
+    });
+
+  }
   
   addNewForm(): void {
-    this.router.navigate(['/addProduct/' + this.tempid]);
+    this.router.navigate(['/addProduct/' + this.route.snapshot.params.name + '/' +this.tempid ]);
   }
 
 

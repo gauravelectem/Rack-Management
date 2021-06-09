@@ -1,8 +1,8 @@
  
 <!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-primary">
+<nav class="navbar navbar-expand navbar-dark bg-primary" *ngIf="UserObj">
     <div class="navbar-nav"  *ngFor="let item of menuObject ;">
-        <a  class="nav-item nav-link" style="color: white;" routerLink="/{{ item.action }}"  target="_self" >{{item.label}}</a>
+        <a  class="nav-item nav-link" style="color: white;" (click)="refreshPage(item.action)"  target="_self" >{{item.label}}</a>
     </div>
     <a class="nav-item nav-link" (click)="logout()" style="color: white;">Logout</a>
 </nav>

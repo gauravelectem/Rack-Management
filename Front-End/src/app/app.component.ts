@@ -55,7 +55,7 @@ constructor(private menuService: MenuService,
       label: this.itemObject.name,
       action:"menu/"+this.itemObject.name+"/"+this.itemObject.id,
       menu_fk:1,
-      roleId:2,
+      roleId:1,
       itemId:this.itemObject.id,
     };
 
@@ -88,7 +88,17 @@ constructor(private menuService: MenuService,
 
       logout() {
         window.sessionStorage.clear();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login'])
+      .then(() => {
+        window.location.reload();
+      });
       }
+
+    refreshPage(action) {
+      this.router.navigate(['/' +action])
+      .then(() => {
+        window.location.reload();
+      });
+    }
 
 }
