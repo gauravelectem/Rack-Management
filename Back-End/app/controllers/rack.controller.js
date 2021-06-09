@@ -30,7 +30,7 @@ exports.rackCreate = (req, res) => {
 
 
 //1Find a single Tutorial with an id
-exports.findOne = (req, res) => {
+exports.fetchRackById = (req, res) => {
     const id = req.params.id;
 
     Rack.findByPk(id)
@@ -44,15 +44,6 @@ exports.findOne = (req, res) => {
             });
         });
 };
-
-// const rackObject = await Rack.findOne({ where: { client_fk:2 } });
-// if (rackObject === null) {
-//   console.log('Not found!');
-// } else {
-//   console.log(rackObject instanceof Rack); // true
-//   console.log(rackObject.client_fk); // 'My Title'
-// }
-
 
 // Update a Rack by the id in the request
 exports.update = (req, res) => {
@@ -104,31 +95,40 @@ exports.update = (req, res) => {
       });
   };
 
- exports.findAll = (req, res) => {
+  exports.fetchAllRacks = (req, res) => {
   const tableName = req.query.name;
 
   sequelize.query ( "SELECT * FROM "+tableName).then( myTableRows => { 
     res.send(myTableRows);
   }
   )
+
 }
 
-exports.fetchRackByClientId = (req, res) => {
-  // const no_of_rows = req.params.no_of_rows;
-  // var condition = client_fk ? { client_fk: { [Op.like]: `%${client_fk}%` } } : null;
-
-  Rack.findAll({ where: {
-    client_fk: {
-      [Op.eq]: 1
-    }
-  }
-}) .then(data => {
+ exports.findRackByClientId = (req, res) => {
+  const tableName = req.params.name;
+  const client_fk= req.params.client_fk;
+  let query = `SELECT * FROM ${tableName} WHERE client_fk = ${client_fk} `;
+  sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
+  .then(data => {
+    res.send(data);
+  }).catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Form with id=" + id
+      });
+    });
+}
+exports.searchRackByName = (req, res) => {
+  var rackName = req.body.rackName;
+  var condition = rackName ? { rackName: { [Op.like]: `%${rackName}%` } } : null;
+  Rack.findAll({ where: condition})
+    .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving menu records."
+          err.message || "Some error occurred while retrieving Users."
       });
     });
 };

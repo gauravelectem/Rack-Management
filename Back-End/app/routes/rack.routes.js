@@ -6,18 +6,23 @@ module.exports = app => {
     // Create a new Rack
     router.post("/createRack/", racks.rackCreate);
 
-    router.get("/", racks.findAll);
+     // Fetch All Racks
+    router.get("/fetchAllRacks/", racks.fetchAllRacks);
 
-    // router.get("/:no_of_rows", racks.findAll);
-
-    //Retrieve a single Rack with id
-    router.get("/clientFK/:id", racks.fetchRackByClientId);
+    //Fetch Rack By Id
+    router.get("/getRackById/:id", racks.fetchRackById);
 
     // Update a Rack with id
     router.put("/:id", racks.update);
 
     // Delete a Rack with id
     router.delete("/:id", racks.delete);
+
+    //Seach Rack By rackName
+    router.post("/fetchRackByName", racks.searchRackByName);
+
+    //Fetch Rack By ClientId
+    router.get("/findRackByClientId/:name/:client_fk", racks.findRackByClientId);
 
     // Create a new Tray
     router.post("/tray", racks.trayCreate);
