@@ -4,6 +4,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UploadFilesService } from 'src/app/services/upload-files.service';
 
+
 @Component({
   selector: 'app-upload-files',
   templateUrl: './upload-files.component.html',

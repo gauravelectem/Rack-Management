@@ -3,7 +3,9 @@ import swal from 'sweetalert2';
 import { FormService } from './../../services/app.form.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Formdata } from 'src/app/models/form-builder.model';
-
+import { UploadFilesService } from 'src/app/services/upload-files.service';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-edit-forms',
   templateUrl: './edit-forms.component.html',
@@ -16,11 +18,15 @@ export class EditFormsComponent implements OnInit {
     description: '',
     attributes: [],
   };
-
+  selectedFiles?: FileList;
+  currentFile?: File;
+  progress = 0;
+  message = '';
+  fileInfos?: Observable<any>;
 success = false;
 constructor(private formService: FormService,
     private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router, private uploadService: UploadFilesService) {}
 
 ngOnInit(): void {
     this.getFormData(this.route.snapshot.params.id, this.route.snapshot.params.name);
@@ -102,4 +108,45 @@ submit() {
       });
 }
 
+
+selectFile(event: any): void {
+  this.selectedFiles = event.target.files;
+  this.upload();
+}
+upload(): void {
+  this.progress = 0;
+
+  if (this.selectedFiles) {
+    const file: File | null = this.selectedFiles.item(0);
+
+    if (file) {
+      this.currentFile = file;
+
+      this.uploadService.upload(this.currentFile).subscribe(
+        (event: any) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progress = Math.round(100 * event.loaded / event.total);
+          } else if (event instanceof HttpResponse) {
+            this.message = event.body.message;
+            this.fileInfos = this.uploadService.getFiles();
+          }
+        },
+        (err: any) => {
+          console.log(err);
+          this.progress = 0;
+
+          if (err.error && err.error.message) {
+            this.message = err.error.message;
+          } else {
+            this.message = 'Could not upload the file!';
+          }
+
+          this.currentFile = undefined;
+        });
+
+    }
+
+    this.selectedFiles = undefined;
+  }
+}
 }

@@ -50,15 +50,16 @@ style="max-width:500px;"
         </div>
       <div *ngIf="item.type=='file'">
         <label>{{item.label}} (File can't be uploaded right now)</label> <label *ngIf="item.required" class="text-danger">*</label>
-        <input type="file" class="form-control" id="{{item.name}}" placeholder="{{item.placeholder}}" [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}" autocomplete="off">
+        <input type="file" class="form-control" id="{{item.name}}" placeholder="{{item.placeholder}}" [(ngModel)]="item.value" 
+        (change)="selectFile($event)" [ngModelOptions]="{standalone: true}" autocomplete="off">
         <small class="form-text text-danger">(File can't be uploaded right now)</small>
       </div>
       <div *ngIf="item.type=='paragraph'">
         <p class="form-text">{{item.placeholder}}</p>
       </div>
       <div *ngIf="item.type=='autocomplete'">
-    hh     <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
-        <select class="form-control" id="{{item.name}}" [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}">
+        <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
+        <select class="form-control" id="{{item.name}}" [(ngModel)]="item.label" [ngModelOptions]="{standalone: true}">
           <option *ngFor="let v of item.values" [value]="v.value">{{v.label}}</option>  
         </select>
         <!-- <small class="form-text text-muted">{{item.description}}</small> -->
@@ -67,7 +68,7 @@ style="max-width:500px;"
         <label>{{item.label}}</label> <label *ngIf="item.required" class="text-danger">*</label>
         <div *ngFor="let v of item.values" class="inline-form-group">
             <label class="cust-check-bx">
-              <input type="checkbox" [value]="v.value" name="{{item.name}}" (click)="toggleValue(v)"> {{v.label}}
+              <input type="checkbox" [value]="v.value" name="{{item.name}}" (click)="toggleValue(v)"> {{v.label}} 
               <span class="checkmark"></span>
             </label>
           </div>

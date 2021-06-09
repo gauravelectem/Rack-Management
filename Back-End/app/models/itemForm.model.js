@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.INTEGER,
 			allowNull: true,
 			references: {         
-			  model: 'items',
+			  model: 'templates',
 			  key: 'id'
 			}
 		}

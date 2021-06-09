@@ -4,7 +4,7 @@ const sequelize = require("../config/seq.config.js");
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-const Items = db.items;
+const Items = db.template;
 const Op = db.Sequelize.Op;
 // Create and Save a new Template
 exports.create = (req, res) => {
@@ -21,7 +21,7 @@ exports.create = (req, res) => {
   let query = `CREATE TABLE ${req.body.name}_template (`;
              query += `id SERIAL PRIMARY KEY, name character varying(255),  itemTempId integer, description character varying(255), attributes json, createdAt timestamp with time zone NULL,
              updatedAt timestamp with time zone NULL, CONSTRAINT ${req.body.name}_fkey FOREIGN KEY (itemTempId)
-             REFERENCES items (id)
+             REFERENCES templates (id)
              ON UPDATE NO ACTION ON DELETE NO ACTION`;
         query += ")";
 
