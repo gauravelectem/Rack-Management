@@ -1,0 +1,22 @@
+<h3>Update Rack</h3>
+<div [hidden]="submitted" style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="rackName">RackName</label>
+      <input type="text" class="form-control" id="rackName" required [(ngModel)]="rackObject.rackName" name="rackName">
+    </div>
+
+    <div class="form-group">
+      <label for="no_of_rows">No_Of_Rows</label>
+      <input type="number" class="form-control" id="no_of_rows" required [(ngModel)]="rackObject.no_of_rows" name="no_of_rows">
+    </div>
+
+    <div class="form-group">
+      <label for="no_of_columns">No_Of_Columns</label>
+      <input type="number" class="form-control" id="no_of_columns" required [(ngModel)]="rackObject.no_of_columns" name="no_of_columns">
+    </div>
+
+    <button  class="btn btn-primary mt-3">Update Rack</button>
+    <a routerLink="/rackList" class="btn btn-link mt-3">Cancel</a>
+  </form>
+</div>

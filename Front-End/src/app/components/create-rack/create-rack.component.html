@@ -1,0 +1,38 @@
+<div class="card">
+    <h4 class="card-header">Rack CRUD Operation</h4>
+  <div class="card-body">
+      <form name="myForm" [formGroup]="rackForm" (ngSubmit)="saveRack()">
+        <div class="form-group">
+          <label for="rackName">RackName</label>
+          <input type="text" class="form-control w-25" id="rackName" formControlName="rackName"  [ngClass]="{ 'is-invalid': submitted && f.rackName.errors }"
+            name="rackName"/>
+            <div *ngIf="submitted && f.rackName.errors" class="invalid-feedback">
+              <div *ngIf="f.rackName.errors.required">rackName is required</div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="description">No_Of_Rows</label>
+          <input type="number" class="form-control w-25" id="no_of_rows" formControlName="no_of_rows"  
+          [ngClass]="{ 'is-invalid': submitted && f.no_of_rows.errors }" name="no_of_rows"/>
+          <div *ngIf="submitted && f.no_of_rows.errors" class="invalid-feedback">
+              <div *ngIf="f.no_of_rows.errors.required">No_Of_Rows is required</div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+            <label for="description">No_Of_Columns</label>
+            <input type="number" class="form-control w-25" id="no_of_columns" formControlName="no_of_columns"  
+            [ngClass]="{ 'is-invalid': submitted && f.no_of_columns.errors }" name="no_of_columns"/>
+            <div *ngIf="submitted && f.no_of_columns.errors" class="invalid-feedback">
+                <div *ngIf="f.no_of_columns.errors.required">No_Of_Columns is required</div>
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <button  class="btn btn-primary mt-3">saveRack</button>
+            <a routerLink="/rackList" class="btn btn-link mt-3">Cancel</a>
+        </div>
+      </form>
+    </div>
+    </div>
