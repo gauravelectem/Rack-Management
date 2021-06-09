@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
     };
 
     Client.associate = function (models) {
-      Client.hasMany(models.Rack, { as: 'rack' })
+      Client.hasMany(models.Rack, { as: 'racks' })
   };
   
     return Client;

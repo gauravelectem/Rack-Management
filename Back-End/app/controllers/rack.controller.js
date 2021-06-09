@@ -113,13 +113,13 @@ exports.update = (req, res) => {
   )
 }
 
-exports.fetchGreaterThanRow = (req, res) => {
+exports.fetchRackByClientId = (req, res) => {
   // const no_of_rows = req.params.no_of_rows;
   // var condition = client_fk ? { client_fk: { [Op.like]: `%${client_fk}%` } } : null;
 
   Rack.findAll({ where: {
-    no_of_rows: {
-      [Op.gt]: 12
+    client_fk: {
+      [Op.eq]: 1
     }
   }
 }) .then(data => {
