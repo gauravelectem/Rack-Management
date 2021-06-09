@@ -26,18 +26,6 @@ db.user.belongsTo(db.role, {
   as: "role",
 });
 
-db.racks.hasMany(db.trays, { as: "tray" });
-db.trays.belongsTo(db.racks, {
-  foreignKey: "rack_fk",
-  as: "rack",
-});
-
-db.clients.hasMany(db.racks, { as: "rack" });
-db.racks.belongsTo(db.clients, {
-  foreignKey: "client_fk",
-  as: "client",
-});
-
 db.items.hasMany(db.menus, { as: "menu" });
 db.menus.belongsTo(db.items, {
   foreignKey: "itemId",

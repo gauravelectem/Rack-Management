@@ -6,12 +6,12 @@ module.exports = app => {
     // Create a new Rack
     router.post("/createRack/", racks.rackCreate);
 
-    // router.get("/", racks.findAll);
+    router.get("/", racks.findAll);
 
     // router.get("/:no_of_rows", racks.findAll);
 
     //Retrieve a single Rack with id
-    router.get("/rackById/:id", racks.findOne);
+    router.get("/clientFK/:id", racks.fetchRackByClientId);
 
     // Update a Rack with id
     router.put("/:id", racks.update);

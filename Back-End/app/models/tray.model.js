@@ -63,7 +63,19 @@ module.exports = (sequelize, Sequelize) => {
         modifiedBy: {
             type: Sequelize.STRING
     }, 
+    rack_fk: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {         
+          model: 'racks',
+          key: 'id'
+        }
+      }
     });
+
+    Tray.associate = (models) => {
+        Tray.belongsTo(models.Rack, { foreignKey: 'rack_fk', as: 'rack' })
+    };
 
     return Tray;
 };
