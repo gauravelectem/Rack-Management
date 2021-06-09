@@ -20,6 +20,7 @@ import { EditFormsComponent } from './components/edit-forms/edit-forms.component
 import { FormListComponent } from './components/forms-list/forms-list.component';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTableModule} from '@angular/material/table';
 import { RackListComponent } from './components/rack-list/rack-list.component';
 import { EditRackComponent } from './components/edit-rack/edit-rack.component';
 import { CreateRackComponent } from './components/create-rack/create-rack.component';
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     AppRoutingModule,
     DndModule,
     MatSliderModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
