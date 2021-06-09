@@ -15,7 +15,7 @@ db.trays = require("./tray.model.js")(sequelize, Sequelize);
 db.stores = require("../models/store.model.js")(sequelize, Sequelize);
 db.menus = require("../models/menu.model.js")(sequelize, Sequelize);
 //db.itemtemplates = require("./itemTemplate.model.js")(sequelize, Sequelize);
-db.items = require("./item.model.js")(sequelize, Sequelize);
+db.templates = require("./item.model.js")(sequelize, Sequelize);
 db.itemtemplatepropertys = require("./itemTemplateProperty.js")(sequelize, Sequelize);
 db.products = require("./itemForm.model.js")(sequelize, Sequelize);
 db.clients = require("./client.model.js")(sequelize, Sequelize);
@@ -26,10 +26,10 @@ db.user.belongsTo(db.role, {
   as: "role",
 });
 
-db.items.hasMany(db.menus, { as: "menu" });
-db.menus.belongsTo(db.items, {
+db.templates.hasMany(db.menus, { as: "menu" });
+db.menus.belongsTo(db.templates, {
   foreignKey: "itemId",
-  as: "items",
+  as: "templates",
 });
 
 db.role.hasMany(db.menus, { as: "menu" });
@@ -39,12 +39,12 @@ db.menus.belongsTo(db.role, {
 });
       
 
-db.trays.belongsToMany(db.items, {
+db.trays.belongsToMany(db.templates, {
   through: "tray_item",
   foreignKey: "trayId",
   otherKey: "userId"
 });
-db.items.belongsToMany(db.trays, {
+db.templates.belongsToMany(db.trays, {
   through: "tray_item",
   foreignKey: "itemId",
   otherKey: "trayId"

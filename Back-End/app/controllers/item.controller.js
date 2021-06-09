@@ -4,7 +4,7 @@ const sequelize = require("../config/seq.config.js");
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-const Items = db.template;
+const Items = db.templates;
 const Op = db.Sequelize.Op;
 // Create and Save a new Template
 exports.create = (req, res) => {
@@ -15,7 +15,8 @@ exports.create = (req, res) => {
   const item = {
     attributes: ites,
     name: req.body.name,
-    description: req.body.description
+    description: req.body.description,
+    clientFk: req.body.clientFk,
   };
 
   let query = `CREATE TABLE ${req.body.name}_template (`;
@@ -55,8 +56,8 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
   var name = req.query.name;
   var clientFk = req.query.clientFk;
-  var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
-  //var condition = clientFk ? { clientFk: { [Op.eq]: clientFk } } : null;
+ // var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+  var condition = clientFk ? { clientFk: { [Op.eq]: clientFk } } : null;
   Items.findAll({ where: condition})
     .then(data => {
       res.send(data);
