@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Template } from 'src/app/models/template.model';
 import { FormService } from 'src/app/services/app.form.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
 import swal from 'sweetalert2';
 @Component({
   selector: 'app-Templates-list',
@@ -15,7 +16,8 @@ export class TemplateListComponent implements OnInit {
   name = '';
   UserObj: any = {};
   clientFk: '';
-
+  displayedColumns: string[] = ['id', 'name','actions'];
+  dataSource = new MatTableDataSource<any>();
   constructor(private formService: FormService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -30,7 +32,8 @@ export class TemplateListComponent implements OnInit {
     this.formService.getAll(this.clientFk)
       .subscribe(
         data => {
-          this.Templates = data;
+         // this.Templates = data;
+          this.dataSource.data = data;
           console.log(data);
         },
         error => {
