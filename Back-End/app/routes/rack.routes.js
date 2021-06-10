@@ -19,10 +19,14 @@ module.exports = app => {
     router.delete("/:id", racks.delete);
 
     //Seach Rack By rackName
-    router.post("/fetchRackByName", racks.searchRackByName);
+    router.post("/searchRackByName", racks.searchRackByName);
+
+    router.post("/fetchRack", racks.fetchRack);
 
     //Fetch Rack By ClientId
     router.get("/findRackByClientId/:name/:client_fk", racks.findRackByClientId);
+
+    router.get("/fetchJoinTable/:name/:name2/:client_fk", racks.fetchJoinTable);
 
     // Create a new Tray
     router.post("/tray", racks.trayCreate);

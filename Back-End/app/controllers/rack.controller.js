@@ -118,10 +118,54 @@ exports.update = (req, res) => {
       });
     });
 }
-exports.searchRackByName = (req, res) => {
+
+exports.fetchJoinTable = (req, res) => {
+  const tableName = req.params.name;
+  const tableName2= req.params.name2;
+  const client_fk= req.params.client_fk;
+  let query = `SELECT * FROM ${tableName} inner join ${tableName2} on ${tableName}.client_fk = ${tableName2}.id WHERE ${tableName}.client_fk = ${client_fk} `;
+  sequelize.query(query, { type: sequelize.QueryTypes.fetchJoinTable})
+  .then(data => {
+    res.send(data);
+  }).catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Form with id=" + id
+      });
+    });
+};
+
+exports.searchRackByNameOrCreatedAt = (req, res) => {
+  var tableName = req.body.tableName;
   var rackName = req.body.rackName;
-  var condition = rackName ? { rackName: { [Op.like]: `%${rackName}%` } } : null;
-  Rack.findAll({ where: condition})
+  var createdAt = req.body.createdAt;
+  if(createdAt == undefined){
+    query = `SELECT * FROM ${tableName} WHERE rackName LIKE '%${rackName}%' `;
+  }
+  else if(rackName == undefined){
+    query = `SELECT * FROM ${tableName} WHERE createdAt > '${createdAt}' `;
+  }
+  else
+   query = `SELECT * FROM ${tableName} WHERE rackName LIKE '%${rackName}%' AND createdAt > '${createdAt}' `;
+  sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
+  .then(data => {
+    res.send(data);
+  }).catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Form with id"
+      });
+    });
+};
+
+exports.fetchRack = (req, res) => {
+  var rackName = req.body.rackName;
+  var createdAt = req.body.createdAt;
+
+  Rack.findAll({  where: {
+    [Op.or]: [
+      { condition1 },
+      { condition2 }
+    ]
+  }})
     .then(data => {
       res.send(data);
     })
@@ -132,6 +176,7 @@ exports.searchRackByName = (req, res) => {
       });
     });
 };
+
 
 exports.trayCreate = (req, res) => {
 
