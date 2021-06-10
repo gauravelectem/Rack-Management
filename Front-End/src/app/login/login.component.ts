@@ -41,16 +41,20 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.loginForm.value)
     .subscribe(
       response => {
-        console.log(response);
-        Client.clientFK = response.clientFk;
-        sessionStorage.setItem('userObj', JSON.stringify(response));
-        if (!!response) {
-          this.submitted = true;
-          this.router.navigate(['/template'])
-          .then(() => {
-            window.location.reload();
-          });
-        } else {
+        if(response !== null){
+          console.log(response);
+          this.showSuccess=true;
+          Client.clientFK = response.clientFk;
+          sessionStorage.setItem('userObj', JSON.stringify(response));
+          if (!!response) {
+            this.submitted = true;
+            this.router.navigate(['/template'])
+            .then(() => {
+              window.location.reload();
+            });
+          } 
+        }
+        else {
           this.showError = true;
         }
       },
