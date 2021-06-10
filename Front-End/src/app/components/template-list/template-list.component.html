@@ -1,65 +1,42 @@
 <div class="list row">
   <div class="col-md-8">
-    <!-- <div class="input-group mb-3">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Search"
-        [(ngModel)]="name"
-      />
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          (click)="searchTitle()"
-        >
-          Search
-        </button>
-      </div>
-    </div> -->
     <div>
      <button class="m-3 btn btn-sm btn-primary" routerLink="/addTemplate/">
           Add Item Template
     </button>
-    <!-- <button class="m-3 btn btn-sm btn-danger" routerLink="/products/" style = "Background :#4b9272">
-      Forms listing
-</button> -->
-     </div>
-   
+</div>
   </div>
-  <div class="col-md-6">
-    <h4>Item Template List</h4>
-    <ul class="list-group">
-      <li
-        class="list-group-item"
-        *ngFor="let Template of Templates; let i = index"
-        [class.active]="i == currentIndex"
-        (click)="setActiveTemplate(Template, i)"
-      >
-        {{ Template.name }}
-      </li>
-    </ul>
-  </div>
-  <div class="col-md-6">
-    <div *ngIf="currentTemplate">
-      <h4>Item Template</h4>
-      <div>
-        <label><strong>Name:</strong></label> {{ currentTemplate.name }}
-      </div>
-      <a class="badge badge-warning" routerLink="/edit/{{ currentTemplate.name }}/{{ currentTemplate.id }}">
-        Edit
-      </a>
-      <a class="badge badge-warning" routerLink="/addForm/{{ currentTemplate.id }}">
-        view
-      </a>
-      <a class="badge badge-danger mr-2" (click)="removeTemplate(currentTemplate.id)">
-      Delete
-    </a>
-    </div>
+  <div class="mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource">
+  
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> Name. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}}  </mat-cell>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.description}}  </mat-cell>
+      </ng-container>
 
-    <div *ngIf="!currentTemplate">
-      <br />
-      <p>Please click on a Item Template...</p>
-    </div>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell  *matHeaderCellDef > Actions </mat-header-cell>
+        <mat-cell *matCellDef="let element" >
+          <a class="badge badge-warning" routerLink="/edit/{{ element.name }}/{{ element.id }}"> Edit</a>
+          <a class="badge badge-danger mr-2" (click)="removeTemplate(element.id)">
+            Delete
+          </a>
+        </mat-cell>
+      </ng-container>
+
+    </mat-table>
   </div>
 </div>
