@@ -10,7 +10,7 @@ module.exports = app => {
     router.get("/fetchAllRacks/", racks.fetchAllRacks);
 
     //Fetch Rack By Id
-    router.get("/getRackById/:id", racks.fetchRackById);
+    router.get("/fetchRackById/:id", racks.fetchRackById);
 
     // Update a Rack with id
     router.put("/:id", racks.update);
@@ -19,14 +19,10 @@ module.exports = app => {
     router.delete("/:id", racks.delete);
 
     //Seach Rack By rackName
-    router.post("/searchRackByName", racks.searchRackByName);
-
-    router.post("/fetchRack", racks.fetchRack);
+    router.post("/searchRack", racks.searchRack);
 
     //Fetch Rack By ClientId
-    router.get("/findRackByClientId/:name/:client_fk", racks.findRackByClientId);
-
-    router.get("/fetchJoinTable/:name/:name2/:client_fk", racks.fetchJoinTable);
+    router.get("/fetchRackByClientId/:name/:client_fk", racks.fetchRackByClientId);
 
     // Create a new Tray
     router.post("/tray", racks.trayCreate);

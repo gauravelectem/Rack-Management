@@ -95,6 +95,7 @@ exports.update = (req, res) => {
       });
   };
 
+  //Fetch All Racks 
   exports.fetchAllRacks = (req, res) => {
   const tableName = req.query.name;
 
@@ -105,7 +106,8 @@ exports.update = (req, res) => {
 
 }
 
- exports.findRackByClientId = (req, res) => {
+//Fetch Rack By ClientId
+ exports.fetchRackByClientId = (req, res) => {
   const tableName = req.params.name;
   const client_fk= req.params.client_fk;
   let query = `SELECT * FROM ${tableName} WHERE client_fk = ${client_fk} `;
@@ -117,35 +119,22 @@ exports.update = (req, res) => {
         message: "Error retrieving Form with id=" + id
       });
     });
-}
-
-exports.fetchJoinTable = (req, res) => {
-  const tableName = req.params.name;
-  const tableName2= req.params.name2;
-  const client_fk= req.params.client_fk;
-  let query = `SELECT * FROM ${tableName} inner join ${tableName2} on ${tableName}.client_fk = ${tableName2}.id WHERE ${tableName}.client_fk = ${client_fk} `;
-  sequelize.query(query, { type: sequelize.QueryTypes.fetchJoinTable})
-  .then(data => {
-    res.send(data);
-  }).catch(err => {
-      res.status(500).send({
-        message: "Error retrieving Form with id=" + id
-      });
-    });
 };
 
-exports.searchRackByNameOrCreatedAt = (req, res) => {
+//Search Rack
+exports.searchRack = (req, res) => {
   var tableName = req.body.tableName;
   var rackName = req.body.rackName;
   var createdAt = req.body.createdAt;
+  var client_fk = req.body.client_fk;
   if(createdAt == undefined){
-    query = `SELECT * FROM ${tableName} WHERE rackName LIKE '%${rackName}%' `;
+    query = `SELECT * FROM ${tableName} WHERE rackName LIKE '%${rackName}%' AND client_fk = ${client_fk} `;
   }
   else if(rackName == undefined){
-    query = `SELECT * FROM ${tableName} WHERE createdAt > '${createdAt}' `;
+    query = `SELECT * FROM ${tableName} WHERE createdAt > '${createdAt}' AND client_fk = ${client_fk} `;
   }
   else
-   query = `SELECT * FROM ${tableName} WHERE rackName LIKE '%${rackName}%' AND createdAt > '${createdAt}' `;
+   query = `SELECT * FROM ${tableName} WHERE rackName LIKE '%${rackName}%' AND (createdAt > '${createdAt}' AND client_fk = ${client_fk})`;
   sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
   .then(data => {
     res.send(data);
@@ -156,28 +145,7 @@ exports.searchRackByNameOrCreatedAt = (req, res) => {
     });
 };
 
-exports.fetchRack = (req, res) => {
-  var rackName = req.body.rackName;
-  var createdAt = req.body.createdAt;
-
-  Rack.findAll({  where: {
-    [Op.or]: [
-      { condition1 },
-      { condition2 }
-    ]
-  }})
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving Users."
-      });
-    });
-};
-
-
+//Tray Create
 exports.trayCreate = (req, res) => {
 
   const tray = {
