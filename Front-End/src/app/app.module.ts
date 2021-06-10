@@ -24,6 +24,8 @@ import {MatTableModule} from '@angular/material/table';
 import { RackListComponent } from './components/rack-list/rack-list.component';
 import { EditRackComponent } from './components/edit-rack/edit-rack.component';
 import { CreateRackComponent } from './components/create-rack/create-rack.component';
+import { TrayModule } from './components/tray-crud/tray.module';
+
 const appRoutes: Routes = [
   // { path: '', component: EditAppComponent },
 ];
@@ -40,10 +42,10 @@ const appRoutes: Routes = [
     EditFormComponent,
     AddFormComponent,
     EditFormsComponent,
- FormListComponent,
- RackListComponent,
- EditRackComponent,
- CreateRackComponent,
+    FormListComponent,
+    RackListComponent,
+    EditRackComponent,
+    CreateRackComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
@@ -57,6 +59,7 @@ const appRoutes: Routes = [
     MatSliderModule,
     MatToolbarModule,
     MatTableModule,
+    TrayModule    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,6 +14,7 @@ import { FormListComponent } from './components/forms-list/forms-list.component'
 import { CreateRackComponent } from './components/create-rack/create-rack.component';
 import { RackListComponent } from './components/rack-list/rack-list.component';
 import { EditRackComponent } from './components/edit-rack/edit-rack.component';
+import { TrayComponent } from './components/tray-crud/tray.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent , pathMatch: 'full' },
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'createRack', component: CreateRackComponent},
   { path: 'rackList', component:RackListComponent},
   { path: 'editRack/:id', component:EditRackComponent},
+  { path: 'racklayout/:id', component:TrayComponent},
 ];
 
 @NgModule({
