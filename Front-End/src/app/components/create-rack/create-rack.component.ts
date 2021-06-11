@@ -1,3 +1,4 @@
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from './../../services/user.service';
 import { Router } from '@angular/router';
@@ -17,7 +18,8 @@ export class CreateRackComponent implements OnInit {
     name: '',
     no_of_rows: 0,
     no_of_columns:0,
-    client_fk:1,
+    client_fk:0,
+    createdon:''
   };
 
   constructor(
@@ -28,13 +30,18 @@ export class CreateRackComponent implements OnInit {
   loading = false;
   submitted = false;
   rackForm: FormGroup;
+  rackObj:any;
+  createdon:any;
 
   ngOnInit() {
+    this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
+     this.rack.client_fk = this.UserObj.clientFk;
     this.rackForm = this.formBuilder.group({
       name : ['', Validators.required],
       no_of_rows: ['', [Validators.required ]],
       no_of_columns: ['', [Validators.required]],
-      client_fk:1,
+      createdon:'',
+      client_fk:this.UserObj.clientFk,
   });
   }
 

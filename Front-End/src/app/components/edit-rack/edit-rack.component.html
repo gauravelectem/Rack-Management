@@ -16,6 +16,11 @@
       <input type="number" class="form-control" id="no_of_columns" required [(ngModel)]="rackObject.no_of_columns" name="no_of_columns">
     </div>
 
+    <div class="form-group">
+      <label for="createdon">Date</label>
+      <input type="date" class="form-control" id="createdon" required [(ngModel)]="rackObject.createdon" name="createdon">
+    </div>
+
     <button  class="btn btn-primary mt-3">Update Rack</button>
     <a routerLink="/rackList" class="btn btn-link mt-3">Cancel</a>
   </form>

@@ -4,4 +4,5 @@ export class Rack {
     no_of_rows?:number;
     no_of_columns?: number;
     client_fk?: number;
+    createdon?:string;
   }

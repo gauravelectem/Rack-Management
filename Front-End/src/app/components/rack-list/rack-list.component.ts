@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RackService } from '../../services/rack.service';
 import { DatePipe } from '@angular/common'
 import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-rack-list',
@@ -12,20 +12,24 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class RackListComponent implements OnInit {
    rackObject:any;
-  displayedColumns: string[] = [ 'id', 'name', 'no_of_rows', 'no_of_columns','createdon','action'];
+  displayedColumns: string[] = [ 'id', 'name', 'no_of_rows', 'no_of_columns','createdon','edit','delete'];
   dataSource = new MatTableDataSource<any>();
   rackObj: any = {
     name: '',
-    client_fk: 1,
     createdon:'',
   };
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   search: string = '';
   datePicker:string='';
+  UserObj: any = {};
 
   constructor(private rackService:RackService,public datepipe: DatePipe,
     private router: Router) { }
 
   ngOnInit(): void {
+    this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
+     this.rackObj.client_fk = this.UserObj.clientFk;
+    this.dataSource.paginator = this.paginator;
     this.fetchRack();
   }
 

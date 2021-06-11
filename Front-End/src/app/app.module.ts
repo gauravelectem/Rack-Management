@@ -28,6 +28,8 @@ import { TrayModule } from './components/tray-crud/tray.module';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const appRoutes: Routes = [
   // { path: '', component: EditAppComponent },
@@ -65,8 +67,9 @@ const appRoutes: Routes = [
     TrayModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatPaginatorModule 
   ],
-  providers: [DatePipe],
+    providers: [ DatePipe,MatPaginator],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

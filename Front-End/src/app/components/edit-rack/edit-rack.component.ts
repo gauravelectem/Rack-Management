@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Rack } from './../../models/rack.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +19,8 @@ export class EditRackComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private rackService:RackService) { }
+    private rackService:RackService,
+    public datepipe: DatePipe,) { }
 
   ngOnInit(): void {
     this.rackId = this.route.snapshot.params['id'];
@@ -28,6 +30,7 @@ export class EditRackComponent implements OnInit {
     .subscribe(data => {
       console.log(data)
       this.rackObject = data;
+      this.rackObject.createdon =  this.datepipe.transform(this.rackObject.createdon,"yyyy-MM-dd");
     }, error => console.log(error));
   }
 
