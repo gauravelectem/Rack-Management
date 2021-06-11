@@ -1,3 +1,4 @@
+import { Client } from './../client';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -12,19 +13,15 @@ export class RackService {
   constructor(private http: HttpClient) { }
 
   getRackById(id: any): Observable<any> {
-    return this.http.get(`${baseUrl}/api/rack/rackById/${id}`);
-  }
-
-  getRackByClientId(id: any): Observable<any> {
-    return this.http.get(`${baseUrl}/api/rack/clientFK/${id}`);
+    return this.http.get(`${baseUrl}/api/rack/fetchRackById/${id}`);
   }
 
   deleteRackById(id: any): Observable<any> {
     return this.http.delete(`${baseUrl}/api/rack/${id}`);
   }
 
-  fetchAllRacks(tableName:any): Observable<any> {
-    return this.http.get(`${baseUrl}/api/rack?name=${tableName}`);
+  searchRack(data:any): Observable<any> {
+    return this.http.post(`${baseUrl}/api/rack/searchRack`,data);
   }
 
   createRack(rackData: any): Observable<any> {

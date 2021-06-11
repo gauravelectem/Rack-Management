@@ -11,7 +11,7 @@ import { RackService } from '../../services/rack.service';
 export class EditRackComponent implements OnInit {
   rackId:any;
   rackObject: Rack = {
-    rackName: '',
+    name: '',
     no_of_rows: 0,
     no_of_columns: 0,
   };

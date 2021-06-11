@@ -12,8 +12,9 @@ import { RackService } from '../../services/rack.service';
 })
 export class CreateRackComponent implements OnInit {
 
-  user: Rack = {
-    rackName: '',
+  UserObj: any = {};
+  rack: Rack = {
+    name: '',
     no_of_rows: 0,
     no_of_columns:0,
     client_fk:1,
@@ -30,7 +31,7 @@ export class CreateRackComponent implements OnInit {
 
   ngOnInit() {
     this.rackForm = this.formBuilder.group({
-      rackName : ['', Validators.required],
+      name : ['', Validators.required],
       no_of_rows: ['', [Validators.required ]],
       no_of_columns: ['', [Validators.required]],
       client_fk:1,

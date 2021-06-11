@@ -25,6 +25,9 @@ import { RackListComponent } from './components/rack-list/rack-list.component';
 import { EditRackComponent } from './components/edit-rack/edit-rack.component';
 import { CreateRackComponent } from './components/create-rack/create-rack.component';
 import { TrayModule } from './components/tray-crud/tray.module';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DatePipe } from '@angular/common';
 
 const appRoutes: Routes = [
   // { path: '', component: EditAppComponent },
@@ -59,9 +62,11 @@ const appRoutes: Routes = [
     MatSliderModule,
     MatToolbarModule,
     MatTableModule,
-    TrayModule    
+    TrayModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

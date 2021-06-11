@@ -3,11 +3,11 @@
   <div class="card-body">
       <form name="myForm" [formGroup]="rackForm" (ngSubmit)="saveRack()">
         <div class="form-group">
-          <label for="rackName">RackName</label>
-          <input type="text" class="form-control w-25" id="rackName" formControlName="rackName"  [ngClass]="{ 'is-invalid': submitted && f.rackName.errors }"
-            name="rackName"/>
-            <div *ngIf="submitted && f.rackName.errors" class="invalid-feedback">
-              <div *ngIf="f.rackName.errors.required">rackName is required</div>
+          <label for="name">RackName</label>
+          <input type="text" class="form-control w-25" id="name" formControlName="name"  [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+            name="name"/>
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">rackName is required</div>
           </div>
         </div>
   

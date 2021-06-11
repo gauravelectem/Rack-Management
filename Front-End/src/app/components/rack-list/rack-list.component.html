@@ -1,35 +1,50 @@
-<div class="example-container mat-elevation-z8">
-  <div class="example-header">
+<div class="example-container mat-elevation-z8"><br>
+  <div class="input-group">
+    <input type="search" class="form-control rounded" style="max-width: max-content;" [(ngModel)]="search" placeholder="Search" aria-label="Search"
+      aria-describedby="search-addon" />
+    <button type="button" class="btn btn-outline-primary" (click)="fetchRack()">search</button>&nbsp;
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      <input matInput [matDatepicker]="picker"  [(ngModel)]="datePicker" placeholder="Choose a date" style="margin-left: 300px;">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+    <button type="button" class="btn btn-outline-primary" (click)="fetchDate()">search</button>&nbsp;
   </div>
 
-  <mat-table #table [dataSource]="dataSource">
-
-    <!-- Position Column -->
+  
+  <mat-table #table [dataSource]="dataSource" style="margin-top: 30px;" >
+    
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> PK </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
     </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="rackName">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.rackName}} </mat-cell>
+ 
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> RackName </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="no_of_rows">
       <mat-header-cell *matHeaderCellDef> no_of_rows </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.no_of_rows}} </mat-cell>
     </ng-container>
-
-    <!-- Symbol Column -->
+ 
     <ng-container matColumnDef="no_of_columns">
       <mat-header-cell *matHeaderCellDef> no_of_columns </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.no_of_columns}} </mat-cell>
     </ng-container>
+
+    <ng-container matColumnDef="createdon">
+      <mat-header-cell *matHeaderCellDef> createdAt </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.createdon}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> action </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="fetchRackById(element.id)">Edit</mat-cell>
+      <mat-cell *matCellDef="let element" (click)="deleteRack(element.id)">Delete</mat-cell>
+    </ng-container>
+    
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
