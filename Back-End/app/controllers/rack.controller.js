@@ -9,9 +9,10 @@ db.Sequelize = Sequelize;
 exports.rackCreate = (req, res) => {
 
     const rack = {
-      rackName: req.body.rackName,
+      name: req.body.name,
       no_of_rows: req.body.no_of_rows,
       no_of_columns: req.body.no_of_columns,
+      createdon: req.body.createdon,
       client_fk:req.body.client_fk,
     };
 
@@ -95,17 +96,6 @@ exports.update = (req, res) => {
       });
   };
 
-  //Fetch All Racks 
-  exports.fetchAllRacks = (req, res) => {
-  const tableName = req.query.name;
-
-  sequelize.query ( "SELECT * FROM "+tableName).then( myTableRows => { 
-    res.send(myTableRows);
-  }
-  )
-
-}
-
 //Fetch Rack By ClientId
  exports.fetchRackByClientId = (req, res) => {
   const tableName = req.params.name;
@@ -123,18 +113,17 @@ exports.update = (req, res) => {
 
 //Search Rack
 exports.searchRack = (req, res) => {
-  var tableName = req.body.tableName;
-  var rackName = req.body.rackName;
-  var createdAt = req.body.createdAt;
+  var rackname = req.body.name;
+  var createdon = req.body.createdon;
   var client_fk = req.body.client_fk;
-  if(createdAt == undefined){
-    query = `SELECT * FROM ${tableName} WHERE rackName LIKE '%${rackName}%' AND client_fk = ${client_fk} `;
+  if(createdon == undefined){
+    query = `SELECT * FROM racks WHERE name LIKE '%${rackname}%' AND client_fk = ${client_fk} `;
   }
-  else if(rackName == undefined){
-    query = `SELECT * FROM ${tableName} WHERE createdAt > '${createdAt}' AND client_fk = ${client_fk} `;
+  else if(rackname == undefined){
+    query = `SELECT * FROM racks WHERE createdon > '${createdon}' AND client_fk = ${client_fk} `;
   }
   else
-   query = `SELECT * FROM ${tableName} WHERE rackName LIKE '%${rackName}%' AND (createdAt > '${createdAt}' AND client_fk = ${client_fk})`;
+   query = `SELECT * FROM racks WHERE name LIKE '%${rackname}%' AND (createdon >= '${createdon}' AND client_fk = ${client_fk})`;
   sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
   .then(data => {
     res.send(data);

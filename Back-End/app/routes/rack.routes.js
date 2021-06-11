@@ -6,9 +6,6 @@ module.exports = app => {
     // Create a new Rack
     router.post("/createRack/", racks.rackCreate);
 
-     // Fetch All Racks
-    router.get("/fetchAllRacks/", racks.fetchAllRacks);
-
     //Fetch Rack By Id
     router.get("/fetchRackById/:id", racks.fetchRackById);
 

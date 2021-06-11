@@ -1,6 +1,7 @@
+
 module.exports = (sequelize, Sequelize) => {
     const Rack = sequelize.define("rack", {
-        rackName: {
+        name: {
         type: Sequelize.STRING
       },
       no_of_rows: {
@@ -8,6 +9,9 @@ module.exports = (sequelize, Sequelize) => {
       },
       no_of_columns: {
         type: Sequelize.STRING
+      },
+      createdon:{
+        type:Sequelize.DATE
       },
       client_fk: {
         type: Sequelize.INTEGER,
