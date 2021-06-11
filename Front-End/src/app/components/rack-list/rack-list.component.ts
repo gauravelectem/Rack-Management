@@ -78,6 +78,10 @@ export class RackListComponent implements OnInit {
         });
   }
 
+  cancel(): void{
+    this.router.navigate(['/createRack']);
+  }
+
 }
 
 
