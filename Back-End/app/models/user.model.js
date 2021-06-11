@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     phone: {
-      type: Sequelize.INTEGER
+      type: Sequelize.BIGINT
     },
     confirmPass: {
       type: Sequelize.STRING
