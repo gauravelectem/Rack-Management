@@ -22,13 +22,8 @@ export class TrayComponent implements OnInit, OnDestroy {
 
     trayObject:any;
     trayId:any;
-    options = {
-        autoClose: true,
-        keepAfterRouteChange: false
-    };
 
-    constructor(private ngZone: NgZone,private rackService:RackService,
-        private alertService: AlertService,private route: ActivatedRoute, ) {
+    constructor(private ngZone: NgZone,private rackService:RackService) {
         // this.ngZone.onUnstable.subscribe(() => console.log('UnStable'));
     }
     @ViewChild(KtdGridComponent, {static: true}) grid: KtdGridComponent;
@@ -184,6 +179,25 @@ export class TrayComponent implements OnInit, OnDestroy {
             newLayoutItem,
             ...this.trayList
         ];
+        
+        this.rackService.fetchTrayById(this.currentlyBeingEditedTray.id)
+            .subscribe(
+                response => {
+                    this.trayObject = response;
+                    this.trayObject.id = null;
+                    this.trayObject.name=this.form.controls.trayname.value;
+                    this.rackService.createTray(this.trayObject)
+                        .subscribe(
+                            response => {
+                                console.log(response);
+                            },
+                            error => {
+                                console.log(error);
+                            });
+                },
+                error => {
+                    console.log(error);
+            });
     }
 
     /**
@@ -201,7 +215,6 @@ export class TrayComponent implements OnInit, OnDestroy {
         this.rackService.deleteTrayById(this.currentlyBeingEditedTray.id)
       .subscribe(
         response => {
-          this.alertService.info(response.message, this.options)
           this.trayObject=response;
           console.log(response);
         },
@@ -236,7 +249,6 @@ export class TrayComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.trayObject=response;
-          this.alertService.info(response.message, this.options)
           console.log(response);
         },
         error => {
