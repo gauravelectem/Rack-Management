@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, NgZone, OnDestroy, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { fromEvent, merge, Subscription } from 'rxjs';
@@ -20,13 +21,14 @@ import { AlertService } from '../_alert/alert.service';
 export class TrayComponent implements OnInit, OnDestroy {
 
     trayObject:any;
+    trayId:any;
     options = {
         autoClose: true,
         keepAfterRouteChange: false
     };
 
     constructor(private ngZone: NgZone,private rackService:RackService,
-        private alertService: AlertService ) {
+        private alertService: AlertService,private route: ActivatedRoute, ) {
         // this.ngZone.onUnstable.subscribe(() => console.log('UnStable'));
     }
     @ViewChild(KtdGridComponent, {static: true}) grid: KtdGridComponent;
@@ -196,8 +198,9 @@ export class TrayComponent implements OnInit, OnDestroy {
     }
 
     /** Removes the item from the layout */
-    removeTray(id:any) {
-        this.rackService.deleteTrayById(id)
+    removeTray() {
+        this.trayId = this.route.snapshot.params['id'];
+        this.rackService.deleteTrayById(this.trayId)
       .subscribe(
         response => {
           this.alertService.info(response.message, this.options)
