@@ -1,61 +1,19 @@
 <div class="list row">
     <div class="col-md-8">
-      <!-- <div class="input-group mb-3"><br>
-  <input
-          type="text"
-          class="form-control"
-          placeholder="Search"
-          [(ngModel)]="name"
-        />
-        <div class="input-group-append">
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            (click)="searchTitle()"
-          >
-            Search
-          </button>
-        </div>
-      </div>  -->
       <button class="m-3 btn btn-sm btn-primary"  (click)="addNewForm()">
         Add new form
       </button>
     </div>
-   
-    <div class="col-md-6">
-      <h4>Forms List</h4>
-      <ul class="list-group">
-        <li
-          class="list-group-item"
-          *ngFor="let Template of products; let i = index"
-          [class.active]="i == currentIndex"
-          (click)="setActiveTemplate(Template, i)"
-        >
-          {{ Template.name }}
-        </li>
-      </ul>
-    </div>
-    <div class="col-md-6">
-      <div *ngIf="currentTemplate">
-        <h4>Forms</h4>
-        <div>
-          <label><strong>Name:</strong></label> {{ currentTemplate.name }}
-        </div>
-        <a class="badge badge-warning" routerLink="/EditForm/{{this.route.snapshot.params.name}}/{{ currentTemplate.id }}">
-          Edit
-        </a>
-        <a class="badge badge-warning" routerLink="/form/viewForm/{{ currentTemplate.id }}">
-          view
-        </a>  
-        <a class="badge badge-danger mr-2" (click)="removeForm(currentTemplate.id)">
-        Delete
-      </a>
-      </div>
-  
-      <div *ngIf="!currentTemplate">
-        <br />
-        <p>Please click on a form...</p>
-      </div>
-    </div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="{{column.columnDef}}" *ngFor="let column of columns">
+        <th mat-header-cell *matHeaderCellDef>{{ column.header }} </th>
+        <td mat-cell *matCellDef="let row"> {{ column.cell(row) }} </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    
   </div>
   
+

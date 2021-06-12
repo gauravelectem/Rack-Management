@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/form.model';
 import { FormService } from './../../services/app.form.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
 import swal from 'sweetalert2';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-forms-list',
   templateUrl: './forms-list.component.html',
@@ -10,38 +12,62 @@ import swal from 'sweetalert2';
 })
 export class FormListComponent implements OnInit {
   products?: Product[];
+  columnArray:any = [];
   currentTemplate?: Product;
   currentIndex = -1;
   name = '';
-   tempid = '';
+  tempid = '';
   clientFk = '';
   UserObj: any = {};
   templateName: any;
+  columns:Array<any>
+  displayedColumns: string[] = [];
+  dataRow :any = [];
+  //displayedColumns: string[] = ['select', 'age', 'athlete', 'year', 'country'];
   constructor(private formService: FormService,
     private route: ActivatedRoute,
-    private router: Router) { }
-
+    private router: Router, private http: HttpClient) { }
+    dataSource = new MatTableDataSource<any>();
+   // dataSource:any
   ngOnInit(): void {
+    this.getData();
     this.tempid = this.route.snapshot.params['id'];
-    this.retrieveProducts();
+    //this.retrieveForms();
     this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
     this.clientFk = this.UserObj.clientFk;
   }
 
-  retrieveProducts(): void {
+  retrieveForms(): void {
+    let datas;
     this.formService.getAllProductsByItemTempId(this.tempid, this.route.snapshot.params.name)
       .subscribe(
         data => {
-          this.products = data;
-          console.log(data);
-        },
-        error => {
-          console.log(error);
+          datas = data;
+          this.products = datas;
+          const columns = datas[0].attributes
+          .reduce((columns, row) => {
+            return [...columns, ...Object.keys(row)]
+          }, [])
+          .reduce((columns, column) => {
+            return columns.includes(column)
+              ? columns
+              : [...columns, column]
+          }, [])
+        // Describe the columns for <mat-table>.
+        this.columns = columns.map(column => {
+          return { 
+            columnDef: column,
+            header: column,
+            cell: (element: any) => `${element[column] ? element[column] : ``}`     
+          }
+        })
+        this.displayedColumns = this.columns.map(c => c.columnDef);
+              this.dataSource.data =  datas[0].attributes;
         });
   }
 
   refreshList(): void {
-    this.retrieveProducts();
+    this.retrieveForms();
     this.currentTemplate = undefined;
     this.currentIndex = -1;
   }
@@ -113,5 +139,35 @@ export class FormListComponent implements OnInit {
     this.router.navigate(['/addForm/' + this.route.snapshot.params.name + '/' + this.tempid ]);
   }
 
+  private getData(): any {
+    this.http.get('/assets/testdata/itemlisting.json')
+    .subscribe((data: any) => {
+      data.reverse().forEach(field => {
+        console.log(field);
+        this.columnArray.push({[field.label]:field.value});
+       });
+      const columns =  this.columnArray
+      .reduce((columns, row) => {
+        return [...columns, ...Object.keys(row)]
+      }, [])
+      .reduce((columns, column) => {
+        return columns.includes(column)
+          ? columns
+          : [...columns, column]
+      }, [])
+    // Describe the columns for <mat-table>.
+    this.columns = columns.map(column => {
+      return { 
+        columnDef: column,
+        header: column,
+        cell: (element: any) => `${element[column] ? element[column] : ``}`     
+      }
+    })
+    this.displayedColumns = this.columns.map(c => c.columnDef);
+    
+          this.dataSource.data =  this.columnArray;
+    });
+    //// this.dataSource.data = <any> await this.http.get('https://www.ag-grid.com/example-assets/olympic-winners.json').toPromise();
+  }
 
 }
