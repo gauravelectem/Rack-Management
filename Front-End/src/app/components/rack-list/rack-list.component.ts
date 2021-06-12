@@ -4,6 +4,7 @@ import { RackService } from '../../services/rack.service';
 import { DatePipe } from '@angular/common'
 import {MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { AlertService } from '../_alert/alert.service';
 
 @Component({
   selector: 'app-rack-list',
@@ -18,13 +19,17 @@ export class RackListComponent implements OnInit {
     name: '',
     createdon:'',
   };
+  options = {
+    autoClose: true,
+    keepAfterRouteChange: false
+};
   @ViewChild(MatPaginator) paginator: MatPaginator;
   search: string = '';
   datePicker:string='';
   UserObj: any = {};
 
   constructor(private rackService:RackService,public datepipe: DatePipe,
-    private router: Router) { }
+    private router: Router,private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
@@ -70,13 +75,14 @@ export class RackListComponent implements OnInit {
       .subscribe(
         response => {
           this.rackObject=response;
-          console.log(response);
-          this.router.navigate(['/rackList']);
+          this.alertService.success(response.message,this.options)
+          console.log(response);     
         },
         error => {
           console.log(error);
         });
   }
+  
 
   cancel(): void{
     this.router.navigate(['/createRack']);
