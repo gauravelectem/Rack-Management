@@ -76,7 +76,9 @@ export class RackListComponent implements OnInit {
         response => {
           this.rackObject=response;
           this.alertService.success(response.message,this.options)
-          console.log(response);     
+          setTimeout(function() {
+            return	window.location.href = '/rackList'; 
+                             }, 100);
         },
         error => {
           console.log(error);

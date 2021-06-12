@@ -52,9 +52,10 @@ export class EditRackComponent implements OnInit {
           console.log(data);
           setTimeout(function() {
             return	window.location.href = '/rackList'; 
-                             }, 200);
-      }, error => 
-      console.log(error));
+                             }, 100);
+      },  error => {
+        console.log(error);
+      });
   }
 
  
