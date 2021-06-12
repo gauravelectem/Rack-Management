@@ -171,7 +171,6 @@ export class TrayComponent implements OnInit, OnDestroy {
     copyTray() {
         const maxId = this.trayList.reduce((acc, cur) => Math.max(acc, parseInt(cur.id, 10)), -1);
         const nextId = maxId + 1;
-
         const newLayoutItem: KtdGridLayoutItem = {
             id: nextId.toString(),
             x: 0,
@@ -199,8 +198,7 @@ export class TrayComponent implements OnInit, OnDestroy {
 
     /** Removes the item from the layout */
     removeTray() {
-        this.trayId = this.route.snapshot.params['id'];
-        this.rackService.deleteTrayById(this.trayId)
+        this.rackService.deleteTrayById(this.currentlyBeingEditedTray.id)
       .subscribe(
         response => {
           this.alertService.info(response.message, this.options)
@@ -238,7 +236,7 @@ export class TrayComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.trayObject=response;
-          this.alertService.success(response.message, this.options)
+          this.alertService.info(response.message, this.options)
           console.log(response);
         },
         error => {

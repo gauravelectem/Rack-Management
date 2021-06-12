@@ -1,7 +1,7 @@
 <div class="tray-container">
   <div class="layout-json"></div>
 
-  <nav class="navbar navbar-expand-lg navbar-light border border-light mb-3 sticky" style="margin-top: 40px;">
+  <nav class="navbar navbar-expand-lg navbar-light border border-light mb-3 sticky" style="margin-top: 90px;">
     <div class="container-fluid justify-content-start" *ngIf="traySelected">
       <div class="btn-group border border-success rounded me-3 g-0" role="group" aria-label="First group">        
         <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#addItemPanel">
@@ -10,7 +10,7 @@
         <button class="btn" (click)="copyTray()">
           <i class="icon-color fas fa-bars fa-lg"></i> Copy
         </button>
-        <button class="btn" (click)="removeTray()">
+        <button class="btn" class="liveToastBtn" (click)="removeTray()">
           <i class="icon-color fas fa-trash fa-lg"></i> Delete
         </button>
       </div>
@@ -29,7 +29,6 @@
             </div>
           </div>
         </div>
-
         
         <button class="btn" type="button" (click)="isColorOpen = !isColorOpen" >
           <i class="icon-color fas fa-close fa-lg"></i> Pick Color
@@ -78,7 +77,7 @@
     </div>
   </div>
 
-  <div style="margin-top: 110px;">
+  <div style="margin-top: 150px;">
     <ktd-grid
       [cols]="cols"
       [rowHeight]="rowHeight"

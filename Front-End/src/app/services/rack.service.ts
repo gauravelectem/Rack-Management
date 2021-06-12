@@ -32,11 +32,19 @@ export class RackService {
     return this.http.post(baseUrl + '/api/rack/createRack', rackData);
   }
 
+  createTray(trayData: any): Observable<any> {
+    return this.http.post(baseUrl + '/api/rack/tray', trayData);
+  }
+
   updateTray(id:any,trayObject:any): Observable<any> {
     return this.http.put(baseUrl + '/api/rack/tray/'+`${id}`,trayObject);
   }
 
   updateRack(id: any,rackObject:any): Observable<any> {
     return this.http.put(baseUrl + '/api/rack/'+`${id}`,rackObject);
+  }
+
+  fetchTrayById(id: any): Observable<any> {
+    return this.http.get(`${baseUrl}/api/rack/tray/${id}`);
   }
 }
