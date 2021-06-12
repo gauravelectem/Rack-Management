@@ -8,6 +8,8 @@ import {
 import { ktdArrayRemoveItem } from './tray.utils';
 import { FormGroup, FormControl, Validators, FormBuilder }
     from '@angular/forms';
+import { RackService } from '../../services/rack.service';
+import { AlertService } from '../_alert/alert.service';
 
 
 @Component({
@@ -17,7 +19,14 @@ import { FormGroup, FormControl, Validators, FormBuilder }
 })
 export class TrayComponent implements OnInit, OnDestroy {
 
-    constructor(private ngZone: NgZone) {
+    trayObject:any;
+    options = {
+        autoClose: true,
+        keepAfterRouteChange: false
+    };
+
+    constructor(private ngZone: NgZone,private rackService:RackService,
+        private alertService: AlertService ) {
         // this.ngZone.onUnstable.subscribe(() => console.log('UnStable'));
     }
     @ViewChild(KtdGridComponent, {static: true}) grid: KtdGridComponent;
@@ -187,7 +196,17 @@ export class TrayComponent implements OnInit, OnDestroy {
     }
 
     /** Removes the item from the layout */
-    removeTray() {
+    removeTray(id:any) {
+        this.rackService.deleteTrayById(id)
+      .subscribe(
+        response => {
+          this.alertService.info(response.message, this.options)
+          this.trayObject=response;
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        });
         // TODO: based on the ID execute database call and then in the success response execute the code below.
         this.trayList = ktdArrayRemoveItem(this.trayList, (item) => item.id === this.currentlyBeingEditedTray.id);
     }
@@ -208,10 +227,21 @@ export class TrayComponent implements OnInit, OnDestroy {
     }
 
     saveTray() {
-        console.log(this.form);
-        this.currentlyBeingEditedTray.name = this.form.controls.trayname.value;
-        this.currentlyBeingEditedTray.quantity = this.form.controls.quantity.value;
+        // console.log(this.form);
+         this.currentlyBeingEditedTray.name = this.form.controls.trayname.value;
+        // this.currentlyBeingEditedTray.quantity = this.form.controls.quantity.value;
         console.log(this.currentlyBeingEditedTray);
+        this.rackService.updateTray(this.currentlyBeingEditedTray.id,this.currentlyBeingEditedTray)
+      .subscribe(
+        response => {
+          this.trayObject=response;
+          this.alertService.success(response.message, this.options)
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        });
+
     }
     changeColorComplete(event) {
         this.currentlyBeingEditedTray.color = event.color.hex;

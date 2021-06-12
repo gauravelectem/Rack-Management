@@ -20,12 +20,20 @@ export class RackService {
     return this.http.delete(`${baseUrl}/api/rack/${id}`);
   }
 
+  deleteTrayById(id: any): Observable<any> {
+    return this.http.delete(`${baseUrl}/api/rack/tray/${id}`);
+  }
+
   searchRack(data:any): Observable<any> {
     return this.http.post(`${baseUrl}/api/rack/searchRack`,data);
   }
 
   createRack(rackData: any): Observable<any> {
     return this.http.post(baseUrl + '/api/rack/createRack', rackData);
+  }
+
+  updateTray(id:any,trayObject:any): Observable<any> {
+    return this.http.put(baseUrl + '/api/rack/tray/'+`${id}`,trayObject);
   }
 
   updateRack(id: any,rackObject:any): Observable<any> {

@@ -5,11 +5,15 @@
         <a  class="nav-item nav-link" style="color: white;" (click)="refreshPage(item.action)"  target="_self" >{{item.label}}</a>
     </div>
     <a class="nav-item nav-link" (click)="logout()" style="color: white;">Logout</a>
+    <a  class="nav-item nav-link" style="color: white;" routerLink="/createRack" target="_self" >Create Rack</a>
 </nav>
+
+
 
     <!-- main app container -->
 <div class="app-container" [ngClass]="{ 'bg-light': user }">    
     <div>
+        <alert></alert>
         <router-outlet></router-outlet>
     </div>
 </div>

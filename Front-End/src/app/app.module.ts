@@ -1,3 +1,4 @@
+import { AlertModule } from './components/_alert/alert.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -28,8 +29,8 @@ import { TrayModule } from './components/tray-crud/tray.module';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const appRoutes: Routes = [
   // { path: '', component: EditAppComponent },
@@ -67,9 +68,11 @@ const appRoutes: Routes = [
     TrayModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatPaginatorModule 
+    MatPaginatorModule,
+    NgbModule,
+    AlertModule,
   ],
-    providers: [ DatePipe,MatPaginator],
+    providers: [ DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
