@@ -25,7 +25,7 @@ module.exports = app => {
     router.post("/tray", racks.trayCreate);
 
     // Retrieve a single Tray with id
-    router.get("/tray/:id", racks.findTrayById);
+    router.get("/tray/:id", racks.fetchTrayById);
 
     // Update a Tray with id
     router.put("/tray/:id", racks.updateTray);

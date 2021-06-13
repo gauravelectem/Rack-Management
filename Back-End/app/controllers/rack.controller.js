@@ -123,7 +123,7 @@ exports.searchRack = (req, res) => {
     query = `SELECT * FROM racks WHERE createdon > '${createdon}' AND client_fk = ${client_fk} `;
   }
   else
-   query = `SELECT * FROM racks WHERE name LIKE '%${rackname}%' AND (createdon >= '${createdon}' AND client_fk = ${client_fk})`;
+   query = `SELECT * FROM racks WHERE name LIKE '%${rackname}%' AND (createdon > '${createdon}' AND client_fk = ${client_fk})`;
   sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
   .then(data => {
     res.send(data);
@@ -177,18 +177,19 @@ exports.trayCreate = (req, res) => {
 
 
 // Find a single Tray with an id
-exports.findTrayById = (req, res) => {
-    const id = req.params.rack_fk;
+exports.fetchTrayById = (req, res) => {
+  const id = req.params.id;
 
-    Tray.findByPk(id, { include: ["rack"] })
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Tray with id=" + id
-            });
-        });
+  Tray.findByPk(id)
+      .then(data => {
+          res.send(data);
+          console.log(data);
+      })
+      .catch(err => {
+          res.status(500).send({
+              message: "Error retrieving Rack with id=" + id
+          });
+      });
 };
 
 
