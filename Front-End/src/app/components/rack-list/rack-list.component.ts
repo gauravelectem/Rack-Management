@@ -13,7 +13,7 @@ import { AlertService } from '../_alert/alert.service';
 })
 export class RackListComponent implements OnInit {
    rackObject:any;
-  displayedColumns: string[] = [ 'id', 'name', 'no_of_rows', 'no_of_columns','createdon','edit','delete'];
+  displayedColumns: string[] = [ 'id', 'name', 'no_of_rows', 'no_of_columns','createdon','edit','delete','tray-view'];
   dataSource = new MatTableDataSource<any>();
   rackObj: any = {
     name: '',
@@ -68,6 +68,10 @@ export class RackListComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  fetchTrayView(id:any): any {
+          this.router.navigate(['/racklayout',id])
   }
 
   deleteRack(id:any): void {
