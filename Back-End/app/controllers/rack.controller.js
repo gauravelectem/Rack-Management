@@ -267,3 +267,18 @@ exports.updateTray = (req, res) => {
         });
       });
   };
+
+   //Fetch Tray By RackId
+ exports.fetchTrayPropByRackId = (req, res) => {
+  const tableName = "trays";
+  const rack_fk= req.params.rack_fk;
+  let query = `SELECT id,x,y,w,h FROM ${tableName} WHERE rack_fk = ${rack_fk} `;
+  sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
+  .then(data => {
+    res.send(data);
+  }).catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Form with id=" + id
+      });
+    });
+};

@@ -23,7 +23,7 @@ export class TrayComponent implements OnInit, OnDestroy {
     trayObject:any;
     trayId:any;
 
-    constructor(private ngZone: NgZone,private rackService:RackService) {
+    constructor( private route: ActivatedRoute, private ngZone: NgZone,private rackService:RackService) {
         // this.ngZone.onUnstable.subscribe(() => console.log('UnStable'));
     }
     @ViewChild(KtdGridComponent, {static: true}) grid: KtdGridComponent;
@@ -32,12 +32,7 @@ export class TrayComponent implements OnInit, OnDestroy {
     cols = 12;
     rowHeight = 50;
     compactType: 'vertical' | 'horizontal' | null ;
-    trayList: KtdGridLayout = [
-        {id: '0', x: 5, y: 0, w: 2, h: 3},
-        {id: '1', x: 2, y: 2, w: 1, h: 2},
-        {id: '2', x: 3, y: 7, w: 1, h: 2},
-        {id: '3', x: 2, y: 0, w: 3, h: 2}
-    ];
+    trayList: KtdGridLayout = [];
 
     trayDataList = [
         {'id': '0', 'trayLayoutId': '0', 'name': 'test1', 'img': 'http://vue-grid-layout.surge.sh/static/monarch-on-plant.png', 'color': '#0000ff', 'quantity': 442, 'searchable': true, cssClass: ''},
@@ -87,6 +82,7 @@ export class TrayComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         // this.trayList = testdata
+        this.getTrayProp(this.route.snapshot.params.id);
         this.resizeSubscription = merge(
             fromEvent(window, 'resize'),
             fromEvent(window, 'orientationchange')
@@ -258,6 +254,17 @@ export class TrayComponent implements OnInit, OnDestroy {
     }
     changeColorComplete(event) {
         this.currentlyBeingEditedTray.color = event.color.hex;
+    }
+
+    getTrayProp(rack_fk: string): void {
+        this.rackService.getTrayPropById(rack_fk)
+            .subscribe(
+                data => {
+                    this.trayList = data;
+                },
+                error => {
+                    console.log(error);
+      });
     }
 
 }
