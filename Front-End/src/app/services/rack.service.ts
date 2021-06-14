@@ -51,4 +51,8 @@ export class RackService {
   getTrayPropById(id: any): Observable<any> {
     return this.http.get(`${baseUrl}/api/rack/traylisting/props/${id}`);
   }
+
+  getTrayDataById(rack_fk: any): Observable<any> {
+    return this.http.get(`${baseUrl}/api/rack/traylisting/data/${rack_fk}`);
+  }
 }

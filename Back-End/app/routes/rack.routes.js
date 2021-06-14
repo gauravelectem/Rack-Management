@@ -33,8 +33,11 @@ module.exports = app => {
     // Delete a Tray with id
     router.delete("/tray/:id", racks.deleteTray);
 
-     // Fetch a Tray By Rackid
+     // Fetch a Tray prop By Rackid
     router.get("/traylisting/props/:rack_fk", racks.fetchTrayPropByRackId);
+
+     // Fetch a Tray Data By Rackid
+    router.get("/traylisting/data/:rack_fk", racks.fetchTrayDataByRackId);
 
     app.use('/api/rack', router);
 };

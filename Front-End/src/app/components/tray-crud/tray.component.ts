@@ -34,12 +34,7 @@ export class TrayComponent implements OnInit, OnDestroy {
     compactType: 'vertical' | 'horizontal' | null ;
     trayList: KtdGridLayout = [];
 
-    trayDataList = [
-        {'id': '0', 'trayLayoutId': '0', 'name': 'test1', 'img': 'http://vue-grid-layout.surge.sh/static/monarch-on-plant.png', 'color': '#0000ff', 'quantity': 442, 'searchable': true, cssClass: ''},
-        {'id': '2', 'trayLayoutId': '1', 'name': 'test2', 'img': '/assets/testimg/luna-moth-adult-2.png', 'color': '#0000ff', 'quantity': 12, 'searchable': true, cssClass: ''},
-        {'id': '3', 'trayLayoutId': '2', 'name': 'test3', 'img': '/assets/testimg/monarch-03.png', 'quantity': 22, 'color': '#0000ff', 'searchable': true, cssClass: ''},
-        {'id': '3', 'trayLayoutId': '3', 'name': 'test4', 'img': '/assets/testimg/monarch-04.png', 'color': '#ff0000', 'quantity': 222, 'searchable': true, cssClass: ''}
-    ];
+    trayDataList = [];
 
 
     transitions: { name: string, value: string }[] = [
@@ -83,6 +78,7 @@ export class TrayComponent implements OnInit, OnDestroy {
     ngOnInit() {
         // this.trayList = testdata
         this.getTrayProp(this.route.snapshot.params.id);
+        this.getTrayDataById(this.route.snapshot.params.id);
         this.resizeSubscription = merge(
             fromEvent(window, 'resize'),
             fromEvent(window, 'orientationchange')
@@ -261,6 +257,17 @@ export class TrayComponent implements OnInit, OnDestroy {
             .subscribe(
                 data => {
                     this.trayList = data;
+                },
+                error => {
+                    console.log(error);
+      });
+    }
+
+    getTrayDataById(rack_fk: string): void {
+        this.rackService.getTrayDataById(rack_fk)
+            .subscribe(
+                data => {
+                    this.trayDataList = data;
                 },
                 error => {
                     console.log(error);

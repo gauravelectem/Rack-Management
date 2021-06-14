@@ -182,6 +182,7 @@ exports.trayCreate = (req, res) => {
       attr5: req.body.attr5,
       val5: req.body.val5,
       attribute: req.body.attribute,
+      img: req.body.img,
       createdBy: req.body.createdBy,
       modifiedBy: req.body.modifiedBy,
       rack_fk: req.body.rack_fk
@@ -282,3 +283,19 @@ exports.updateTray = (req, res) => {
       });
     });
 };
+
+  //Fetch Tray Data By RackId
+  exports.fetchTrayDataByRackId = (req, res) => {
+    const tableName = "trays";
+    const rack_fk= req.params.rack_fk;
+    let query = `SELECT id,name,color,quantity,img,"eSearchable" FROM ${tableName} WHERE rack_fk = ${rack_fk} `;
+    sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
+    .then(data => {
+      res.send(data);
+    }).catch(err => {
+        res.status(500).send({
+          message: "Error retrieving Form with id=" + id
+        });
+      });
+  };
+
