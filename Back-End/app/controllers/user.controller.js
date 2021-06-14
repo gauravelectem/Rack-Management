@@ -3,6 +3,9 @@ const crypto = require('crypto');
 const Op = db.Sequelize.Op;
 const User = db.user;
 const Client = db.clients;
+const Sequelize = require("sequelize");
+const sequelize = require("../config/seq.config.js");
+db.Sequelize = Sequelize;
 
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
@@ -86,3 +89,46 @@ exports.createClient = (req, res) => {
       });
     });
 };
+
+exports.saveClientStaff = (req, res) => {
+  const staff = {
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    status: req.body.status,
+    clientFk: req.body.clientFk,
+    roleId: req.body.roleId
+  }; 
+  
+  var hash = crypto.createHash('md5').update(staff.password).digest('hex');
+  staff.password = hash;
+
+  // Save User in the database
+  User.create(staff)
+      .then(data => {
+          res.send(data);
+      })
+      .catch(err => {
+          res.status(500).send({
+              message:
+                  err.message || "Some error occurred while creating the Rack."
+          });
+      });
+};
+
+
+//Fetch role 
+ exports.getRole = (req, res) => {
+  let query = `select id from roles where name = 'staff'`;
+  sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
+  .then(data => {
+    res.send(data);
+  }).catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Form with id=" + id
+      });
+    });
+};
+
+
+

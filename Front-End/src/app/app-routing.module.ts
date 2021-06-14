@@ -15,7 +15,8 @@ import { CreateRackComponent } from './components/create-rack/create-rack.compon
 import { RackListComponent } from './components/rack-list/rack-list.component';
 import { EditRackComponent } from './components/edit-rack/edit-rack.component';
 import { TrayComponent } from './components/tray-crud/tray.component';
-
+import { StaffCrudComponent } from './staff-crud/staff-crud.component';
+import { AddStaffComponent } from './add-staff/add-staff.component';
 const routes: Routes = [
   { path: '', component: LoginComponent , pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -38,6 +39,8 @@ const routes: Routes = [
   { path: 'rackList', component:RackListComponent},
   { path: 'editRack/:id', component:EditRackComponent},
   { path: 'racklayout/:id', component:TrayComponent},
+  { path: 'staff', component:StaffCrudComponent},
+  { path: 'add-staff', component:AddStaffComponent},
 ];
 
 @NgModule({

@@ -40,5 +40,7 @@ module.exports = function(app) {
     controller.adminBoard
   );
 
+  router.get("/client/staff/role", user.getRole);
+  router.post("/client/staff/save", user.saveClientStaff);
   app.use('/api/user', router);
 };

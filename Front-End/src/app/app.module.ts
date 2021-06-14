@@ -30,6 +30,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { StaffCrudComponent } from './staff-crud/staff-crud.component';
+import { AddStaffComponent } from './add-staff/add-staff.component';
 
 const appRoutes: Routes = [
   // { path: '', component: EditAppComponent },
@@ -51,6 +53,8 @@ const appRoutes: Routes = [
     RackListComponent,
     EditRackComponent,
     CreateRackComponent,
+    StaffCrudComponent,
+    AddStaffComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),

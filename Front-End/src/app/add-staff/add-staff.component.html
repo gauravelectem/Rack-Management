@@ -1,0 +1,40 @@
+<div class="card">
+    <h4 class="card-header">Staff</h4>
+  <div class="card-body">
+      <form name="myForm" [formGroup]="staffForm" (ngSubmit)="saveClientStaff()">
+        <div class="form-group">
+          <label for="title">Username</label>
+          <input type="text" class="form-control" id="username" formControlName="username"  [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+            name="username"/>
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+              <div *ngIf="f.username.errors.required">Username is required</div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="description">Email</label>
+          <input type="text" class="form-control" id="email" formControlName="email"  
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }" name="email"/>
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+            <label for="title">Password</label>
+            <input type="text" class="form-control"  type="password" id="password" formControlName="password"  
+          [ngClass]="{ 'is-invalid': submitted && f.password.errors }" name="email"/>
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+          </div>
+          </div>
+    
+          
+          <div class="form-group">
+            <button  class="btn btn-primary">Save</button>
+            <a routerLink="/login" class="btn btn-link">Cancel</a>
+        </div>
+        
+      </form>
+    </div>
+    </div>
