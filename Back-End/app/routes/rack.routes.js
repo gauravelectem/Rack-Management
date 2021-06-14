@@ -18,6 +18,8 @@ module.exports = app => {
     //Seach Rack By rackName
     router.post("/searchRack", racks.searchRack);
 
+    router.get("/:client_fk", racks.findAll);
+
     //Fetch Rack By ClientId
     router.get("/fetchRackByClientId/:name/:client_fk", racks.fetchRackByClientId);
 

@@ -71,6 +71,21 @@ exports.fetchRackById = (req, res) => {
         });
 };
 
+exports.findAll = (req, res) => {
+  var clientFk = req.params.clientFk;
+  var condition = clientFk ? { clientFk: { [Op.eq]: clientFk } } : null;
+  Rack.findAll({ where: condition})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving Users."
+      });
+    });
+};
+
 // Update a Rack by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
