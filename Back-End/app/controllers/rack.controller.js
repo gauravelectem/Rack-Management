@@ -185,7 +185,7 @@ exports.trayCreate = (req, res) => {
       name: req.body.name,
       color: req.body.color,
       quantity: req.body.quantity,
-      eSearchable: req.body.eSearchable,
+      searchable: req.body.searchable,
       attr1: req.body.attr1,
       val1: req.body.val1,
       attr2: req.body.attr2,
@@ -303,7 +303,7 @@ exports.updateTray = (req, res) => {
   exports.fetchTrayDataByRackId = (req, res) => {
     const tableName = "trays";
     const rack_fk= req.params.rack_fk;
-    let query = `SELECT id,name,color,quantity,img,"eSearchable" FROM ${tableName} WHERE rack_fk = ${rack_fk} `;
+    let query = `SELECT id,name,color,quantity,img,"searchable" FROM ${tableName} WHERE rack_fk = ${rack_fk} `;
     sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
     .then(data => {
       res.send(data);
