@@ -48,8 +48,6 @@ export class EditRackComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.rackObject = data;
-        this.alertService.success(data.message,this.options)
-          console.log(data);
           this.router.navigate(['/rackList']);
       },  error => {
         console.log(error);

@@ -84,7 +84,14 @@ export class RackListComponent implements OnInit {
   }
 
   rackListing(): void{
-    this.router.navigate(['/rackList']);
+    this.rackService.fetchAllRacks(this.rackObj.client_fk)
+    .subscribe((data: any) => {
+      this.dataSource.data = data;
+    },
+      error => {
+        console.log(error);
+      });
+    
   }
   
 
