@@ -32,6 +32,8 @@ module.exports = app => {
     // Update a Tray with id
     router.put("/tray/:id", racks.updateTray);
 
+    router.post("/tray/props/", racks.saveTrayLayout);
+
     // Delete a Tray with id
     router.delete("/tray/:id", racks.deleteTray);
 

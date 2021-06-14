@@ -314,3 +314,27 @@ exports.updateTray = (req, res) => {
       });
   };
 
+exports.saveTrayLayout = (req, res) => {
+  const trayList = req.body;
+  for (let i = 0; i < trayList.length; i++) {
+    let query = `UPDATE trays SET x = '${trayList.x}',y = '${trayList.y}',h = '${trayList.h}',w = '${trayList.w}' WHERE id = ${trayList.id}`;
+    sequelize.query(query).then(num => {
+      if (num == 1) {
+        res.send({
+          message: "TrayLayout was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update TrayLayout with id=${id}`
+        });
+      }
+    })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error updating TrayLayout with id=" + id
+        });
+      });
+  }
+
+};
+
