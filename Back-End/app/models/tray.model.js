@@ -21,7 +21,7 @@ module.exports = (sequelize, Sequelize) => {
         quantity: {
             type: Sequelize.INTEGER
         },
-        eSearchable: {
+        searchable: {
             type: Sequelize.BOOLEAN
         },
         img:{
