@@ -235,7 +235,7 @@ export class TrayComponent implements OnInit, OnDestroy {
     saveTray() {
         // console.log(this.form);
          this.currentlyBeingEditedTray.name = this.form.controls.trayname.value;
-        // this.currentlyBeingEditedTray.quantity = this.form.controls.quantity.value;
+        this.currentlyBeingEditedTray.quantity = this.form.controls.quantity.value;
         console.log(this.currentlyBeingEditedTray);
         this.rackService.updateTray(this.currentlyBeingEditedTray.id,this.currentlyBeingEditedTray)
       .subscribe(
