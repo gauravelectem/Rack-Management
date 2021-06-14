@@ -24,6 +24,9 @@ module.exports = (sequelize, Sequelize) => {
         eSearchable: {
             type: Sequelize.BOOLEAN
         },
+        img:{
+            type: Sequelize.STRING
+        },
         attr1: {
             type: Sequelize.STRING
         },

@@ -20,6 +20,7 @@ exports.rackCreate = (req, res) => {
     Rack.create(rack)
         .then(data => {
             res.send(data);
+            createTrayObject(data.id,data.no_of_rows,data.no_of_columns);
         })
         .catch(err => {
             res.status(500).send({
@@ -29,6 +30,30 @@ exports.rackCreate = (req, res) => {
         });
 };
 
+
+function createTrayObject(id,no_of_rows,no_of_columns){
+  var tray={
+    x: 0,
+    y: 0,
+    w: 0,
+    h:0,
+    rack_fk: 0,
+    name: '',
+  }
+  for (let i = 1; i <=no_of_rows; i++) {
+    for (let j = 1; j <=no_of_columns; j++) {
+            tray.rack_fk=id;
+            tray.x=i;
+            tray.y=j;
+            tray.w=1;
+            tray.h=1;
+            tray.name="r"+tray.x+"c"+tray.y;
+            Tray.create(tray);
+           
+    }
+    
+  }
+}
 
 //1Find a single Tutorial with an id
 exports.fetchRackById = (req, res) => {
