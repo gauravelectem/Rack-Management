@@ -24,17 +24,6 @@ export class CreateRackComponent implements OnInit {
     createdon:''
   };
 
-  tray: Tray = {
-    x:0,
-    y:0,
-    h:0,
-    w:0,
-    name:'',
-    img: '',
-    cssClass:'',
-    rack_fk:0,
-  };
-
   constructor(
     private router: Router,
     private rackService: RackService,
@@ -69,37 +58,10 @@ export class CreateRackComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          this.createTrayObject(response.id,response.no_of_rows,response.no_of_columns);
           this.router.navigate(['/rackList']);
               },
               error => {
                 console.log(error);
               });
-  }
-
-  createTrayObject(id:any,no_of_rows:any,no_of_columns:any){
-    for (let i = 1; i <=no_of_rows; i++) {
-      for (let j = 1; j <=no_of_columns; j++) {
-              this.tray.rack_fk=id;
-              this.tray.x=i;
-              this.tray.y=j;
-              this.tray.w=1;
-              this.tray.h=1;
-              this.tray.name="r"+this.tray.x+"c"+this.tray.y;
-              this.saveTray(this.tray);
-      }
-      
-    }
-  }
-
-  saveTray(trayObject:any): void {
-    this.rackService.createTray(trayObject)
-      .subscribe(
-        response => {
-          console.log(response);
-              },
-              error => {
-                console.log(error);
-              });
-  }
+  }  
 }

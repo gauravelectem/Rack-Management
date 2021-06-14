@@ -50,9 +50,7 @@ export class EditRackComponent implements OnInit {
         this.rackObject = data;
         this.alertService.success(data.message,this.options)
           console.log(data);
-          setTimeout(function() {
-            return	window.location.href = '/rackList'; 
-                             }, 100);
+          this.router.navigate(['/rackList']);
       },  error => {
         console.log(error);
       });

@@ -76,13 +76,15 @@ export class RackListComponent implements OnInit {
         response => {
           this.rackObject=response;
           this.alertService.success(response.message,this.options)
-          setTimeout(function() {
-            return	window.location.href = '/rackList'; 
-                             }, 100);
+          this.rackListing();
         },
         error => {
           console.log(error);
         });
+  }
+
+  rackListing(): void{
+    this.router.navigate(['/rackList']);
   }
   
 

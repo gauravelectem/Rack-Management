@@ -1,10 +1,11 @@
+  
 export class Tray {
-    x: number;
-    y?: number;
-    h?: number;
-    w: number;
-    name?: string;
-    img?: string;
-    cssClass = '';
-    rack_fk?:number;
-  }
+  id: any;
+  trayLayoutId: string;
+  color?: string;
+  quantity?: number;
+  name: string;
+  searchable?: boolean;
+  img?: string;
+  cssClass = '';
+}
