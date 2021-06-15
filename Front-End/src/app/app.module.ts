@@ -31,7 +31,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { StaffCrudComponent } from './staff-crud/staff-crud.component';
-import { AddStaffComponent } from './add-staff/add-staff.component';
+import { AddStaffComponent } from './add-edit-staff/add-edit-staff.component';
 
 const appRoutes: Routes = [
   // { path: '', component: EditAppComponent },

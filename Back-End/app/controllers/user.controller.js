@@ -130,5 +130,75 @@ exports.saveClientStaff = (req, res) => {
     });
 };
 
+exports.getClientStaffList = (req, res) => {
+  var clientFk = req.query.clientFk;
+  var roleId = req.query.roleId;
+  var status = "ACTIVE";
+  // Create a Client
+  var tableName = "users";
+  let query = `SELECT * FROM ${tableName} WHERE "clientFk" = ${clientFk} AND status = '${status}' AND  "roleId" = ${roleId}`;
+  sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
+  .then(data => {
+    res.send(data);
+  }).catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Form with id=" + id
+      });
+    });
+};
 
+
+//Fetch role 
+exports.getClientNameByID = (req, res) => {
+  var clientFk = req.query.clientFk;
+  let query = `select name from clients where id = ${clientFk}`;
+  sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
+  .then(data => {
+    res.send(data);
+  }).catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Form with id=" + id
+      });
+    });
+};
+
+// Find a single Customer with a customerId
+exports.findOne = (req, res) => {
+  const id = req.params.id;
+  User.findByPk(id)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Template with id=" + id
+      });
+    });
+};
+
+
+// Update a Staff by the id in the request
+exports.update = (req, res) => {
+  const id = req.params.id;
+
+  User.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "User was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update Template with id=${id}. Maybe Template was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Template with id=" + id
+      });
+    });
+};
 
