@@ -202,3 +202,29 @@ exports.update = (req, res) => {
     });
 };
 
+// Delete a Staff with the specified id in the request
+exports.delete = (req, res) => {
+  const id = req.params.id;
+
+  User.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Template was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete Template with id=${id}. Maybe Template was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete Template with id=" + id
+      });
+    });
+};
+
+

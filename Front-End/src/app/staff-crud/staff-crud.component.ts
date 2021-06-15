@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class StaffCrudComponent implements OnInit {
   UserObj: any = {};
   clientFk: '';
-  displayedColumns: string[] = ['name', 'email', 'phone' ,'actions'];
+  displayedColumns: string[] = ['name', 'email','actions'];
   dataSource = new MatTableDataSource<any>();
   constructor(private userService: UserService, private router: Router,) { }
   roleId : ''
@@ -43,4 +43,36 @@ export class StaffCrudComponent implements OnInit {
                 console.log(error);
   });
 }
+
+  deleteStaff(id) {
+    swal({
+      title: 'Are you sure?',
+      text: 'Do you want to remove this ?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#00B96F',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, remove!'
+    }).then((result) => {
+      if (result.value) {
+        this.deleteStaffById(id);
+      }
+    });
+  }
+
+  deleteStaffById(id): void {
+    this.userService.delete(id)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.userService.getClientStaffList(this.UserObj.clientFk, this.roleId );
+          this.router.navigate(['/staff'])
+          .then(() => {
+            window.location.reload();
+          });
+        },
+        error => {
+          console.log(error);
+        });
+  }
 }

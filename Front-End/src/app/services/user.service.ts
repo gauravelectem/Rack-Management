@@ -48,4 +48,8 @@ export class UserService {
   updateClientStaff(id:any, data: any): Observable<any> {
     return this.http.put(baseUrl + '/api/user/client/staff/update/'+id, data);
   }
+
+  delete(id: any): Observable<any> {
+    return this.http.delete(`${baseUrl}/api/user/client/staff/delete/${id}`);
+  }
 }
