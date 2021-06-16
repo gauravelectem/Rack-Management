@@ -16,6 +16,10 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   showError = false;
   showSuccess = false;
+  email:string='';
+  showforgotpassword=false;
+  loginPage=true;
+  userObject:any;
 
   constructor(
     private userService: UserService,
@@ -62,4 +66,29 @@ export class LoginComponent implements OnInit {
         console.log(error);
       });
   }
+
+  forgotpassword(): void {
+    this.showforgotpassword=true;
+    this.loginPage=false;
+  }
+
+  reset(): void {
+    const user = {
+      email: this.email
+    };
+    this.userService.resetPassword(user)
+    .subscribe(
+      response => {
+        this.userObject=response;
+        this.router.navigate(['/login'])
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      });
+    
+  }
+
+  
+  
 }

@@ -84,6 +84,7 @@ export class RackListComponent implements OnInit {
         },
         error => {
           console.log(error);
+          this.alertService.error(error.error.message,this.options)
         });
   }
 
