@@ -42,5 +42,10 @@ module.exports = function(app) {
 
   router.get("/client/staff/role", user.getRole);
   router.post("/client/staff/save", user.saveClientStaff);
+  router.get("/client/staff", user.getClientStaffList);
+  router.get("/client/name", user.getClientNameByID);
+  router.get("/client/staff/:id", user.findOne);
+  router.put("/client/staff/update/:id", user.update);
+  router.delete("/client/staff/delete/:id", user.delete);
   app.use('/api/user', router);
-};
+};    

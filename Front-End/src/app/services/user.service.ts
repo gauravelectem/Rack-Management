@@ -32,4 +32,24 @@ export class UserService {
   getStaffRole(): Observable<any> {
     return this.http.get(`${baseUrl}/api/user/client/staff/role`);
   }
+
+  getClientStaffList(clientFk: any, roleId:any): Observable<User[]> {
+    return this.http.get<User[]>(`${baseUrl}/api/user/client/staff?clientFk=${clientFk}&roleId=${roleId}`);
+  }
+
+  getClientName(clientFk: any): Observable<any> {
+    return this.http.get<any>(`${baseUrl}/api/user/client/name?clientFk=${clientFk}`);
+  }
+
+  get(id: any): Observable<any> {
+    return this.http.get(`${baseUrl}/api/user/client/staff/${id}`);
+  }
+
+  updateClientStaff(id:any, data: any): Observable<any> {
+    return this.http.put(baseUrl + '/api/user/client/staff/update/'+id, data);
+  }
+
+  delete(id: any): Observable<any> {
+    return this.http.delete(`${baseUrl}/api/user/client/staff/delete/${id}`);
+  }
 }
