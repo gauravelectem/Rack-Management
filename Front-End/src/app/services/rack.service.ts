@@ -52,6 +52,10 @@ export class RackService {
     return this.http.get(`${baseUrl}/api/rack/${client_fk}`);
   }
 
+  saveTrayLayout(trayList: any): Observable<any> {
+    return this.http.post(`${baseUrl}/api/rack/tray/props/`,trayList);
+  }
+
   getTrayPropById(id: any): Observable<any> {
     return this.http.get(`${baseUrl}/api/rack/traylisting/props/${id}`);
   }
@@ -59,4 +63,5 @@ export class RackService {
   getTrayDataById(rack_fk: any): Observable<any> {
     return this.http.get(`${baseUrl}/api/rack/traylisting/data/${rack_fk}`);
   }
+
 }

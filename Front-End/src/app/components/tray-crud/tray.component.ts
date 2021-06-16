@@ -76,7 +76,6 @@ export class TrayComponent implements OnInit, OnDestroy {
     openFileUpload: false;
 
     ngOnInit() {
-        // this.trayList = testdata
         this.getTrayProp(this.route.snapshot.params.id);
         this.getTrayDataById(this.route.snapshot.params.id);
         this.resizeSubscription = merge(
@@ -171,6 +170,7 @@ export class TrayComponent implements OnInit, OnDestroy {
             newLayoutItem,
             ...this.trayList
         ];
+
         
         this.rackService.fetchTrayById(this.currentlyBeingEditedTray.id)
             .subscribe(
@@ -257,6 +257,30 @@ export class TrayComponent implements OnInit, OnDestroy {
             .subscribe(
                 data => {
                     this.trayList = data;
+                },
+                error => {
+                    console.log(error);
+      });
+    }
+
+    fetchTrayList(trayList:any): void {
+        this.rackService.getTrayPropById(trayList)
+            .subscribe(
+                data => {
+                    this.trayList = data;
+                    console.log(this.trayList);
+                },
+                error => {
+                    console.log(error);
+      });
+    }
+
+    saveTrayLayout(trayList:any): void {
+        this.rackService.saveTrayLayout(trayList)
+            .subscribe(
+                data => {
+                    this.trayList = data;
+                    console.log(this.trayList);
                 },
                 error => {
                     console.log(error);
