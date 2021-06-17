@@ -25,7 +25,7 @@ export class UserService {
   }
 
   resetPassword(data: any): Observable<any> {
-    return this.http.post(baseUrl + '/api/user/resetPassword',data);
+    return this.http.post(baseUrl + '/api/user/client/resetPassword',data);
   }
   
 

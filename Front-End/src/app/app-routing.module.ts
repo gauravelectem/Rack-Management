@@ -17,6 +17,7 @@ import { EditRackComponent } from './components/edit-rack/edit-rack.component';
 import { TrayComponent } from './components/tray-crud/tray.component';
 import { StaffCrudComponent } from './staff-crud/staff-crud.component';
 import { AddStaffComponent } from './add-edit-staff/add-edit-staff.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 const routes: Routes = [
   { path: '', component: LoginComponent , pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -42,6 +43,8 @@ const routes: Routes = [
   { path: 'staff', component:StaffCrudComponent},
   { path: 'add-staff', component:AddStaffComponent},
   { path: 'edit-staff/:id', component:AddStaffComponent},
+  { path: 'forgotpassword', component:ForgotPasswordComponent},
+  
 ];
 
 @NgModule({

@@ -6,7 +6,6 @@ const Client = db.clients;
 const Sequelize = require("sequelize");
 const sequelize = require("../config/seq.config.js");
 db.Sequelize = Sequelize;
-const nodemailer = require('nodemailer');
 const transport = require("../config/email.config.js");
 
 exports.allAccess = (req, res) => {
@@ -246,5 +245,56 @@ exports.delete = (req, res) => {
       });
     });
 };
+
+exports.forgotpassword = (req, res) => {
+  const user = {
+    email: req.body.email,
+  }; 
+
+  const email = user.email;
+  var randomNumber = Math.random().toString(36).slice(2);
+  var hash = crypto.createHash('md5').update(randomNumber).digest('hex');
+  const password=hash;
+  let query = `UPDATE users SET password = '${password}' WHERE email = '${email}' `;
+
+  // Save User in the database
+ sequelize.query(query).then(data => {
+            if(data[1].rowCount >=1) {
+              console.log('sending email..');
+        const message = {
+          from: 'developers@electems.com',
+          to:  email,        
+          subject: 'Forgot Password',
+          text: 'Hello,password was reset, Your new password is:' +randomNumber+ 
+          'You can login here:'+ 'http://localhost:4200/login ' + 'Thank you'
+      };
+      transport.sendMail(message, function(err, info) {
+          if (err) {
+            console.log(err)
+          } else {
+            console.log('mail has sent.');
+            console.log(info);
+          }
+      });     
+      res.send({
+        message: "password was updated successfully."
+      });  
+    }
+    else{
+      res.send({
+        message: `Cannot update password with email=${email}.`
+      });
+    }
+        
+      })    
+      .catch(err => {
+          res.status(500).send({
+              message:
+                  err.message || "Some error occurred while update password"
+          });
+      });
+};
+
+
 
 
