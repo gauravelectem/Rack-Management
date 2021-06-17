@@ -32,6 +32,7 @@ import { DatePipe } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { StaffCrudComponent } from './staff-crud/staff-crud.component';
 import { AddStaffComponent } from './add-edit-staff/add-edit-staff.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 const appRoutes: Routes = [
   // { path: '', component: EditAppComponent },
@@ -55,6 +56,7 @@ const appRoutes: Routes = [
     CreateRackComponent,
     StaffCrudComponent,
     AddStaffComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),

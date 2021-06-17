@@ -1,4 +1,4 @@
-<div *ngIf="loginPage" class="card">
+<div class="card">
   <h4 class="card-header">Login</h4>
   <div class="card-body">
       <form  name="myForm" [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
@@ -36,16 +36,4 @@
           </div>
       </form>
   </div>
-</div>
-
-<div *ngIf="showforgotpassword" class="card">
-      <div class="form-group mt-5">
-        <label for="email">Email</label>
-        <input type="email" id="email" [(ngModel)]="email"
-            name="email"
-        />
-      </div><br>
-      <div class="form-group">
-        <button  class="btn btn-primary" (click)="reset()">Reset</button>
-      </div>
 </div>
