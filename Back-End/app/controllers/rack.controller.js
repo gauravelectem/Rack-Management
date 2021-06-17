@@ -294,7 +294,7 @@ exports.updateTray = (req, res) => {
     res.send(data);
   }).catch(err => {
       res.status(500).send({
-        message: "Error retrieving Form with id=" + id
+        message: "Error retrieving Form with id=" + rack_fk
       });
     });
 };
@@ -309,7 +309,7 @@ exports.updateTray = (req, res) => {
       res.send(data);
     }).catch(err => {
         res.status(500).send({
-          message: "Error retrieving Form with id=" + id
+          message: "Error retrieving Form with id=" + rack_fk
         });
       });
   };
