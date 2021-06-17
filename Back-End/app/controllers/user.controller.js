@@ -93,6 +93,7 @@ exports.createClient = (req, res) => {
 };
 
 exports.saveClientStaff = (req, res) => {
+  const clientName = req.params.clientName;
   const staff = {
     username: req.body.username,
     email: req.body.email,
@@ -113,7 +114,7 @@ exports.saveClientStaff = (req, res) => {
           from: 'developers@electems.com',
           to:  data.email,        
           subject: 'Registration',
-          text: 'Hello, You are Successfully! registered by' + data.username + ' Please use the following credentials to login: ' +
+          text: 'Hello, You are Successfully! registered by ' + clientName + ' Please use the following credentials to login: ' +
           'Username: ' + data.email + ' password: pls contact your admin Here is the Login link ' + 'http://localhost:4200/login ' + 'Thank you'
       };
       transport.sendMail(message, function(err, info) {
