@@ -258,7 +258,8 @@ exports.forgotpassword = (req, res) => {
 
   // Save User in the database
  sequelize.query(query).then(data => {
-        console.log('sending email..');
+            if(data[1].rowCount >=1) {
+              console.log('sending email..');
         const message = {
           from: 'developers@electems.com',
           to:  email,        
@@ -273,14 +274,22 @@ exports.forgotpassword = (req, res) => {
             console.log('mail has sent.');
             console.log(info);
           }
+      });     
+      res.send({
+        message: "password was updated successfully."
+      });  
+    }
+    else{
+      res.send({
+        message: `Cannot update password with email=${email}.`
       });
-          res.send(data);
-
-      })
+    }
+        
+      })    
       .catch(err => {
           res.status(500).send({
               message:
-                  err.message || "Some error occurred while creating the Rack."
+                  err.message || "Some error occurred while update password"
           });
       });
 };
