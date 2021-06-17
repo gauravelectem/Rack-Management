@@ -199,7 +199,8 @@ exports.findOne = (req, res) => {
 // Update a Staff by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
-
+  var hash = crypto.createHash('md5').update(req.body.password).digest('hex');
+  req.body.password = hash;
   User.update(req.body, {
     where: { id: id }
   })
