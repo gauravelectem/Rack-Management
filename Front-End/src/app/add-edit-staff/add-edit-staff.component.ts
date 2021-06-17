@@ -73,7 +73,6 @@ export class AddStaffComponent implements OnInit {
       return;
     }
     this.staffForm.value.roleId = this.staffRoleID;
-    this.staffForm.value.username =  this.clientName + '.' + this.staffForm.value.username;
     this.userService.updateClientStaff(this.route.snapshot.params.id,this.staffForm.value)
       .subscribe(
         response => {
