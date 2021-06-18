@@ -23,7 +23,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     status:{
       type:Sequelize.STRING,
-      defaultValue:"registered"
+      defaultValue:"REGISTERED"
     },
     clientFk: {
       type: Sequelize.INTEGER,

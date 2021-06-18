@@ -50,7 +50,8 @@ export class RegisterComponent implements OnInit {
       return;
     }
     const client = {
-      name: this.registerForm.value.username
+      name: this.registerForm.value.username,
+      planFk: this.registerForm.value.plan
     };
     this.userService.createClient(client)
       .subscribe(

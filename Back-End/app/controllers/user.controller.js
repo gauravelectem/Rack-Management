@@ -79,6 +79,7 @@ exports.createClient = (req, res) => {
   // Create a Client
   const client = {
     name: req.body.name,
+    planFk: req.body.planFk,
   };
 
   // Save Client in the database
