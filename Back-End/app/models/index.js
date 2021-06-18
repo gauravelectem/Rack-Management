@@ -56,6 +56,6 @@ db.templates.belongsToMany(db.trays, {
 //   otherKey: "productId"
 // });
 
-db.ROLES = ["user", "admin", "moderator"];
+db.ROLES = ["admin", "moderator","staff"];
 
 module.exports = db;

@@ -29,8 +29,8 @@ export class UserService {
   }
   
 
-  saveClientStaff(data: any): Observable<any> {
-    return this.http.post(baseUrl + '/api/user/client/staff/save', data);
+  saveClientStaff(clientName:any, data: any): Observable<any> {
+    return this.http.post(baseUrl + '/api/user/client/staff/save/'+ clientName, data);
   }
 
   getStaffRole(): Observable<any> {

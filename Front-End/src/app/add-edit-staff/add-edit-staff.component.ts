@@ -55,7 +55,7 @@ export class AddStaffComponent implements OnInit {
     }
     this.staffForm.value.roleId = this.staffRoleID;
     this.staffForm.value.username =  this.clientName + '.' + this.staffForm.value.username;
-    this.userService.saveClientStaff(this.staffForm.value)
+    this.userService.saveClientStaff( this.clientName,this.staffForm.value)
       .subscribe(
         response => {
           console.log(response);
@@ -73,7 +73,6 @@ export class AddStaffComponent implements OnInit {
       return;
     }
     this.staffForm.value.roleId = this.staffRoleID;
-    this.staffForm.value.username =  this.clientName + '.' + this.staffForm.value.username;
     this.userService.updateClientStaff(this.route.snapshot.params.id,this.staffForm.value)
       .subscribe(
         response => {

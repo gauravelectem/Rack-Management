@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // database
 const db = require("./app/models");
 const Role = db.role;
+const Menu = db.menus;
 
 db.sequelize.sync();
 // force: true will drop the table if it already exists
@@ -55,7 +56,7 @@ app.listen(PORT, () => {
 function initial() {
   Role.create({
     id: 1,
-    name: "user"
+    name: "Admin"
   });
  
   Role.create({
@@ -65,6 +66,22 @@ function initial() {
  
   Role.create({
     id: 3,
-    name: "admin"
+    name: "staff"
+  });
+
+  Menu.create({
+    id: 1,
+    label: "Home",
+    action: '/template',
+    menu_fk: 1,
+    roleId: 1
+  });
+
+  Menu.create({
+    id: 2,
+    label: "staff",
+    action: '/staff',
+    menu_fk: 1,
+    roleId: 1
   });
 }

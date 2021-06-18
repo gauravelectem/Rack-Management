@@ -55,7 +55,7 @@ exports.Create = (req, res) => {
 
 exports.login = (req, res) => {
   const user = {
-    email: req.body.email,
+    username: req.body.username,
     password: req.body.password,
     status:'ACTIVE'
   };
@@ -94,6 +94,7 @@ exports.createClient = (req, res) => {
 };
 
 exports.saveClientStaff = (req, res) => {
+  const clientName = req.params.clientName;
   const staff = {
     username: req.body.username,
     email: req.body.email,
@@ -114,8 +115,8 @@ exports.saveClientStaff = (req, res) => {
           from: 'developers@electems.com',
           to:  data.email,        
           subject: 'Registration',
-          text: 'Hello, You are Successfully! registered by' + data.username + ' Please use the following credentials to login: ' +
-          'Username: ' + data.email + ' password: pls contact your admin Here is the Login link ' + 'http://localhost:4200/login ' + 'Thank you'
+          text: 'Hello, You are Successfully! registered by ' + clientName + ' Please use the following credentials to login: ' +
+          'Username: ' + data.username + ' password: pls contact your admin Here is the Login link ' + 'http://localhost:4200/login ' + 'Thank you'
       };
       transport.sendMail(message, function(err, info) {
           if (err) {
@@ -200,7 +201,8 @@ exports.findOne = (req, res) => {
 // Update a Staff by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
-
+  var hash = crypto.createHash('md5').update(req.body.password).digest('hex');
+  req.body.password = hash;
   User.update(req.body, {
     where: { id: id }
   })
