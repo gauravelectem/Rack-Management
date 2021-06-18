@@ -4,7 +4,7 @@ export class Profile {
     email?: string;
     address?: string;
     city?: string;
-    img?: string;
+    image?: string;
     phone?:string;
     user_fk:number;
   }
