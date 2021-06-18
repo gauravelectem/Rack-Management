@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./app/models");
 const Role = db.role;
 const Menu = db.menus;
+const Plan = db.plans;
 
 db.sequelize.sync();
 // force: true will drop the table if it already exists
@@ -83,5 +84,32 @@ function initial() {
     action: '/staff',
     menu_fk: 1,
     roleId: 1
+  });
+
+  Plan.create({
+    id: 1,
+    name: "Personal",
+    noOfUsers : 1,
+    noOfRacks: 2,
+    noOfItemTypes: 3,
+    rate: 500
+  });
+
+  Plan.create({
+    id: 2,
+    name: "Company/Traders",
+    noOfUsers : 5,
+    noOfRacks: 10,
+    noOfItemTypes: 10,
+    rate: 1000
+  });
+
+  Plan.create({
+    id: 3,
+    name: "Distributors",
+    noOfUsers : 25,
+    noOfRacks: 50,
+    noOfItemTypes: 20,
+    rate: 2000
   });
 }

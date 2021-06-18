@@ -56,4 +56,8 @@ export class UserService {
   delete(id: any): Observable<any> {
     return this.http.delete(`${baseUrl}/api/user/client/staff/delete/${id}`);
   }
+
+  getPlansList() : Observable<any> {
+    return this.http.get(`${baseUrl}/api/user/client/plans`);
+  }
 }

@@ -28,14 +28,16 @@ export class RegisterComponent implements OnInit {
   loading = false;
   submitted = false;
   registerForm: FormGroup;
-
+  planList:any;
   ngOnInit() {
+    this.getPlans();
     this.registerForm = this.formBuilder.group({
       username : ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       phone: ['', Validators.required],
       location: ['', Validators.required],
+      plan: ['', Validators.required],
       clientFk: '',
   });
   }
@@ -72,4 +74,14 @@ export class RegisterComponent implements OnInit {
         });
   }
 
+  getPlans(): void {
+    this.userService.getPlansList()
+      .subscribe(
+        data => {
+          this.planList = data;
+        },
+        error => {
+          console.log(error);
+        });
+  }
 }

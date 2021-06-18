@@ -46,6 +46,18 @@
               <div *ngIf="f.location.errors.required">Location is required</div>
           </div>
         </div>
+
+        <div class="form-group">
+          <label for="plan">Select Plan:</label>
+          <select formControlName="plan" class="form-control" (change)="changePlan($event)">
+              <option disabled>Choose plan</option>
+              <option *ngFor="let plan of planList" value="{{plan.id}}">{{plan.name}}</option>
+          </select>
+          <div *ngIf="f.plan.touched && f.plan.invalid" class="alert alert-danger">
+              <div *ngIf="f.plan.errors.required">plan is required.</div>
+          </div>
+      </div>
+      
         <div class="form-group">
           <button  class="btn btn-primary">Submit</button>
           <a routerLink="/login" class="btn btn-link">Cancel</a>
