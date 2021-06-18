@@ -45,6 +45,7 @@ exports.Create = (req, res) => {
       .then(data => {
           res.send(data);
           createProfileObject(data);
+          sendEmailNotification(data);
       })
       .catch(err => {
           res.status(500).send({
@@ -361,5 +362,19 @@ exports.findAllPlans = (req, res) => {
 };
 
 
-
-
+function sendEmailNotification(data) {
+  const message = {
+    from: 'developers@electems.com',
+    to: data.email,
+    subject: 'Activation',
+    html:  '<body> Hello,<br /><p>Click <a href="http://localhost:8080/api/user/activation/' + data.clientFk + '/'  + data.id +'">http://localhost:8080/api/user/activation/' + data.clientFk + '/' + data.id + '</a> to reset your status to ACTIVE</p></body>'
+  };
+  transport.sendMail(message, function (err, info) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log('mail has sent.');
+      console.log(info);
+    }
+  });
+}
