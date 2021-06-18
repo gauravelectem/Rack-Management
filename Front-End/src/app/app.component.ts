@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { MenuService } from './services/menu.service';
 import { Menu } from './models/menu.model';
 import { ItemService } from './services/item.service';
+import { UserProfileService } from './services/user-profile.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class AppComponent {
   itemObject: any;
   dataObject: any;
   menuObject: any;
+  id:any;
 
   menu: Menu = {
     label: '',
@@ -99,6 +101,11 @@ constructor(private menuService: MenuService,
       .then(() => {
         window.location.reload();
       });
+    }
+
+    fetchUserProfileFK() {
+      this.id=this.UserObj.clientFk;
+      this.router.navigate(['/userProfile',this.id]);
     }
 
 }
