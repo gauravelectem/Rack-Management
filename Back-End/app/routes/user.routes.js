@@ -48,5 +48,6 @@ module.exports = function(app) {
   router.put("/client/staff/update/:id", user.update);
   router.post("/client/resetPassword/", user.forgotpassword);
   router.delete("/client/staff/delete/:id", user.delete);
+  router.get("/client/plans", user.findAllPlans);
   app.use('/api/user', router);
 };    

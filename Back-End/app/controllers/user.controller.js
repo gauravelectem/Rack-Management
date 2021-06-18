@@ -8,6 +8,7 @@ const Sequelize = require("sequelize");
 const sequelize = require("../config/seq.config.js");
 db.Sequelize = Sequelize;
 const transport = require("../config/email.config.js");
+const Plans = db.plans;
 
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
@@ -344,6 +345,19 @@ exports.profileCreate = (req, res) => {
       });
 };
 
+// Retrieve all Plans from the database.
+exports.findAllPlans = (req, res) => {
+  Plans.findAll({})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving Users."
+      });
+    });
+};
 
 
 
