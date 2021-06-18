@@ -5,8 +5,6 @@ module.exports = app => {
   
      router.put("/:id", profile.updateProfile);
 
-     router.get("/fetchProfileById/:id", profile.fetchProfileById);
-
      router.get("/fetchProfileByUserFK/:user_fk", profile.fetchProfileByUserFK);
    
      app.use('/api/profile', router);
