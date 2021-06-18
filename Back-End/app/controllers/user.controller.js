@@ -367,7 +367,7 @@ function sendEmailNotification(data) {
     from: 'developers@electems.com',
     to: data.email,
     subject: 'Activation',
-    html:  '<body> Hello,<br /><p>Click <a href="http://localhost:8080/api/user/activation/' + data.clientFk + '/'  + data.id +'">http://localhost:8080/api/user/activation/' + data.clientFk + '/' + data.id + '</a> to reset your status to ACTIVE</p></body>'
+    html:  '<body> Hello,<br /><p>Click url<a href="http://localhost:8080/api/user/activation/' + data.clientFk + '/'  + data.id +'">http://localhost:8080/api/user/activation/' + data.clientFk + '/' + data.id + '</a> to reset your status to ACTIVE</p></body>'
   };
   transport.sendMail(message, function (err, info) {
     if (err) {
@@ -378,3 +378,17 @@ function sendEmailNotification(data) {
     }
   });
 }
+
+exports.updateUserStatus = (req, res) => {
+  var clientFk = req.params.clientFk;
+  var userPk = req.params.userPk;
+  let query = `UPDATE users SET status = 'ACTIVE' WHERE id = '${userPk}' `;
+  sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
+  .then(data => {
+    res.send("successfully updated the user status");
+  }).catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Form with id=" + id
+      });
+    });
+};
