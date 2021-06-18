@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const Op = db.Sequelize.Op;
 const User = db.user;
 const Client = db.clients;
+const UserProfile = db.userProfile;
 const Sequelize = require("sequelize");
 const sequelize = require("../config/seq.config.js");
 db.Sequelize = Sequelize;
@@ -42,6 +43,7 @@ exports.Create = (req, res) => {
   User.create(user)
       .then(data => {
           res.send(data);
+          createProfileObject(data);
       })
       .catch(err => {
           res.status(500).send({
@@ -259,6 +261,7 @@ exports.forgotpassword = (req, res) => {
   // Save User in the database
  sequelize.query(query).then(data => {
             if(data[1].rowCount >=1) {
+              console.log(data[1]);
               console.log('sending email..');
         const message = {
           from: 'developers@electems.com',
@@ -293,6 +296,52 @@ exports.forgotpassword = (req, res) => {
           });
       });
 };
+
+function createProfileObject(data){
+  var profile={
+    userName: '',
+    email: '',
+    phone: '',
+    address: '',
+    city:'',
+    image:'',
+    user_fk:0,
+  }
+  profile.userName=data.username;
+  profile.email=data.email;
+  profile.phone=data.phone;
+  profile.address=data.location;
+  profile.user_fk=data.id;
+
+  UserProfile.create(profile);
+
+}
+
+exports.profileCreate = (req, res) => {
+
+  const profile = {
+    userName: req.body.userName,
+    email: req.body.email,
+    phone: req.body.phone,
+    address: req.body.address,
+    city:req.body.city,
+    image:req.body.image,
+    user_fk:req.body.user_fk,
+  };
+
+  // Save UserProfile in the database
+  UserProfile.create(profile)
+      .then(data => {
+          res.send(data);
+      })
+      .catch(err => {
+          res.status(500).send({
+              message:
+                  err.message || "Some error occurred while creating the Rack."
+          });
+      });
+};
+
 
 
 

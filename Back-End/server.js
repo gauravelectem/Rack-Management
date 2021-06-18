@@ -35,7 +35,6 @@ app.get("/", (req, res) => {
 // routes
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
-require('./app/routes/users.routes')(app);
 require('./app/routes/index')(app);
 require('./app/routes/rack.routes')(app);
 //require('./app/routes/itemTemplate.routes')(app);
@@ -44,6 +43,7 @@ require('./app/routes/itemTemplateProperty.routes')(app);
 require('./app/routes/store.routes')(app);
 require('./app/routes/menu.route')(app);
 require('./app/routes/form.routes')(app);
+require('./app/routes/profile.routes')(app);
 initRoutes(app);
 
 // set port, listen for requests

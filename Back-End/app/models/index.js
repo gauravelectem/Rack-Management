@@ -9,7 +9,7 @@ db.sequelize = sequelize;
 
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
-db.users = require("./users.model.js")(sequelize, Sequelize);
+db.userprofile = require("./userProfile.model.js")(sequelize, Sequelize);
 db.racks = require("./rack.model.js")(sequelize, Sequelize);
 db.trays = require("./tray.model.js")(sequelize, Sequelize);
 db.stores = require("../models/store.model.js")(sequelize, Sequelize);
