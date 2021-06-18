@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const Op = db.Sequelize.Op;
 const User = db.user;
 const Client = db.clients;
-const UserProfile = db.userProfile;
+const UserProfile = db.userprofile;
 const Sequelize = require("sequelize");
 const sequelize = require("../config/seq.config.js");
 db.Sequelize = Sequelize;
@@ -312,7 +312,7 @@ function createProfileObject(data){
   profile.userName=data.username;
   profile.email=data.email;
   profile.phone=data.phone;
-  profile.address=data.location;
+  profile.city=data.location;
   profile.user_fk=data.id;
 
   UserProfile.create(profile);
