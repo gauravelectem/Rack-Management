@@ -53,7 +53,7 @@ exports.Create = (req, res) => {
 
 exports.login = (req, res) => {
   const user = {
-    email: req.body.email,
+    username: req.body.username,
     password: req.body.password,
     status:'ACTIVE'
   };
@@ -114,7 +114,7 @@ exports.saveClientStaff = (req, res) => {
           to:  data.email,        
           subject: 'Registration',
           text: 'Hello, You are Successfully! registered by ' + clientName + ' Please use the following credentials to login: ' +
-          'Username: ' + data.email + ' password: pls contact your admin Here is the Login link ' + 'http://localhost:4200/login ' + 'Thank you'
+          'Username: ' + data.username + ' password: pls contact your admin Here is the Login link ' + 'http://localhost:4200/login ' + 'Thank you'
       };
       transport.sendMail(message, function(err, info) {
           if (err) {
