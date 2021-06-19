@@ -79,7 +79,7 @@ constructor(private menuService: MenuService,
 
 
   fetchAllmenus() {
-    this.menuService.fetchAllMenus()
+    this.menuService.fetchAllMenus(this.UserObj.clientFk)
       .subscribe(
         data => {
           this.menuObject = data;
