@@ -34,6 +34,8 @@ import { StaffCrudComponent } from './staff-crud/staff-crud.component';
 import { AddStaffComponent } from './add-edit-staff/add-edit-staff.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ProfileListingComponent } from './components/profile-listing/profile-listing.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 const appRoutes: Routes = [
   // { path: '', component: EditAppComponent },
@@ -59,6 +61,8 @@ const appRoutes: Routes = [
     AddStaffComponent,
     ForgotPasswordComponent,
     UserProfileComponent,
+    ProfileListingComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
