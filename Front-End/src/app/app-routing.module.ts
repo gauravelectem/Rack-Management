@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: 'menu/:id', component: AppComponent },
   { path: 'menu/:name/:id', component: FormListComponent},
   { path: 'createRack', component: CreateRackComponent},
-  { path: 'rackList', component:RackListComponent},
+  { path: 'rackList/:id', component:RackListComponent},
   { path: 'editRack/:id', component:EditRackComponent},
   { path: 'racklayout/:id', component:TrayComponent},
   { path: 'staff', component:StaffCrudComponent},

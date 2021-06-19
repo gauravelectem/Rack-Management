@@ -12,11 +12,13 @@ import { AlertService } from '../_alert/alert.service';
 })
 export class EditRackComponent implements OnInit {
   rackId:any;
+  client_fk:any;
   rackObject: Rack = {
     name: '',
     no_of_rows: 0,
     no_of_columns: 0,
   };
+  UserObj: any = {};
   options = {
     autoClose: true,
     keepAfterRouteChange: false
@@ -28,6 +30,8 @@ export class EditRackComponent implements OnInit {
     private alertService:AlertService) { }
 
   ngOnInit(): void {
+    this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
+    this.client_fk = this.UserObj.clientFk;
     this.rackId = this.route.snapshot.params['id'];
     console.log(this.rackId);
 
@@ -48,10 +52,14 @@ export class EditRackComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.rackObject = data;
-          this.router.navigate(['/rackList']);
+          this.router.navigate(['/rackList',this.client_fk]);
       },  error => {
         console.log(error);
       });
+  }
+
+  fetchAllRacks(){
+    this.router.navigate(['/rackList',this.client_fk]);
   }
 
  
