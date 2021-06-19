@@ -15,9 +15,6 @@ module.exports = (sequelize, Sequelize) => {
     phone: {
       type: Sequelize.BIGINT
     },
-    confirmPass: {
-      type: Sequelize.STRING
-    },
     location: {
       type: Sequelize.STRING
     },
@@ -38,10 +35,6 @@ module.exports = (sequelize, Sequelize) => {
   User.associate = (models) => {
     User.belongsTo(models.Client, { foreignKey: 'clientFk', as: 'client' })
 };
-
-  User.associate = function (models) {
-    User.hasMany(models.userProfile, { as: 'userProfile' })
-    };
 
 User.associate = (models) => {
   User.belongsTo(models.Role, { foreignKey: 'roleId', as: 'role' })

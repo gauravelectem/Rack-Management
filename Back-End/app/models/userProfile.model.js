@@ -9,6 +9,12 @@ module.exports = (sequelize, Sequelize) => {
       phone: {
         type: Sequelize.STRING
       },
+      password: {
+        type: Sequelize.STRING
+      },
+      confirmPassword: {
+        type: Sequelize.STRING
+      },
       address: {
         type: Sequelize.STRING
       },
@@ -18,6 +24,7 @@ module.exports = (sequelize, Sequelize) => {
       image: {
         type: Sequelize.STRING
       },
+
       user_fk: {
         type: Sequelize.INTEGER,
         allowNull: true,
@@ -25,13 +32,14 @@ module.exports = (sequelize, Sequelize) => {
           model: 'users',
           key: 'id'
         }
-      }
+        },
 
     });
 
     userProfile.associate = (models) => {
-        userProfile.belongsTo(models.User, { foreignKey: 'user_fk', as: 'user' })
+      userProfile.belongsTo(models.User, { foreignKey: 'user_fk', as: 'users' })
     };
+    
   
     return userProfile;
   };

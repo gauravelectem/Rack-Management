@@ -310,6 +310,8 @@ function createProfileObject(data){
     email: '',
     phone: '',
     address: '',
+    password:'',
+    confirmPassword:'',
     city:'',
     image:'',
     user_fk:0,
@@ -319,6 +321,7 @@ function createProfileObject(data){
   profile.phone=data.phone;
   profile.city=data.location;
   profile.user_fk=data.id;
+  profile.password=data.password;
 
   UserProfile.create(profile);
 
