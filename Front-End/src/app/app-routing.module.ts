@@ -20,6 +20,8 @@ import { AddStaffComponent } from './add-edit-staff/add-edit-staff.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { UploadFilesComponent } from './components/upload-files/upload-files.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ProfileListingComponent } from './components/profile-listing/profile-listing.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 const routes: Routes = [
   { path: '', component: LoginComponent , pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -48,6 +50,8 @@ const routes: Routes = [
   { path: 'forgotpassword', component:ForgotPasswordComponent},
   { path: 'upload', component:UploadFilesComponent},
   { path: 'userProfile/:id', component:UserProfileComponent},
+  { path: 'userProfile', component:ProfileListingComponent},
+  { path: 'changePassword/:id', component:ChangePasswordComponent},
   
   
 ];

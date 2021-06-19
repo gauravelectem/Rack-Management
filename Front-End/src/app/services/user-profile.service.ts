@@ -19,8 +19,16 @@ export class UserProfileService {
     return this.http.put(baseUrl + '/api/profile/'+`${id}`,profile);
   }
 
+  updatePassword(id:any,profile:any): Observable<any> {
+    return this.http.put(baseUrl + '/api/profile/updatePassword/'+`${id}`,profile);
+  }
+
   fetchProfileByUserFK(user_fk: any): Observable<any> {
     return this.http.get(`${baseUrl}/api/profile/fetchProfileByUserFK/${user_fk}`);
+  }
+
+  fetchAllProfiles(): Observable<any> {
+    return this.http.get(`${baseUrl}/api/profile/fetchAllProfiles`);
   }
 
   

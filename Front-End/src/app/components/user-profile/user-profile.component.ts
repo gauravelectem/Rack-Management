@@ -30,7 +30,7 @@ export class UserProfileComponent implements OnInit {
     user_fk:0
   };
   constructor(private userProfile:UserProfileService,private route: ActivatedRoute,
-    private uploadService: UploadFilesService) { }
+    private uploadService: UploadFilesService,private router: Router,) { }
 
   ngOnInit(): void {
     
@@ -97,11 +97,12 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateProfile(): any {
-    this.profile[0].img=this.currentFile.name;
+    this.profile[0].image=this.currentFile.name;
     this.userProfile.updateProfile(this.profile[0].id,this.profile[0])
       .subscribe(
         response => {
           this.profile=response;
+          this.router.navigate(['/userProfile']);
         },
         error => {
           console.log(error);
