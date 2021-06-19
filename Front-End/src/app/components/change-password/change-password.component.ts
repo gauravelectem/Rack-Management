@@ -30,6 +30,7 @@ export class ChangePasswordComponent implements OnInit {
         .subscribe(
           data => {
             this.profileObject = data;
+            this.router.navigate(['/userProfile']);
           },
           error => {
             console.log(error);

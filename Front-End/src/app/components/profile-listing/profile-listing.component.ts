@@ -10,7 +10,7 @@ import { UserProfileService } from '../../services/user-profile.service';
 })
 export class ProfileListingComponent implements OnInit {
 
-   displayedColumns: string[] = [ 'id', 'userName', 'email', 'phone','city','changePassword'];
+   displayedColumns: string[] = [ 'id', 'userName', 'email', 'phone','city','actions'];
   dataSource = new MatTableDataSource<any>();
 
   constructor(private profileService:UserProfileService,private router: Router ) { }
