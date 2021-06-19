@@ -2,7 +2,10 @@ const db = require("../models");
 const Op = db.Sequelize.Op;
 const Role = db.role;
 const Menu=db.menus;
-
+const Sequelize = require("sequelize");
+const sequelize = require("../config/seq.config.js");
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
 exports.menuCreate = (req, res) => {
 
@@ -44,17 +47,17 @@ exports.findMenuByItemId = (req, res) => {
         });
       });
   };
+
 exports.findAll = (req, res) => {
     var clientFk = req.query.clientFk;
-    var condition = clientFk ? { clientFk: { [Op.eq]: clientFk } } : null;
-    Menu.findAll({ where: condition })
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
+    let query = `SELECT * FROM menus  WHERE "clientFk" IS NULL OR "clientFk" = ${clientFk}`;
+    sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
+    .then(data => {
+      res.send(data);
+    }).catch(err => {
         res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving menu records."
+          message: "Error retrieving Form with id=" + id
         });
       });
   };
+
