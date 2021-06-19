@@ -9,7 +9,8 @@ const sequelize = require("../config/seq.config.js");
 db.Sequelize = Sequelize;
 const transport = require("../config/email.config.js");
 const Plans = db.plans;
-
+const Template =  require("./item.controller.js");
+var clientName = '';
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
 };
@@ -178,6 +179,7 @@ exports.getClientNameByID = (req, res) => {
   let query = `select name from clients where id = ${clientFk}`;
   sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
   .then(data => {
+    clientName = data[0].name;
     res.send(data);
   }).catch(err => {
       res.status(500).send({
@@ -380,13 +382,35 @@ function sendEmailNotification(data) {
 }
 
 exports.updateUserStatus = (req, res) => {
-  var clientFk = req.params.clientFk;
+  var clientFk = req.params.clientPK;
   var userPk = req.params.userPk;
   let query = `UPDATE users SET status = 'ACTIVE' WHERE id = '${userPk}' `;
+  req.query.clientFk = clientFk;
+   exports.getClientNameByID(req, res);
   sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
   .then(data => {
-    res.send("successfully updated the user status");
+    exports.createTemplateByPlan(req, res);
+    res.send("successfully updated the user status");  
   }).catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Form with id=" + id
+      });
+    });
+};
+
+exports.createTemplateByPlan = (req, res) => {
+  var clientFk = req.query.clientFk;
+  let query = `SELECT p.* FROM plans p, clients c where c."planFk" = p.id and c.id = ${clientFk} `;
+  sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
+    .then(data => {
+      planList = data[0];
+      for (let i = 0; i < planList.noOfItemTypes; i++) {
+        var templateName = "Item_" +i+ '_' + clientName;
+        req.body.name = templateName;
+        req.body.clientFk = clientFk;
+        Template.create(req, res);
+      }
+    }).catch(err => {
       res.status(500).send({
         message: "Error retrieving Form with id=" + id
       });
