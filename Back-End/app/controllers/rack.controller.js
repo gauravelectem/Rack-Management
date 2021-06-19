@@ -72,16 +72,14 @@ exports.fetchRackById = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  var clientFk = req.params.clientFk;
-  var condition = clientFk ? { clientFk: { [Op.eq]: clientFk } } : null;
-  Rack.findAll({ where: condition})
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
+  const client_fk= req.params.client_fk;
+  let query = `SELECT * FROM racks WHERE client_fk = ${client_fk} `;
+  sequelize.query(query, { type: sequelize.QueryTypes.SELECT})
+  .then(data => {
+    res.send(data);
+  }).catch(err => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving Users."
+        message: "Error retrieving racks with client_fk=" + client_fk
       });
     });
 };
