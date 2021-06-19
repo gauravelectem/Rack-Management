@@ -12,6 +12,7 @@ exports.menuCreate = (req, res) => {
       menu_fk: req.body.menu_fk,
       roleId: req.body.roleId,
       itemId:req.body.itemId,
+      clientFk: req.body.clientFk,
   };
 
   // Save Rack in the database
@@ -44,9 +45,8 @@ exports.findMenuByItemId = (req, res) => {
       });
   };
 exports.findAll = (req, res) => {
-    const title = req.query.label;
-    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-  
+    var clientFk = req.query.clientFk;
+    var condition = clientFk ? { clientFk: { [Op.eq]: clientFk } } : null;
     Menu.findAll({ where: condition })
       .then(data => {
         res.send(data);

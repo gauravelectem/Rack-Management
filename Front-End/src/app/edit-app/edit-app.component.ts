@@ -315,22 +315,6 @@ export class EditAppComponent implements OnInit {
         response => {
           console.log(response);
           this.success = true;
-          const datas = {
-            label: response.name,
-            action: 'menu/' + response.name + '/' + response.id,
-            menu_fk: 1,
-            roleId: 1,
-            itemId: response.id,
-          };
-          this.menuService.createMenu(datas)
-            .subscribe(
-              data => {
-              //  this.dataObject = data;
-              this.menuService.fetchAllMenus();
-              },
-              error => {
-                console.log(error);
-              });
               this.router.navigate(['/template'])
               .then(() => {
                 window.location.reload();

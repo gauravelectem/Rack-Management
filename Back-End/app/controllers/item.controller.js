@@ -6,6 +6,7 @@ db.Sequelize = Sequelize;
 
 const Items = db.templates;
 const Op = db.Sequelize.Op;
+const Menu =  require("./menu.controller.js");
 // Create and Save a new Template
 exports.create = (req, res) => {
   // Validate request
@@ -39,6 +40,11 @@ exports.create = (req, res) => {
   Items.create(item)
   .then(data => {
     var citemData = JSON.parse(data.dataValues.attributes);
+    req.body.label = data.dataValues.name;
+    req.body.action = "menu" + '/' + data.dataValues.name + '/' + data.dataValues.id;
+    req.body.menu_fk = 1,
+    req.body.roleId = 1,
+    Menu.menuCreate(req, res);
     citemData.forEach(function(citemData) {
         data.dataValues[citemData.name] = citemData.value;
     });
