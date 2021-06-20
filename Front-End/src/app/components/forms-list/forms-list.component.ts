@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FormListComponent implements OnInit {
   products?: Product[];
-  columnArray:any = [];
+  
   currentTemplate?: Product;
   currentIndex = -1;
   name = '';
@@ -20,49 +20,27 @@ export class FormListComponent implements OnInit {
   clientFk = '';
   UserObj: any = {};
   templateName: any;
-  columns:Array<any>
+
   displayedColumns: string[] = [];
-  dataRow :any = [];
-  //displayedColumns: string[] = ['select', 'age', 'athlete', 'year', 'country'];
+  
   constructor(private formService: FormService,
     private route: ActivatedRoute,
     private router: Router, private http: HttpClient) { }
     dataSource = new MatTableDataSource<any>();
-   // dataSource:any
+    
   ngOnInit(): void {
-    this.getData();
-    this.tempid = this.route.snapshot.params['id'];
-    //this.retrieveForms();
+    //this.getData();
+    //this.tempid = this.route.snapshot.params['id'];
+    this.retrieveForms();
     this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
     this.clientFk = this.UserObj.clientFk;
   }
 
-  retrieveForms(): void {
-    let datas;
+  retrieveForms(): void {    
     this.formService.getAllProductsByItemTempId(this.tempid, this.route.snapshot.params.name)
       .subscribe(
         data => {
-          datas = data;
-          this.products = datas;
-          const columns = datas[0].attributes
-          .reduce((columns, row) => {
-            return [...columns, ...Object.keys(row)]
-          }, [])
-          .reduce((columns, column) => {
-            return columns.includes(column)
-              ? columns
-              : [...columns, column]
-          }, [])
-        // Describe the columns for <mat-table>.
-        this.columns = columns.map(column => {
-          return { 
-            columnDef: column,
-            header: column,
-            cell: (element: any) => `${element[column] ? element[column] : ``}`     
-          }
-        })
-        this.displayedColumns = this.columns.map(c => c.columnDef);
-              this.dataSource.data =  datas[0].attributes;
+          this.extractData(data)
         });
   }
 
@@ -139,35 +117,40 @@ export class FormListComponent implements OnInit {
     this.router.navigate(['/addForm/' + this.route.snapshot.params.name + '/' + this.tempid ]);
   }
 
+  private extractData(serverData) {
+    var rowDataList:any = [];
+
+    serverData.forEach(dbRecord => {
+
+      var rowdata; 
+      //Prepare Row Data
+      rowdata = Object.assign({"id":dbRecord.id})
+      rowdata = Object.assign(rowdata, {"name":dbRecord.name})
+
+      //Extract label and values from the Attributes
+      dbRecord.attributes.forEach(dbRecordCol => {
+        var colVal = dbRecordCol.value ? dbRecordCol.value : ""
+        var colLabel = dbRecordCol.label
+        rowdata = Object.assign(rowdata, { [colLabel]:colVal })
+      });
+
+      //push a record 
+      rowDataList.push(rowdata);
+    });
+
+    console.log(rowDataList)
+
+    //Extract column names
+    this.displayedColumns = Object.getOwnPropertyNames(rowDataList[0])
+
+    this.dataSource.data = rowDataList
+  }
+
   private getData(): any {
     this.http.get('/assets/testdata/itemlisting.json')
     .subscribe((data: any) => {
-      data.reverse().forEach(field => {
-        console.log(field);
-        this.columnArray.push({[field.label]:field.value});
-       });
-      const columns =  this.columnArray
-      .reduce((columns, row) => {
-        return [...columns, ...Object.keys(row)]
-      }, [])
-      .reduce((columns, column) => {
-        return columns.includes(column)
-          ? columns
-          : [...columns, column]
-      }, [])
-    // Describe the columns for <mat-table>.
-    this.columns = columns.map(column => {
-      return { 
-        columnDef: column,
-        header: column,
-        cell: (element: any) => `${element[column] ? element[column] : ``}`     
-      }
-    })
-    this.displayedColumns = this.columns.map(c => c.columnDef);
-    
-          this.dataSource.data =  this.columnArray;
+      this.extractData(data)      
     });
-    //// this.dataSource.data = <any> await this.http.get('https://www.ag-grid.com/example-assets/olympic-winners.json').toPromise();
   }
 
 }
