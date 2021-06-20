@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RackService } from '../../services/rack.service';
 import { DatePipe } from '@angular/common'
@@ -13,6 +13,7 @@ import { AlertService } from '../_alert/alert.service';
 })
 export class RackListComponent implements OnInit {
    rackObject:any;
+   client_fk:any;
   displayedColumns: string[] = [ 'id', 'name', 'no_of_rows', 'no_of_columns','createdon','edit','delete','tray-view'];
   dataSource = new MatTableDataSource<any>();
   rackObj: any = {
@@ -29,13 +30,15 @@ export class RackListComponent implements OnInit {
   UserObj: any = {};
 
   constructor(private rackService:RackService,public datepipe: DatePipe,
-    private router: Router,private alertService: AlertService) { }
+    private router: Router,private alertService: AlertService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
      this.rackObj.client_fk = this.UserObj.clientFk;
     this.dataSource.paginator = this.paginator;
-    this.fetchRack();
+    this.rackObj.client_fk=this.route.snapshot.params.id
+    this.rackListing(this.rackObj.client_fk);
   }
 
   fetchRack(): any {
@@ -80,7 +83,7 @@ export class RackListComponent implements OnInit {
         response => {
           this.rackObject=response;
           this.alertService.success(response.message,this.options)
-          this.rackListing();
+          this.rackListing(this.rackObj.client_fk);
         },
         error => {
           console.log(error);
@@ -88,8 +91,8 @@ export class RackListComponent implements OnInit {
         });
   }
 
-  rackListing(): void{
-    this.rackService.fetchAllRacks(this.rackObj.client_fk)
+  rackListing(client_fk): void{
+    this.rackService.fetchAllRacks(client_fk)
     .subscribe((data: any) => {
       this.dataSource.data = data;
     },

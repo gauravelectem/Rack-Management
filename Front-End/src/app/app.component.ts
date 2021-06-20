@@ -72,6 +72,11 @@ constructor(private menuService: MenuService,
         });
   }
 
+  fetchAllRacks() {
+    this.id=this.UserObj.clientFk;
+    this.router.navigate(['/rackList',this.id]);
+      }
+
 
   fetchAllmenus() {
     this.menuService.fetchAllMenus(this.UserObj.clientFk)
