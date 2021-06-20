@@ -27,6 +27,10 @@ export class UserProfileService {
     return this.http.get(`${baseUrl}/api/profile/fetchProfileByUserFK/${user_fk}`);
   }
 
+  fetchProfileById(id: any): Observable<any> {
+    return this.http.get(`${baseUrl}/api/profile/fetchProfileById/${id}`);
+  }
+
   fetchAllProfiles(): Observable<any> {
     return this.http.get(`${baseUrl}/api/profile/fetchAllProfiles`);
   }

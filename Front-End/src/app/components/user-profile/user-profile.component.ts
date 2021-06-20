@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 export class UserProfileComponent implements OnInit {
 
   UserObj: any = {};
+  user_fk:any;
   selectedFiles?: FileList;
   currentFile?: File;
   progress = 0;
@@ -35,12 +36,12 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     
       this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
-      this.profile.user_fk = this.UserObj.clientFk; 
+      this.user_fk = this.UserObj.clientFk; 
       this.fetchProfileObject(this.route.snapshot.params.id);
   }
 
   fetchProfileObject(id:any): any {
-    this.userProfile.fetchProfileByUserFK(id)
+    this.userProfile.fetchProfileById(id)
       .subscribe(
         response => {
           this.profile=response;
@@ -97,12 +98,12 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateProfile(): any {
-    this.profile[0].image=this.currentFile.name;
-    this.userProfile.updateProfile(this.profile[0].id,this.profile[0])
+    this.profile.image=this.currentFile.name;
+    this.userProfile.updateProfile(this.profile.id,this.profile)
       .subscribe(
         response => {
           this.profile=response;
-          this.router.navigate(['/userProfile']);
+          this.router.navigate(['/profileListing',this.user_fk]);
         },
         error => {
           console.log(error);
