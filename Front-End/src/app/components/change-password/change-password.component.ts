@@ -47,11 +47,14 @@ export class ChangePasswordComponent implements OnInit {
         .subscribe(
           data => {
             this.profileObject = data;
-            this.router.navigate(['/userProfile']);
+            this.router.navigate(['/profileListing',this.id]);
           },
           error => {
             console.log(error);
           });
+    }
+    fetchAllProfiles(){
+      this.router.navigate(['/profileListing',this.id]);
     }
   }
 

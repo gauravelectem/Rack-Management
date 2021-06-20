@@ -30,6 +30,21 @@ exports.updateProfile = (req, res) => {
       });
   };
 
+  exports.fetchProfileById = (req, res) => {
+    const id = req.params.id;
+
+    profile.findByPk(id)
+        .then(data => {
+            res.send(data);
+            console.log(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving profile with id=" + id
+            });
+        });
+};
+
 exports.fetchProfileByUserFK = (req, res) => {
   const user_fk= req.params.user_fk;
   let query = `SELECT * FROM userprofiles WHERE user_fk = ${user_fk} `;

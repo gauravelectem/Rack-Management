@@ -14,6 +14,7 @@ import { UserProfileService } from './services/user-profile.service';
 })
 export class AppComponent {
   itemPk: any;
+  profile:any;
   itemlabel: any;
   itemObject: any;
   dataObject: any;
@@ -31,6 +32,7 @@ export class AppComponent {
 constructor(private menuService: MenuService,
   private itemService: ItemService,
   private activatedRoute: ActivatedRoute,
+  private userProfile:UserProfileService,
   private router: Router) { }
   UserObj: any = {};
   ngOnInit(): void {
@@ -110,7 +112,16 @@ constructor(private menuService: MenuService,
 
     fetchUserProfileFK() {
       this.id=this.UserObj.clientFk;
-      this.router.navigate(['/userProfile',this.id]);
+      this.userProfile.fetchProfileByUserFK(this.id)
+      .subscribe(
+        response => {
+          this.profile=response;
+          this.router.navigate(['/userProfile',this.profile[0].id]);
+        },
+        error => {
+          console.log(error);
+        });
+      
     }
 
 }

@@ -50,7 +50,7 @@ const routes: Routes = [
   { path: 'forgotpassword', component:ForgotPasswordComponent},
   { path: 'upload', component:UploadFilesComponent},
   { path: 'userProfile/:id', component:UserProfileComponent},
-  { path: 'userProfile', component:ProfileListingComponent},
+  { path: 'profileListing/:user_fk', component:ProfileListingComponent},
   { path: 'changePassword/:id', component:ChangePasswordComponent},
   
   

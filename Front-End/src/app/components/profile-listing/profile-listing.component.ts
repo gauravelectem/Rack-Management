@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileService } from '../../services/user-profile.service';
 
 @Component({
@@ -13,14 +13,15 @@ export class ProfileListingComponent implements OnInit {
    displayedColumns: string[] = [ 'id', 'userName', 'email', 'phone','city','actions'];
   dataSource = new MatTableDataSource<any>();
 
-  constructor(private profileService:UserProfileService,private router: Router ) { }
+  constructor(private profileService:UserProfileService,private router: Router,
+    private route: ActivatedRoute, ) { }
 
   ngOnInit(): void {
-    this.fetchAllProfiles();
+    this.fetchAllProfiles(this.route.snapshot.params.user_fk);
   }
 
-  fetchAllProfiles(): void {
-    this.profileService.fetchAllProfiles()
+  fetchAllProfiles(user_fk): void {
+    this.profileService.fetchProfileByUserFK(user_fk)
       .subscribe(
         data => {
           this.dataSource.data = data;
