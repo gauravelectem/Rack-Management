@@ -1,39 +1,55 @@
-<div class="card">
-  <h4 class="card-header">Login</h4>
-  <div class="card-body">
-      <form  name="myForm" [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
-          <div class="form-group">
-            <label for="description">Username</label>
-            <input class="form-control" id="username" 
-                formControlName="username"
-                name="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
-            />
-            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-              <div *ngIf="f.username.errors.required">Username is required</div>
-          </div>
-          </div>
-          <div class="form-group">
-            <label for="title">Password</label>
-            <input class="form-control" id="password" type="password"
-                 formControlName="password"
-                name="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-            />
-            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-              <div *ngIf="f.password.errors.required">Password is required</div>
-          </div>
-          </div>
-          <div class="form-group">
-            <button [disabled]="loading"  class="btn btn-primary">Login</button>
-            <a routerLink="/register" class="btn btn-link">Register</a>
-            <a (click)="forgotpassword()" class="btn btn-link">Forgot Password</a>
-            <div class="clearfix"></div>
-          </div>
-          <div class="row justify-content-md-center">
-            <div class="col-md-6">
-              <div *ngIf="showError" class="alert alert-danger">Either Username Or Password Is InCorrect</div>
-              <div *ngIf="showSuccess" class="alert alert-success">Login Successful!</div>
+<div class="authentication">
+  <div class="sign-in-2">
+    <div class="container-fluid no-pdd-horizon">
+      <div class="row">
+        <div class="col mr-auto ml-auto">
+          <div class="row">
+            <div class="height-100">
+              <div class="table-cell">
+                  
+                  <form name="loginForm" [formGroup]="loginForm" (ngSubmit)="onFormSubmit()" *ngIf="isLogin">
+                    <p class="mrg-btm-15 font-size-13">Please enter your username and password to Login</p>
+                    <div class="form-group">
+                      <input class="form-control" id="username" formControlName="username" name="username"
+                        [ngClass]="{ 'is-invalid': submitted && f.username.errors }" placeholder="Username"/>
+                      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                        <div *ngIf="f.username.errors.required">Username is required</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input class="form-control" id="password" type="password" formControlName="password"
+                        name="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Password"/>
+                      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">Password is required</div>
+                      </div>
+                    </div>
+                    <div class="checkbox font-size-13 inline-block no-mrg-vertical no-pdd-vertical">
+                      <input id="agreement" name="agreement" type="checkbox">
+                      <label for="agreement">Remember me</label>
+                    </div>
+
+                    <div class="mt-3 text-center">
+                      <button class="btn btn-block btn-primary" [disabled]="loading">Login</button>
+                    </div>
+
+                    <div class="mt-3 text-center" style="font-size:10px">
+                      Forgot password? <a (click)="isForgotPassword = true; isLogin=false;">Reset</a><br>
+                      Don’t have an account? <a (click)="isUserRegister = true; isLogin=false;">Sign up</a>
+                    </div>
+                  </form>
+
+                  <div *ngIf="isForgotPassword">
+                    <app-forgot-password></app-forgot-password>
+                  </div>
+
+                  <div *ngIf="isUserRegister">
+                    <app-register></app-register>
+                  </div>
+              </div>
             </div>
           </div>
-      </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

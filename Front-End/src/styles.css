@@ -1,10 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
 
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 .clearfix{clear:both;}
 .pointer{cursor: pointer;}
 .ucfirst{text-transform: capitalize;}
 .min300{min-height:300px}
+.menu-box{
+    width: 100%;
+    border-top: 2px solid mediumslateblue;
+    padding-top: 0px !important;
+    border-bottom: 1px groove;
+    margin-bottom: 10px;
+    border-style: ridge;
+}
 .app-box{
     padding: 10px;
     margin-bottom:20px;
@@ -119,3 +129,12 @@
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+table {
+    width: 100%;
+  }
+
+.tableHeaderCellDiv { 
+    resize: horizontal;  
+    overflow:hidden;
+}

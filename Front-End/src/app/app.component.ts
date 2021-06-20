@@ -95,7 +95,7 @@ constructor(private menuService: MenuService,
 
       logout() {
         window.sessionStorage.clear();
-        this.router.navigate(['/login'])
+        this.router.navigate(['/'])
       .then(() => {
         window.location.reload();
       });

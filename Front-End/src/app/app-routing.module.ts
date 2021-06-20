@@ -23,7 +23,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { ProfileListingComponent } from './components/profile-listing/profile-listing.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 const routes: Routes = [
-  { path: '', component: LoginComponent , pathMatch: 'full' },
+  
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'template', component: TemplateListComponent },
