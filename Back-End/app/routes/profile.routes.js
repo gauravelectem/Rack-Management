@@ -7,6 +7,8 @@ module.exports = app => {
 
      router.get("/fetchProfileByUserFK/:user_fk", profile.fetchProfileByUserFK);
 
+     router.get("/fetchProfileById/:id", profile.fetchProfileById);
+
      router.get("/fetchAllProfiles", profile.fetchAllProfiles);
 
      router.put("/updatePassword/:id", profile.updatePassword);
