@@ -29,20 +29,18 @@ export class FormListComponent implements OnInit {
     dataSource = new MatTableDataSource<any>();
     
   ngOnInit(): void {
-    this.getData();
+    //this.getData();
     //this.tempid = this.route.snapshot.params['id'];
-    //this.retrieveForms();
+    this.retrieveForms();
     this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
     this.clientFk = this.UserObj.clientFk;
   }
 
-  retrieveForms(): void {
-    let datas;
+  retrieveForms(): void {    
     this.formService.getAllProductsByItemTempId(this.tempid, this.route.snapshot.params.name)
       .subscribe(
         data => {
-          datas = data;
-          
+          this.extractData(data)
         });
   }
 
@@ -119,36 +117,39 @@ export class FormListComponent implements OnInit {
     this.router.navigate(['/addForm/' + this.route.snapshot.params.name + '/' + this.tempid ]);
   }
 
+  private extractData(serverData) {
+    var rowDataList:any = [];
+
+    serverData.forEach(dbRecord => {
+
+      var rowdata; 
+      //Prepare Row Data
+      rowdata = Object.assign({"id":dbRecord.id})
+      rowdata = Object.assign(rowdata, {"name":dbRecord.name})
+
+      //Extract label and values from the Attributes
+      dbRecord.attributes.forEach(dbRecordCol => {
+        var colVal = dbRecordCol.value ? dbRecordCol.value : ""
+        var colLabel = dbRecordCol.label
+        rowdata = Object.assign(rowdata, { [colLabel]:colVal })
+      });
+
+      //push a record 
+      rowDataList.push(rowdata);
+    });
+
+    console.log(rowDataList)
+
+    //Extract column names
+    this.displayedColumns = Object.getOwnPropertyNames(rowDataList[0])
+
+    this.dataSource.data = rowDataList
+  }
+
   private getData(): any {
     this.http.get('/assets/testdata/itemlisting.json')
     .subscribe((data: any) => {
-      
-      var rowDataList:any = [];
-
-      data.forEach(dbRecord => {
-
-        var rowdata; 
-        //Prepare Row Data
-        rowdata = Object.assign({"id":dbRecord.id})
-        rowdata = Object.assign(rowdata, {"name":dbRecord.name})
-
-        //Extract label and values from the Attributes
-        dbRecord.attributes.forEach(dbRecordCol => {
-          var colVal = dbRecordCol.value ? dbRecordCol.value : ""
-          var colLabel = dbRecordCol.label
-          rowdata = Object.assign(rowdata, { [colLabel]:colVal })
-        });
-
-        //push a record 
-        rowDataList.push(rowdata);
-      });
-
-      console.log(rowDataList)
-
-      //Extract column names
-      this.displayedColumns = Object.getOwnPropertyNames(rowDataList[0])
-
-      this.dataSource.data = rowDataList
+      this.extractData(data)      
     });
   }
 
