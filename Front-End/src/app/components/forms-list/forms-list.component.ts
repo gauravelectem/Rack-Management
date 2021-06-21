@@ -30,7 +30,7 @@ export class FormListComponent implements OnInit {
     
   ngOnInit(): void {
     //this.getData();
-    //this.tempid = this.route.snapshot.params['id'];
+    this.tempid = this.route.snapshot.params['id'];
     this.retrieveForms();
     this.UserObj = JSON.parse(sessionStorage.getItem('userObj'));
     this.clientFk = this.UserObj.clientFk;
